@@ -1,4 +1,4 @@
-import 'package:coodig_mobile/screen/splash_screen.dart';
+import 'package:coodig_mobile/view/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';

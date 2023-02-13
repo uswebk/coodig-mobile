@@ -46,7 +46,7 @@ class LoginScreen extends ConsumerWidget {
                           if (password.isEmpty) return;
 
                           ref
-                              .watch(loginNotifierProvider.notifier)
+                              .watch(authNotifierProvider.notifier)
                               .login(email, password);
                         },
                         style: ElevatedButton.styleFrom(
