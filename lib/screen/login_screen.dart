@@ -1,10 +1,12 @@
+import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     return Scaffold(
@@ -37,10 +39,15 @@ class LoginScreen extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton(
                         onPressed: () {
-                          if (emailController.text.isEmpty) return;
-                          if (passwordController.text.isEmpty) return;
+                          String email = emailController.text;
+                          String password = passwordController.text;
 
-                          // TODO: Login Action
+                          if (email.isEmpty) return;
+                          if (password.isEmpty) return;
+
+                          ref
+                              .watch(loginNotifierProvider.notifier)
+                              .login(email, password);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orangeAccent,
