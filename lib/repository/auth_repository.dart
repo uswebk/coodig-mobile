@@ -1,16 +1,18 @@
-import 'package:coodig_mobile/service/auth_service.dart';
+import 'package:coodig_mobile/core/http_client.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:http/http.dart' as http;
+
+final authRepositoryProvider = Provider((ref) => AuthRepository(HttpClient()));
 
 class AuthRepository {
-  Future<String> login(String email, String password) async {
-    // TODO: DI
-    AuthService authService = AuthService();
-    final response = authService.login(email, password);
+  AuthRepository(this._httpClient);
 
-    // TODO: Convert
-    return response;
+  final HttpClient _httpClient;
+
+  Future<http.Response> login(String email, String password) async {
+    return await _httpClient.post('/api/v1/accounts/login/', {
+      'email': email,
+      'password': password,
+    });
   }
 }
-
-final authRepositoryProvider =
-    Provider<AuthRepository>((ref) => AuthRepository());
