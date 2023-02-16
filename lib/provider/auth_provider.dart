@@ -1,19 +1,18 @@
-import 'package:coodig_mobile/repository/auth_repository.dart';
+import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final repositoryProvider = Provider((ref) => AuthRepository());
+final service = Provider((ref) => ref.watch(authServiceProvider));
 
-final loginNotifierProvider = StateNotifierProvider((ref) {
-  return LoginNotifier(ref.watch(authRepositoryProvider));
-});
+final authNotifierProvider =
+    StateNotifierProvider((ref) => AuthNotifier(ref.watch(service)));
 
-class LoginNotifier extends StateNotifier {
-  LoginNotifier(this._authRepository) : super(0);
+class AuthNotifier extends StateNotifier {
+  AuthNotifier(this._authService) : super(0);
 
-  final AuthRepository _authRepository;
+  final AuthService _authService;
 
   Future<void> login(String email, String password) async {
-    final response = _authRepository.login(email, password);
+    final response = _authService.login(email, password);
     // TODO: add Token To Storage
   }
 }
