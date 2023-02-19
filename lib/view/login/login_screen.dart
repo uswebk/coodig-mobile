@@ -38,16 +38,17 @@ class LoginScreen extends ConsumerWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           String email = emailController.text;
                           String password = passwordController.text;
 
                           if (email.isEmpty) return;
                           if (password.isEmpty) return;
 
-                          ref
+                          bool isAuth = await ref
                               .watch(authNotifierProvider.notifier)
                               .login(email, password);
+                          print(isAuth);
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orangeAccent,

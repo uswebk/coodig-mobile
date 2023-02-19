@@ -11,8 +11,7 @@ class AuthNotifier extends StateNotifier {
 
   final AuthService _authService;
 
-  Future<void> login(String email, String password) async {
-    final response = _authService.login(email, password);
-    // TODO: add Token To Storage
+  Future<bool> login(String email, String password) async {
+    return _authService.login(email, password);
   }
 }
