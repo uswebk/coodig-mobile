@@ -12,4 +12,8 @@ class LocalStorage {
   Future<Map<String, String>> readAll() async {
     return await _storage.readAll();
   }
+
+  Future<String?> getAccessToken() async {
+    return await _storage.read(key: 'accessToken');
+  }
 }
