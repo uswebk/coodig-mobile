@@ -2,6 +2,8 @@ import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../provider/user_provider.dart';
+
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
@@ -54,6 +56,19 @@ class LoginScreen extends ConsumerWidget {
                           backgroundColor: Colors.orangeAccent,
                         ),
                         child: const Text('Login')),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                        onPressed: () async {
+                          await ref
+                              .watch(userNotifierProvider.notifier)
+                              .fetchUser();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.greenAccent,
+                        ),
+                        child: const Text('Fetch User')),
                   )
                 ],
               ),
