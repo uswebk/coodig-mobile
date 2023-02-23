@@ -20,12 +20,14 @@ class UserNotifier extends StateNotifier<UserState> {
 
   final UserService _userService;
 
-  Future<void> fetchUser() async {
+  Future<User?> fetchUser() async {
     User? user = await _userService.fetchUser();
 
     if (user != null) {
       state.isAuth = true;
       state.user = user;
+      return user;
     }
+    return null;
   }
 }
