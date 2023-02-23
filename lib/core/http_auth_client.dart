@@ -6,12 +6,22 @@ class HttpAuthClient {
   Future<http.Response> get(
       String path, Map<String, String> query, String accessToken) async {
     final uri = Uri.parse(host + path).replace(queryParameters: query);
-    return await http.get(
-      uri,
-      headers: {
-        'content-type': 'application/json',
-        'Authorization': 'Bearer $accessToken'
-      },
-    );
+
+    try {
+      return await http.get(
+        uri,
+        headers: {
+          'content-type': 'application/json',
+          'Authorization': 'Bearer $accessToken'
+        },
+      ).timeout(
+        const Duration(seconds: 10),
+        onTimeout: () {
+          return http.Response('TimeOut', 408);
+        },
+      );
+    } catch (e) {
+      return http.Response('Server Error', 500);
+    }
   }
 }
