@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/service/user_service.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../model/user.dart';
@@ -6,17 +7,21 @@ import '../model/user.dart';
 final service = Provider((ref) => ref.watch(userServiceProvider));
 
 final userNotifierProvider =
-    StateNotifierProvider((ref) => UserNotifier(ref.watch(service)));
+    StateNotifierProvider<UserNotifier, UserState>((ref) {
+  return UserNotifier(ref.watch(service));
+});
 
+@immutable
 class UserState {
-  UserState();
+  const UserState(this.isAuth, this.name, this.email);
 
-  late bool isAuth = false;
-  late User user = User(name: '', email: '');
+  final bool isAuth;
+  final String name;
+  final String email;
 }
 
 class UserNotifier extends StateNotifier<UserState> {
-  UserNotifier(this._userService) : super(UserState());
+  UserNotifier(this._userService) : super(const UserState(false, '', ''));
 
   final UserService _userService;
 
@@ -24,10 +29,9 @@ class UserNotifier extends StateNotifier<UserState> {
     User? user = await _userService.fetchUser();
 
     if (user != null) {
-      state.isAuth = true;
-      state.user = user;
-      return user;
+      state = UserState(true, user.name, user.email);
     }
-    return null;
+
+    return user;
   }
 }
