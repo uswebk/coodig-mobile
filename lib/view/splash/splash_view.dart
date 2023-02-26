@@ -43,10 +43,10 @@ class SplashScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 20,
             ),
             SizedBox(
-              width: 50,
+              width: 100,
               height: 2,
               child: (loading)
                   ? const LinearProgressIndicator(
