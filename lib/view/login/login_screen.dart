@@ -1,8 +1,9 @@
 import 'package:coodig_mobile/provider/auth_provider.dart';
+import 'package:coodig_mobile/provider/user_provider.dart';
+import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../provider/user_provider.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -47,29 +48,22 @@ class LoginScreen extends ConsumerWidget {
                           if (email.isEmpty) return;
                           if (password.isEmpty) return;
 
-                          bool isAuth = await ref
+                          bool isAuthenticated = await ref
                               .watch(authNotifierProvider.notifier)
                               .login(email, password);
-                          print(isAuth);
+
+                          if (isAuthenticated) {
+                            await ref
+                                .watch(userNotifierProvider.notifier)
+                                .fetchUser();
+                            Get.off(const DashboardScreen());
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orangeAccent,
                         ),
                         child: const Text('Login')),
                   ),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                        onPressed: () async {
-                          await ref
-                              .watch(userNotifierProvider.notifier)
-                              .fetchUser();
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.greenAccent,
-                        ),
-                        child: const Text('Fetch User')),
-                  )
                 ],
               ),
             )
