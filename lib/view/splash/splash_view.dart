@@ -14,12 +14,12 @@ class SplashScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final bool loading = ref.watch(isLoadingProvider);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      ref.read(isLoadingProvider.notifier).start();
 
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      ref.read(isLoadingProvider.notifier).start();
+      await ref.watch(userNotifierProvider.notifier).fetchUser();
       Timer(const Duration(seconds: 1), () async {
-        await ref.watch(userNotifierProvider.notifier).fetchUser();
-        bool isAuth = ref.read(userNotifierProvider).isAuth;
+        final bool isAuth = ref.read(isAuthenticatedProvider);
         if (isAuth) {
           Get.off(const DashboardScreen());
         } else {

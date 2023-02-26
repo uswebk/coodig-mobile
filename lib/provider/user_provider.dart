@@ -13,15 +13,14 @@ final userNotifierProvider =
 
 @immutable
 class UserState {
-  const UserState(this.isAuth, this.name, this.email);
+  const UserState(this.name, this.email);
 
-  final bool isAuth;
   final String name;
   final String email;
 }
 
 class UserNotifier extends StateNotifier<UserState> {
-  UserNotifier(this._userService) : super(const UserState(false, '', ''));
+  UserNotifier(this._userService) : super(const UserState('', ''));
 
   final UserService _userService;
 
@@ -29,9 +28,15 @@ class UserNotifier extends StateNotifier<UserState> {
     User? user = await _userService.fetchUser();
 
     if (user != null) {
-      state = UserState(true, user.name, user.email);
+      state = UserState(user.name, user.email);
     }
 
     return user;
   }
 }
+
+final isAuthenticatedProvider = StateProvider<bool>((ref) {
+  final UserState user = ref.watch(userNotifierProvider);
+
+  return user.name != '';
+});
