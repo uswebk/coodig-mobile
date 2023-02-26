@@ -8,18 +8,21 @@ import '../../provider/user_provider.dart';
 import '../dashboard/dashboard_screen.dart';
 import '../login/login_screen.dart';
 
+// ignore: must_be_immutable
 class SplashScreen extends ConsumerWidget {
-  const SplashScreen({super.key});
+  bool loading;
+
+  SplashScreen({super.key, this.loading = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bool loading = ref.watch(isLoadingProvider);
-
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ref.read(isLoadingProvider.notifier).start();
-      await ref.watch(userNotifierProvider.notifier).fetchUser();
+      loading = true;
+      await initialize(ref);
+
       Timer(const Duration(seconds: 1), () async {
         final bool isAuth = ref.read(isAuthenticatedProvider);
+        loading = false;
         if (isAuth) {
           Get.off(const DashboardScreen());
         } else {
@@ -59,21 +62,8 @@ class SplashScreen extends ConsumerWidget {
       ),
     );
   }
-}
 
-final isLoadingProvider =
-    StateNotifierProvider.autoDispose<IsLoadingNotifier, bool>((ref) {
-  return IsLoadingNotifier();
-});
-
-class IsLoadingNotifier extends StateNotifier<bool> {
-  IsLoadingNotifier() : super(false);
-
-  void start() {
-    state = true;
-  }
-
-  void end() {
-    state = false;
+  Future initialize(WidgetRef ref) async {
+    await ref.watch(userNotifierProvider.notifier).fetchUser();
   }
 }
