@@ -13,22 +13,28 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Timer(const Duration(seconds: 2), () async {
-      await ref.watch(userNotifierProvider.notifier).fetchUser();
-      bool isAuth = ref.read(userNotifierProvider).isAuth;
-      if (isAuth) {
-        Get.off(const DashboardScreen());
-      } else {
-        Get.off(const LoginScreen());
-      }
+    final bool loading = ref.watch(isLoadingProvider);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(isLoadingProvider.notifier).start();
+
+      Timer(const Duration(seconds: 1), () async {
+        await ref.watch(userNotifierProvider.notifier).fetchUser();
+        bool isAuth = ref.read(userNotifierProvider).isAuth;
+        if (isAuth) {
+          Get.off(const DashboardScreen());
+        } else {
+          Get.off(const LoginScreen());
+        }
+      });
     });
+
     return Scaffold(
       backgroundColor: Colors.orangeAccent,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
-            Text(
+          children: [
+            const Text(
               'Coodig',
               style: TextStyle(
                 color: Colors.white,
@@ -36,19 +42,38 @@ class SplashScreen extends ConsumerWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             SizedBox(
               width: 50,
               height: 2,
-              child: LinearProgressIndicator(
-                color: Colors.white,
-              ),
+              child: (loading)
+                  ? const LinearProgressIndicator(
+                      color: Colors.white,
+                    )
+                  : const SizedBox(),
             ),
           ],
         ),
       ),
     );
+  }
+}
+
+final isLoadingProvider =
+    StateNotifierProvider.autoDispose<IsLoadingNotifier, bool>((ref) {
+  return IsLoadingNotifier();
+});
+
+class IsLoadingNotifier extends StateNotifier<bool> {
+  IsLoadingNotifier() : super(false);
+
+  void start() {
+    state = true;
+  }
+
+  void end() {
+    state = false;
   }
 }
