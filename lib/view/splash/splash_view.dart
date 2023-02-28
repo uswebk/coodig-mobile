@@ -4,31 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
-import '../../provider/user_provider.dart';
+import '../../provider/auth_provider.dart';
 import '../dashboard/dashboard_screen.dart';
 import '../login/login_screen.dart';
 
-// ignore: must_be_immutable
 class SplashScreen extends ConsumerWidget {
-  bool loading;
-
-  SplashScreen({super.key, this.loading = true});
+  const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      loading = true;
-      await initialize(ref);
-
-      Timer(const Duration(seconds: 1), () async {
-        final bool isAuth = ref.read(isAuthenticatedProvider);
-        loading = false;
-        if (isAuth) {
-          Get.off(const DashboardScreen());
-        } else {
-          Get.off(const LoginScreen());
-        }
-      });
+    Future.delayed(const Duration(seconds: 2)).then((value) async {
+      await ref.watch(authNotifierProvider.notifier).fetchUser();
+      final bool isAuthenticated = ref.read(isAuthenticatedProvider);
+      if (isAuthenticated) {
+        Get.off(const DashboardScreen());
+      } else {
+        Get.off(const LoginScreen());
+      }
     });
 
     return Scaffold(
@@ -36,8 +28,8 @@ class SplashScreen extends ConsumerWidget {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            const Text(
+          children: const [
+            Text(
               'Coodig',
               style: TextStyle(
                 color: Colors.white,
@@ -45,25 +37,19 @@ class SplashScreen extends ConsumerWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            const SizedBox(
+            SizedBox(
               height: 20,
             ),
             SizedBox(
               width: 100,
               height: 2,
-              child: (loading)
-                  ? const LinearProgressIndicator(
-                      color: Colors.white,
-                    )
-                  : const SizedBox(),
+              child: LinearProgressIndicator(
+                color: Colors.white,
+              ),
             ),
           ],
         ),
       ),
     );
-  }
-
-  Future initialize(WidgetRef ref) async {
-    await ref.watch(userNotifierProvider.notifier).fetchUser();
   }
 }

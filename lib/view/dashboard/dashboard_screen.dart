@@ -1,4 +1,4 @@
-import 'package:coodig_mobile/provider/user_provider.dart';
+import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,7 +7,7 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.read(userNotifierProvider);
+    final state = ref.watch(authNotifierProvider);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(30),
@@ -16,7 +16,7 @@ class DashboardScreen extends ConsumerWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text('Dashboard'),
-              Text('${state.name} (${state.email})'),
+              Text('${state?.name} (${state?.email})'),
               const SizedBox(
                 height: 20,
               ),

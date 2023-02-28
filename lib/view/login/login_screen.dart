@@ -1,5 +1,4 @@
 import 'package:coodig_mobile/provider/auth_provider.dart';
-import 'package:coodig_mobile/provider/user_provider.dart';
 import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,8 +9,16 @@ class LoginScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      bool isAuthenticated = ref.watch(isAuthenticatedProvider);
+      if (isAuthenticated) {
+        Get.off(const DashboardScreen());
+      }
+    });
+
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+
     return Scaffold(
       body: Center(
         child: Column(
@@ -48,16 +55,13 @@ class LoginScreen extends ConsumerWidget {
                           if (email.isEmpty) return;
                           if (password.isEmpty) return;
 
-                          bool isAuthenticated = await ref
+                          await ref
                               .watch(authNotifierProvider.notifier)
                               .login(email, password);
 
-                          if (isAuthenticated) {
-                            await ref
-                                .watch(userNotifierProvider.notifier)
-                                .fetchUser();
-                            Get.off(const DashboardScreen());
-                          }
+                          await ref
+                              .watch(authNotifierProvider.notifier)
+                              .fetchUser();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orangeAccent,
