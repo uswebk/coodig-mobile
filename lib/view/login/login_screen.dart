@@ -58,10 +58,6 @@ class LoginScreen extends ConsumerWidget {
                           await ref
                               .watch(authNotifierProvider.notifier)
                               .login(email, password);
-
-                          await ref
-                              .watch(authNotifierProvider.notifier)
-                              .fetchUser();
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.orangeAccent,
