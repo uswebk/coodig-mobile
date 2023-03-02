@@ -16,4 +16,9 @@ class LocalStorage {
   Future<String?> getAccessToken() async {
     return await _storage.read(key: 'accessToken');
   }
+
+  Future<void> removeToken() async {
+    await _storage.delete(key: 'accessToken');
+    await _storage.delete(key: 'refreshToken');
+  }
 }

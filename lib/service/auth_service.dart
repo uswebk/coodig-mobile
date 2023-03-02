@@ -29,4 +29,8 @@ class AuthService {
 
     return false;
   }
+
+  Future<void> logout() async {
+    await _localStorage.removeToken();
+  }
 }

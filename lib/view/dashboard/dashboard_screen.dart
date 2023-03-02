@@ -1,6 +1,8 @@
 import 'package:coodig_mobile/provider/auth_provider.dart';
+import 'package:coodig_mobile/view/splash/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 class DashboardScreen extends ConsumerWidget {
   const DashboardScreen({super.key});
@@ -24,7 +26,8 @@ class DashboardScreen extends ConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () async {
-                      // Todo: Reset Token & push LoginScreen
+                      ref.watch(authNotifierProvider.notifier).logout();
+                      Get.off(const SplashScreen());
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.grey,

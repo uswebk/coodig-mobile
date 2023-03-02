@@ -28,6 +28,10 @@ class AuthNotifier extends StateNotifier<User?> {
 
     return isLoggedIn;
   }
+
+  Future<void> logout() async {
+    await _authService.logout();
+  }
 }
 
 final isAuthenticatedProvider = Provider<bool>((ref) {
