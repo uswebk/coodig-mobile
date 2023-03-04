@@ -19,4 +19,8 @@ class LoginMessageNotifier extends StateNotifier<String> {
 
     state = errorMessage.replaceAll(exp, '');
   }
+
+  void resetMessage() {
+    state = '';
+  }
 }

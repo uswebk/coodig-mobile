@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 import '../../provider/auth_provider.dart';
+import '../../provider/login_message_provider.dart';
 import '../dashboard/dashboard_screen.dart';
 import '../login/login_screen.dart';
 
@@ -19,6 +20,7 @@ class SplashScreen extends ConsumerWidget {
       if (isAuthenticated) {
         Get.off(const DashboardScreen());
       } else {
+        ref.watch(loginMessageProvider.notifier).resetMessage();
         Get.off(const LoginScreen());
       }
     });

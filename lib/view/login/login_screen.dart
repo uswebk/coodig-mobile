@@ -4,11 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
+import '../../provider/login_message_provider.dart';
+
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String message = ref.watch(loginMessageProvider);
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       bool isAuthenticated = ref.watch(isAuthenticatedProvider);
       if (isAuthenticated) {
@@ -24,6 +28,23 @@ class LoginScreen extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            if (message != '')
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Container(
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.red[50],
+                    borderRadius: BorderRadius.circular(4.0),
+                    border: Border.all(color: Colors.red.shade100),
+                  ),
+                  child: Text(
+                    message,
+                    style: TextStyle(color: Colors.red.shade300),
+                  ),
+                ),
+              ),
             Container(
               padding: const EdgeInsets.all(30),
               child: Column(
