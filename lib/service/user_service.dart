@@ -28,8 +28,10 @@ class UserService {
     if (response.statusCode == 401) {
       // refresh token
 
-      // final response = await _userRepository.fetchUser();
-
+      // final retryResponse = await _userRepository.fetchUser();
+      // if (retryResponse.statusCode == 200) {
+      //   return User.fromJson(jsonDecode(response.body));
+      // }
     }
     return null;
   }
