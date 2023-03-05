@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 
 const host = 'http://127.0.0.1:9999';
@@ -17,11 +19,23 @@ class HttpAuthClient {
       ).timeout(
         const Duration(seconds: 10),
         onTimeout: () {
-          return http.Response('TimeOut', 408);
+          return http.Response(
+              jsonEncode({
+                'errors': {
+                  'message': ['TimeOut']
+                }
+              }),
+              408);
         },
       );
     } catch (e) {
-      return http.Response('Server Error', 500);
+      return http.Response(
+          jsonEncode({
+            'errors': {
+              'message': ['Server Error']
+            }
+          }),
+          500);
     }
   }
 }

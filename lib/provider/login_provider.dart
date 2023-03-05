@@ -28,12 +28,8 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
     state = LoginState(isLoading: false, errorMessage: message);
   }
 
-  void resetMessage() {
-    state.errorMessage = '';
-  }
-
   void setLoading(bool isLoading) {
-    state = LoginState(isLoading: true, errorMessage: state.errorMessage);
+    state = LoginState(isLoading: isLoading, errorMessage: state.errorMessage);
   }
 
   void initState() {
