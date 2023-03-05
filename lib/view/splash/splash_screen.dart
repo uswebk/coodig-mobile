@@ -1,13 +1,13 @@
 import 'dart:async';
 
 import 'package:coodig_mobile/provider/login_provider.dart';
+import 'package:coodig_mobile/view/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 import '../../provider/auth_provider.dart';
 import '../dashboard/dashboard_screen.dart';
-import '../login/login_screen.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
