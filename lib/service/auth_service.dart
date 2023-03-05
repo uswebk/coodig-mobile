@@ -49,6 +49,18 @@ class AuthService {
     return false;
   }
 
+  Future<void> refresh() async {
+    String refreshToken = await _localStorage.getRefreshToken() ?? '';
+    final response = await _authRepository.refresh(refreshToken);
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> body = json.decode(response.body);
+      body['refresh'] = refreshToken;
+      Token token = Token.fromJson(body);
+      await _localStorage.addToken(token);
+    }
+  }
+
   Future<void> logout() async {
     await _localStorage.removeToken();
   }

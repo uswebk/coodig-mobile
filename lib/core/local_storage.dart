@@ -18,6 +18,10 @@ class LocalStorage {
     return await _storage.read(key: 'accessToken');
   }
 
+  Future<String?> getRefreshToken() async {
+    return await _storage.read(key: 'refreshToken');
+  }
+
   Future<void> removeToken() async {
     await _storage.delete(key: 'accessToken');
     await _storage.delete(key: 'refreshToken');

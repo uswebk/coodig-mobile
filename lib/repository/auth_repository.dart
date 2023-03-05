@@ -15,4 +15,10 @@ class AuthRepository {
       'password': password,
     });
   }
+
+  Future<http.Response> refresh(String refreshToken) async {
+    return await _httpClient.post('/api/token/refresh/', {
+      'refresh': refreshToken,
+    });
+  }
 }

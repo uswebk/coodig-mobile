@@ -11,15 +11,14 @@ class LoginScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    LoginState state = ref.watch(loginStateProvider);
-
-    print(state.isLoading);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       bool isAuthenticated = ref.watch(isAuthenticatedProvider);
       if (isAuthenticated) {
         Get.off(const DashboardScreen());
       }
     });
+
+    LoginState state = ref.watch(loginStateProvider);
 
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
