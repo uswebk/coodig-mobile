@@ -1,10 +1,10 @@
 import 'dart:convert';
 
+import 'package:coodig_mobile/provider/login_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/local_storage.dart';
 import '../model/token.dart';
-import '../provider/login_message_provider.dart';
 import '../repository/auth_repository.dart';
 
 final repository = Provider((ref) => ref.watch(authRepositoryProvider));
@@ -37,13 +37,13 @@ class AuthService {
     if (response.statusCode == 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
-      _ref.read(loginMessageProvider.notifier).setMessage(errors);
+      _ref.read(loginStateProvider.notifier).setMessage(errors);
     }
 
     if (response.statusCode > 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body)['errors']);
-      _ref.read(loginMessageProvider.notifier).setMessage(errors);
+      _ref.read(loginStateProvider.notifier).setMessage(errors);
     }
 
     return false;
