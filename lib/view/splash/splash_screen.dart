@@ -15,7 +15,7 @@ class SplashScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future.delayed(const Duration(seconds: 2)).then((value) async {
-      await ref.watch(authNotifierProvider.notifier).fetchUser();
+      await ref.watch(authNotifierProvider.notifier).fetchMe();
       final bool isAuthenticated = ref.read(isAuthenticatedProvider);
       if (isAuthenticated) {
         Get.off(const DashboardScreen());

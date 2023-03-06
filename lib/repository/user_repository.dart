@@ -13,7 +13,7 @@ class UserRepository {
   final HttpAuthClient _httpClient;
   final _localStorage = LocalStorage();
 
-  Future<http.Response> fetchUser() async {
+  Future<http.Response> fetchMe() async {
     String accessToken = await _localStorage.getAccessToken() ?? '';
     return await _httpClient.get('/api/v1/accounts/me/', {}, accessToken);
   }

@@ -17,14 +17,13 @@ class AuthNotifier extends StateNotifier<User?> {
   final AuthService _authService;
   final UserService _userService;
 
-  Future<void> fetchUser() async {
-    state = await _userService.fetchUser();
+  Future<void> fetchMe() async {
+    state = await _userService.fetchMe();
   }
 
   Future<bool> login(String email, String password) async {
     bool isLoggedIn = await _authService.login(email, password);
-
-    await fetchUser();
+    await fetchMe();
 
     return isLoggedIn;
   }

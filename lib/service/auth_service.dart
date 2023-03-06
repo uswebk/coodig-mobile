@@ -20,7 +20,6 @@ class AuthService {
   );
 
   final ProviderRef _ref;
-
   final AuthRepository _authRepository;
   final LocalStorage _localStorage;
 
