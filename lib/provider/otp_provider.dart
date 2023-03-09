@@ -22,7 +22,7 @@ class OtpState {
 class OtpStateNotifier extends StateNotifier<OtpState> {
   OtpStateNotifier(OtpState state) : super(state);
 
-  void updateOtp() {
+  void update() {
     String otp = state.controllers.map((controller) => controller.text).join();
     bool isButtonEnabled =
         state.controllers.every((controller) => controller.text.isNotEmpty);
@@ -30,7 +30,9 @@ class OtpStateNotifier extends StateNotifier<OtpState> {
         OtpState(state.controllers, otp: otp, isButtonEnabled: isButtonEnabled);
   }
 
-  void sendOtp() {
+  void send() {
+    // Loading Start
     // Execute Otp API
+    // Loading End
   }
 }
