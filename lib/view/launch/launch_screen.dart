@@ -1,5 +1,7 @@
+import 'package:coodig_mobile/view/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
@@ -31,7 +33,7 @@ class LaunchScreen extends ConsumerWidget {
                     height: 20,
                   ),
                   Text(
-                    'Quiz Application For Engineers',
+                    '- Quiz Application For Engineers -',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
@@ -56,7 +58,13 @@ class LaunchScreen extends ConsumerWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                        onPressed: () {}, child: const Text('Sign In')),
+                        onPressed: () {
+                          Get.to(const LoginScreen());
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white12,
+                        ),
+                        child: const Text('Sign In')),
                   ),
                 ],
               ),
