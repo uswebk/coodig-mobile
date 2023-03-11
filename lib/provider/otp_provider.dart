@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,9 +32,15 @@ class OtpStateNotifier extends StateNotifier<OtpState> {
         OtpState(state.controllers, otp: otp, isButtonEnabled: isButtonEnabled);
   }
 
-  void send() {
-    // Loading Start
+  void setLoading(bool isLoading) {
+    state = OtpState(state.controllers,
+        otp: state.otp,
+        isButtonEnabled: state.isButtonEnabled,
+        isLoading: isLoading);
+  }
+
+  Future<void> send() async {
     // Execute Otp API
-    // Loading End
+    await Future.delayed(const Duration(seconds: 3));
   }
 }
