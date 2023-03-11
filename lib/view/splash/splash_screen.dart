@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:coodig_mobile/provider/login_provider.dart';
-import 'package:coodig_mobile/view/login/login_screen.dart';
+import 'package:coodig_mobile/view/launch/launch_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -21,7 +21,7 @@ class SplashScreen extends ConsumerWidget {
         Get.off(const DashboardScreen());
       } else {
         ref.watch(loginStateProvider.notifier).initState();
-        Get.off(const LoginScreen());
+        Get.off(const LaunchScreen());
       }
     });
 
@@ -32,18 +32,18 @@ class SplashScreen extends ConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: const [
             Text(
-              'Coodig',
+              'Co-odig',
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 28,
+                fontSize: 42,
                 fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 40,
             ),
             SizedBox(
-              width: 100,
+              width: 180,
               height: 2,
               child: LinearProgressIndicator(
                 color: Colors.white,
