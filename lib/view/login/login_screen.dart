@@ -1,6 +1,7 @@
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/provider/login_provider.dart';
 import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
+import 'package:coodig_mobile/view/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -12,7 +13,11 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
       bool isAuthenticated = ref.watch(isAuthenticatedProvider);
+      if (isEmailVerified) {
+        Get.off(const OtpScreen());
+      }
       if (isAuthenticated) {
         Get.off(const DashboardScreen());
       }

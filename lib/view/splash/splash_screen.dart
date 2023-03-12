@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:coodig_mobile/provider/login_provider.dart';
 import 'package:coodig_mobile/view/launch/launch_screen.dart';
+import 'package:coodig_mobile/view/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -16,9 +17,12 @@ class SplashScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Future.delayed(const Duration(seconds: 2)).then((value) async {
       await ref.watch(authNotifierProvider.notifier).fetchMe();
+      final bool isEmailVerified = ref.read(isEmailVerifiedProvider);
       final bool isAuthenticated = ref.read(isAuthenticatedProvider);
-      if (isAuthenticated) {
+      if (isEmailVerified) {
         Get.off(const DashboardScreen());
+      } else if (isAuthenticated) {
+        Get.off(const OtpScreen());
       } else {
         ref.watch(loginStateProvider.notifier).initState();
         Get.off(const LaunchScreen());

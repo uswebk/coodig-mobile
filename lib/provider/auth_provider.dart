@@ -38,3 +38,13 @@ final isAuthenticatedProvider = Provider<bool>((ref) {
 
   return user != null;
 });
+
+final isEmailVerifiedProvider = Provider<bool>((ref) {
+  final User? user = ref.watch(authNotifierProvider);
+
+  if (user == null) {
+    return false;
+  }
+
+  return user.emailVerifiedAt != null;
+});
