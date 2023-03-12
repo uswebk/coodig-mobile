@@ -7,7 +7,6 @@ const host = 'http://127.0.0.1:9999';
 class HttpClient {
   Future<http.Response> get(
       String path, Map<String, String> query, String accessToken) async {
-    final uri = Uri.parse(host + path).replace(queryParameters: query);
     Map<String, String> headers = {'content-type': 'application/json'};
 
     if (accessToken != '') {
@@ -15,13 +14,12 @@ class HttpClient {
     }
 
     try {
-      return await http.get(
-        uri,
-        headers: {
-          'content-type': 'application/json',
-          'Authorization': 'Bearer $accessToken'
-        },
-      ).timeout(
+      return await http
+          .get(
+        Uri.parse(host + path).replace(queryParameters: query),
+        headers: headers,
+      )
+          .timeout(
         const Duration(seconds: 10),
         onTimeout: () {
           return http.Response(
@@ -55,8 +53,7 @@ class HttpClient {
     try {
       return await http
           .post(Uri.parse(host + path),
-              headers: {'content-type': 'application/json'},
-              body: jsonEncode(body))
+              headers: headers, body: jsonEncode(body))
           .timeout(
         const Duration(seconds: 10),
         onTimeout: () {
