@@ -29,23 +29,26 @@ class LoginScreen extends ConsumerWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              if (state.errorMessage != '')
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.red[50],
-                      borderRadius: BorderRadius.circular(4.0),
-                      border: Border.all(color: Colors.red.shade100),
-                    ),
-                    child: Text(
-                      state.errorMessage,
-                      style: TextStyle(color: Colors.red.shade300),
-                    ),
-                  ),
-                ),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: (state.errorMessage != '')
+                    ? Container(
+                        padding: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          color: Colors.red[50],
+                          borderRadius: BorderRadius.circular(4.0),
+                          border: Border.all(color: Colors.red.shade100),
+                        ),
+                        child: Text(
+                          state.errorMessage,
+                          style: TextStyle(color: Colors.red.shade300),
+                        ),
+                      )
+                    : Container(
+                        padding: const EdgeInsets.all(10),
+                      ),
+              ),
               Container(
                 padding: const EdgeInsets.all(30),
                 child: Column(
