@@ -2,7 +2,11 @@ import 'package:coodig_mobile/provider/otp_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
+
+import '../../provider/auth_provider.dart';
+import '../dashboard/dashboard_screen.dart';
 
 class OtpScreen extends ConsumerWidget {
   const OtpScreen({super.key});
@@ -11,6 +15,13 @@ class OtpScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(otpStateProvider);
     final controllers = state.controllers;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      bool isAuthenticated = ref.watch(isEmailVerifiedProvider);
+      if (isAuthenticated) {
+        Get.off(const DashboardScreen());
+      }
+    });
 
     return Stack(children: [
       Scaffold(
@@ -21,6 +32,29 @@ class OtpScreen extends ConsumerWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: (state.errorMessage != '')
+                      ? Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            color: Colors.red[50],
+                            borderRadius: BorderRadius.circular(4.0),
+                            border: Border.all(color: Colors.red.shade100),
+                          ),
+                          child: Text(
+                            state.errorMessage,
+                            style: TextStyle(color: Colors.red.shade300),
+                          ),
+                        )
+                      : Container(
+                          padding: const EdgeInsets.all(10),
+                        ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -63,7 +97,14 @@ class OtpScreen extends ConsumerWidget {
                             ref
                                 .read(otpStateProvider.notifier)
                                 .setLoading(true);
-                            await ref.read(otpStateProvider.notifier).send();
+                            bool result = await ref
+                                .read(otpStateProvider.notifier)
+                                .send();
+                            if (result) {
+                              await ref
+                                  .read(authNotifierProvider.notifier)
+                                  .fetchMe();
+                            }
                             ref
                                 .read(otpStateProvider.notifier)
                                 .setLoading(false);

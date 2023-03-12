@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:coodig_mobile/provider/login_provider.dart';
+import 'package:coodig_mobile/provider/otp_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/local_storage.dart';
@@ -62,5 +63,38 @@ class AuthService {
 
   Future<void> logout() async {
     await _localStorage.removeToken();
+  }
+
+  Future<bool> sendOtp(String otp) async {
+    final response = await _authRepository.sendOtp(otp);
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+
+    if (response.statusCode == 401) {
+      await refresh();
+
+      final retryResponse = await _authRepository.sendOtp(otp);
+      if (retryResponse.statusCode == 200) {
+        return true;
+      }
+
+      Map<String, dynamic> errors =
+          Map<String, dynamic>.from(json.decode(response.body));
+      Map<String, dynamic> errorMessage = {
+        'message': errors['messages'][0]['message']
+      };
+      _ref.read(otpStateProvider.notifier).setMessage(errorMessage);
+      return false;
+    }
+
+    if (response.statusCode >= 400) {
+      Map<String, dynamic> errors =
+          Map<String, dynamic>.from(json.decode(response.body));
+      _ref.read(otpStateProvider.notifier).setMessage(errors);
+    }
+
+    return false;
   }
 }
