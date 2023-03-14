@@ -32,6 +32,11 @@ class LoginScreen extends ConsumerWidget {
 
     return Stack(children: [
       Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.orangeAccent,
+          title: const Text('Login'),
+          elevation: 0,
+        ),
         body: Form(
           key: _formKey,
           child: Center(
@@ -54,9 +59,7 @@ class LoginScreen extends ConsumerWidget {
                             style: TextStyle(color: Colors.red.shade300),
                           ),
                         )
-                      : Container(
-                          padding: const EdgeInsets.all(10),
-                        ),
+                      : Container(),
                 ),
                 Container(
                   padding: const EdgeInsets.all(30),
