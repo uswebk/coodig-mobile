@@ -22,6 +22,19 @@ class AuthRepository {
         '');
   }
 
+  Future<http.Response> signup(String name, String email, String password,
+      String confirmPassword) async {
+    return await _httpClient.post(
+        '/api/v1/accounts/register/',
+        {
+          'name': name,
+          'email': email,
+          'password': password,
+          'password2': confirmPassword,
+        },
+        '');
+  }
+
   Future<http.Response> refresh(String refreshToken) async {
     return await _httpClient.post(
         '/api/token/refresh/',
