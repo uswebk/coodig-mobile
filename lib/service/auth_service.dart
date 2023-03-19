@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:coodig_mobile/provider/login_provider.dart';
 import 'package:coodig_mobile/provider/otp_provider.dart';
+import 'package:coodig_mobile/provider/signup_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/local_storage.dart';
@@ -54,7 +55,7 @@ class AuthService {
     final response =
         await _authRepository.signup(name, email, password, confirmPassword);
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
       Token token = Token.fromJson(json.decode(response.body)['token']);
       await _localStorage.addToken(token);
 
@@ -64,13 +65,13 @@ class AuthService {
     if (response.statusCode == 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
-      // TODO: Error Message
+      _ref.read(signupStateProvider.notifier).setMessage(errors);
     }
 
     if (response.statusCode > 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body)['errors']);
-      // TODO: Error Message
+      _ref.read(signupStateProvider.notifier).setMessage(errors);
     }
 
     return false;
