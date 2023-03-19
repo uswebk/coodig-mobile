@@ -18,10 +18,10 @@ class SplashScreen extends ConsumerWidget {
     Future.delayed(const Duration(seconds: 2)).then((value) async {
       await ref.watch(authNotifierProvider.notifier).fetchMe();
       final bool isEmailVerified = ref.read(isEmailVerifiedProvider);
-      final bool isAuthenticated = ref.read(isAuthenticatedProvider);
+      final bool hasAccount = ref.read(hasAccountProvider);
       if (isEmailVerified) {
         Get.off(const DashboardScreen());
-      } else if (isAuthenticated) {
+      } else if (hasAccount) {
         Get.off(const OtpScreen());
       } else {
         ref.watch(loginStateProvider.notifier).initState();

@@ -1,5 +1,6 @@
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/provider/login_provider.dart';
+import 'package:coodig_mobile/provider/signup_provider.dart';
 import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
 import 'package:coodig_mobile/view/otp/otp_screen.dart';
 import 'package:flutter/material.dart';
@@ -12,26 +13,25 @@ class SignupScreen extends ConsumerWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
-      bool isAuthenticated = ref.watch(isAuthenticatedProvider);
+      bool hasAccount = ref.watch(hasAccountProvider);
       if (isEmailVerified) {
-        Get.off(const OtpScreen());
-      }
-      if (isAuthenticated) {
         Get.off(const DashboardScreen());
+      } else if (hasAccount) {
+        Get.off(const OtpScreen());
       }
     });
 
-    LoginState state = ref.watch(loginStateProvider);
-
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController confirmPasswordController =
-        TextEditingController();
+    SignupState state = ref.watch(signupStateProvider);
 
     return Stack(children: [
       Scaffold(
@@ -47,24 +47,6 @@ class SignupScreen extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: (state.errorMessage != '')
-                      ? Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.red[50],
-                            borderRadius: BorderRadius.circular(4.0),
-                            border: Border.all(color: Colors.red.shade100),
-                          ),
-                          child: Text(
-                            state.errorMessage,
-                            style: TextStyle(color: Colors.red.shade300),
-                          ),
-                        )
-                      : Container(),
-                ),
-                Container(
                   padding: const EdgeInsets.symmetric(horizontal: 30),
                   child: Column(
                     children: [
@@ -79,6 +61,21 @@ class SignupScreen extends ConsumerWidget {
                         },
                         onChanged: (String value) {},
                       ),
+                      if (state.errorMessages != null &&
+                          state.errorMessages!['name'] != null)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              state.errorMessages!['name']!,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Color.fromRGBO(217, 56, 45, 1.0),
+                              ),
+                            ),
+                          ),
+                        ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -93,6 +90,21 @@ class SignupScreen extends ConsumerWidget {
                         },
                         onChanged: (String value) {},
                       ),
+                      if (state.errorMessages != null &&
+                          state.errorMessages!['email'] != null)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              state.errorMessages!['email']!,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Color.fromRGBO(217, 56, 45, 1.0),
+                              ),
+                            ),
+                          ),
+                        ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -113,6 +125,21 @@ class SignupScreen extends ConsumerWidget {
                         },
                         onChanged: (String value) {},
                       ),
+                      if (state.errorMessages != null &&
+                          state.errorMessages!['password'] != null)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              state.errorMessages!['password']!,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Color.fromRGBO(217, 56, 45, 1.0),
+                              ),
+                            ),
+                          ),
+                        ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -133,6 +160,21 @@ class SignupScreen extends ConsumerWidget {
                         },
                         onChanged: (String value) {},
                       ),
+                      if (state.errorMessages != null &&
+                          state.errorMessages!['non_field_errors'] != null)
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Text(
+                              state.errorMessages!['non_field_errors']!,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Color.fromRGBO(217, 56, 45, 1.0),
+                              ),
+                            ),
+                          ),
+                        ),
                       const SizedBox(
                         height: 20,
                       ),
@@ -149,10 +191,12 @@ class SignupScreen extends ConsumerWidget {
                                     confirmPasswordController.text;
 
                                 ref
-                                    .read(loginStateProvider.notifier)
+                                    .read(signupStateProvider.notifier)
                                     .setLoading(true);
 
-                                // TODO: register api
+                                ref.read(authNotifierProvider.notifier).signup(
+                                    name, email, password, confirmPassword);
+
                                 ref
                                     .read(loginStateProvider.notifier)
                                     .setLoading(false);
@@ -161,7 +205,7 @@ class SignupScreen extends ConsumerWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.orangeAccent,
                             ),
-                            child: const Text('Login')),
+                            child: const Text('Sign up')),
                       ),
                     ],
                   ),

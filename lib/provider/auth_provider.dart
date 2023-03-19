@@ -28,7 +28,7 @@ class AuthNotifier extends StateNotifier<User?> {
     return isLoggedIn;
   }
 
-  Future<bool> register(String name, String email, String password,
+  Future<bool> signup(String name, String email, String password,
       String confirmPassword) async {
     bool isSignUp =
         await _authService.signup(name, email, password, confirmPassword);
@@ -42,7 +42,7 @@ class AuthNotifier extends StateNotifier<User?> {
   }
 }
 
-final isAuthenticatedProvider = Provider<bool>((ref) {
+final hasAccountProvider = Provider<bool>((ref) {
   final User? user = ref.watch(authNotifierProvider);
 
   return user != null;

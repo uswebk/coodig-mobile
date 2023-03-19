@@ -12,23 +12,22 @@ class LoginScreen extends ConsumerWidget {
 
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
-      bool isAuthenticated = ref.watch(isAuthenticatedProvider);
+      bool hasAccount = ref.watch(hasAccountProvider);
       if (isEmailVerified) {
         Get.off(const OtpScreen());
-      }
-      if (isAuthenticated) {
+      } else if (hasAccount) {
         Get.off(const DashboardScreen());
       }
     });
 
     LoginState state = ref.watch(loginStateProvider);
-
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
 
     return Stack(children: [
       Scaffold(
