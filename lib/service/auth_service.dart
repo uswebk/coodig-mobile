@@ -49,6 +49,33 @@ class AuthService {
     return false;
   }
 
+  Future<bool> signup(String name, String email, String password,
+      String confirmPassword) async {
+    final response =
+        await _authRepository.signup(name, email, password, confirmPassword);
+
+    if (response.statusCode == 200) {
+      Token token = Token.fromJson(json.decode(response.body)['token']);
+      await _localStorage.addToken(token);
+
+      return true;
+    }
+
+    if (response.statusCode == 400) {
+      Map<String, dynamic> errors =
+          Map<String, dynamic>.from(json.decode(response.body));
+      // TODO: Error Message
+    }
+
+    if (response.statusCode > 400) {
+      Map<String, dynamic> errors =
+          Map<String, dynamic>.from(json.decode(response.body)['errors']);
+      // TODO: Error Message
+    }
+
+    return false;
+  }
+
   Future<void> refresh() async {
     String refreshToken = await _localStorage.getRefreshToken() ?? '';
     final response = await _authRepository.refresh(refreshToken);
