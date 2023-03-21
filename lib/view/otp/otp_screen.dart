@@ -14,6 +14,7 @@ class OtpScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(otpStateProvider);
+    final user = ref.watch(authNotifierProvider);
     final controllers = state.controllers;
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -25,96 +26,135 @@ class OtpScreen extends ConsumerWidget {
 
     return Stack(children: [
       Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.orangeAccent,
+          title: const Text('Otp Verify'),
+          elevation: 0,
+        ),
         backgroundColor: Colors.grey[300],
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: (state.errorMessage != '')
-                      ? Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.red[50],
-                            borderRadius: BorderRadius.circular(4.0),
-                            border: Border.all(color: Colors.red.shade100),
-                          ),
-                          child: Text(
-                            state.errorMessage,
-                            style: TextStyle(color: Colors.red.shade300),
-                          ),
-                        )
-                      : Container(
-                          padding: const EdgeInsets.all(10),
-                        ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                flex: 1,
+                child: Column(
                   children: [
-                    ...List.generate(
-                      controllers.length,
-                      (index) => SizedBox(
-                        height: 60,
-                        width: 50,
-                        child: TextFormField(
-                          controller: controllers[index],
-                          autofocus: true,
-                          onChanged: (value) {
-                            ref.watch(otpStateProvider.notifier).update();
-                            FocusScope.of(context).nextFocus();
-                          },
-                          decoration: const InputDecoration(
-                            hintStyle:
-                                TextStyle(color: Colors.black, fontSize: 20.0),
-                            filled: true,
-                            fillColor: Colors.white54,
-                          ),
-                          style: Theme.of(context).textTheme.headline6,
-                          keyboardType: TextInputType.number,
-                          textAlign: TextAlign.center,
-                          inputFormatters: [
-                            LengthLimitingTextInputFormatter(1),
-                            FilteringTextInputFormatter.digitsOnly
-                          ],
-                        ),
+                    Container(
+                      width: double.infinity,
+                      color: Colors.white,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 10.0, vertical: 20),
+                        child: Text(
+                            'An otp code has been sent to ${user!.email}.\nPlease check the code in the email and enter it.\nThe validity period is 10 minutes after the email is sent.',
+                            style: const TextStyle(
+                              fontSize: 13,
+                            )),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(height: 16),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: state.isButtonEnabled
-                        ? () async {
-                            ref
-                                .read(otpStateProvider.notifier)
-                                .setLoading(true);
-                            bool result = await ref
-                                .read(otpStateProvider.notifier)
-                                .send();
-                            if (result) {
-                              await ref
-                                  .read(authNotifierProvider.notifier)
-                                  .fetchMe();
-                            }
-                            ref
-                                .read(otpStateProvider.notifier)
-                                .setLoading(false);
-                          }
-                        : null,
-                    child: const Text('Verify'),
+              ),
+              Expanded(
+                flex: 1,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Container(
+                    child: Column(
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          child: (state.errorMessage != '')
+                              ? Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    color: Colors.red[50],
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    border:
+                                        Border.all(color: Colors.red.shade100),
+                                  ),
+                                  child: Text(
+                                    state.errorMessage,
+                                    style:
+                                        TextStyle(color: Colors.red.shade300),
+                                  ),
+                                )
+                              : Container(
+                                  padding: const EdgeInsets.all(10),
+                                ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            ...List.generate(
+                              controllers.length,
+                              (index) => SizedBox(
+                                height: 60,
+                                width: 50,
+                                child: TextFormField(
+                                  controller: controllers[index],
+                                  autofocus: true,
+                                  onChanged: (value) {
+                                    ref
+                                        .watch(otpStateProvider.notifier)
+                                        .update();
+                                    FocusScope.of(context).nextFocus();
+                                  },
+                                  decoration: const InputDecoration(
+                                    hintStyle: TextStyle(
+                                        color: Colors.black, fontSize: 20.0),
+                                    filled: true,
+                                    fillColor: Colors.white54,
+                                  ),
+                                  style: Theme.of(context).textTheme.headline6,
+                                  keyboardType: TextInputType.number,
+                                  textAlign: TextAlign.center,
+                                  inputFormatters: [
+                                    LengthLimitingTextInputFormatter(1),
+                                    FilteringTextInputFormatter.digitsOnly
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: state.isButtonEnabled
+                                ? () async {
+                                    ref
+                                        .read(otpStateProvider.notifier)
+                                        .setLoading(true);
+                                    bool result = await ref
+                                        .read(otpStateProvider.notifier)
+                                        .send();
+                                    if (result) {
+                                      await ref
+                                          .read(authNotifierProvider.notifier)
+                                          .fetchMe();
+                                    }
+                                    ref
+                                        .read(otpStateProvider.notifier)
+                                        .setLoading(false);
+                                  }
+                                : null,
+                            child: const Text('Verify'),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ],
-            ),
+              ),
+              Expanded(flex: 1, child: Container()),
+            ],
           ),
         ),
       ),
