@@ -13,8 +13,8 @@ class OtpScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final user = ref.read(authNotifierProvider);
     final state = ref.watch(otpStateProvider);
-    final user = ref.watch(authNotifierProvider);
     final controllers = state.controllers;
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
@@ -46,11 +46,41 @@ class OtpScreen extends ConsumerWidget {
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 10.0, vertical: 20),
-                        child: Text(
-                            'An otp code has been sent to ${user!.email}.\nPlease check the code in the email and enter it.\nThe validity period is 10 minutes after the email is sent.',
-                            style: const TextStyle(
+                        child: RichText(
+                          text: TextSpan(
+                            text: 'An otp code has been sent to ',
+                            style: TextStyle(
                               fontSize: 13,
-                            )),
+                              color:
+                                  Theme.of(context).textTheme.bodyText2!.color,
+                            ),
+                            children: [
+                              TextSpan(
+                                text: '${user!.email}\n',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .color,
+                                ),
+                              ),
+                              TextSpan(
+                                text:
+                                    'Please check the code in the email and enter it.\nThe validity period is 10 minutes after the email is sent.',
+                                style: TextStyle(
+                                  fontSize: 13,
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .bodyText2!
+                                      .color,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
                   ],
@@ -127,6 +157,9 @@ class OtpScreen extends ConsumerWidget {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).primaryColor,
+                            ),
                             onPressed: state.isButtonEnabled
                                 ? () async {
                                     ref

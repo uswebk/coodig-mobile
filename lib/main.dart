@@ -15,7 +15,14 @@ class MyApp extends ConsumerWidget {
     return GetMaterialApp(
       title: 'Coodig',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.orangeAccent,
+        textTheme: TextTheme(
+            bodyText2: TextStyle(
+          color: Colors.green.shade400,
+        )),
+        colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.blue,
+        ),
       ),
       home: const SplashScreen(),
     );
