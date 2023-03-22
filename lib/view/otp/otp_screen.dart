@@ -13,7 +13,7 @@ class OtpScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.read(authNotifierProvider);
+    final user = ref.read(authStateProvider);
     final state = ref.watch(otpStateProvider);
     final controllers = state.controllers;
 
@@ -58,17 +58,19 @@ class OtpScreen extends ConsumerWidget {
                                     text: TextSpan(
                                       children: [
                                         const TextSpan(
-                                          text: 'An otp code has been sent to ',
+                                          text:
+                                              'An otp code has been sent to \n',
                                           style: TextStyle(
                                               fontSize: 11, color: Colors.grey),
+                                        ),
+                                        const WidgetSpan(
+                                          child: SizedBox(height: 15),
                                         ),
                                         TextSpan(
                                           text: '${user!.email}\n',
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.bold,
-                                            decoration:
-                                                TextDecoration.underline,
                                             color: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2!
@@ -76,11 +78,12 @@ class OtpScreen extends ConsumerWidget {
                                           ),
                                         ),
                                         const WidgetSpan(
-                                          child: SizedBox(height: 20),
+                                          child: SizedBox(height: 15),
                                         ),
                                         const TextSpan(
                                           text:
-                                              'Please check the code in the email and enter it.\nThe validity period is 10 minutes after the email is sent.',
+                                              'Please check the code in the email and enter it.\n'
+                                              'The validity period is 10 minutes after the email is sent.',
                                           style: TextStyle(
                                             fontSize: 11,
                                             color: Colors.grey,
@@ -224,7 +227,7 @@ class OtpScreen extends ConsumerWidget {
                                       .send();
                                   if (result) {
                                     await ref
-                                        .read(authNotifierProvider.notifier)
+                                        .read(authStateProvider.notifier)
                                         .fetchMe();
                                   }
                                   ref

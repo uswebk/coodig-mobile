@@ -7,7 +7,7 @@ import '../model/user.dart';
 final authService = Provider((ref) => ref.watch(authServiceProvider));
 final userService = Provider((ref) => ref.watch(userServiceProvider));
 
-final authNotifierProvider = StateNotifierProvider<AuthNotifier, User?>((ref) {
+final authStateProvider = StateNotifierProvider<AuthNotifier, User?>((ref) {
   return AuthNotifier(ref.watch(authService), ref.watch(userService));
 });
 
@@ -43,13 +43,13 @@ class AuthNotifier extends StateNotifier<User?> {
 }
 
 final hasAccountProvider = Provider<bool>((ref) {
-  final User? user = ref.watch(authNotifierProvider);
+  final User? user = ref.watch(authStateProvider);
 
   return user != null;
 });
 
 final isEmailVerifiedProvider = Provider<bool>((ref) {
-  final User? user = ref.watch(authNotifierProvider);
+  final User? user = ref.watch(authStateProvider);
 
   if (user == null) {
     return false;

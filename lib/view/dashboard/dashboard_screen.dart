@@ -9,7 +9,7 @@ class DashboardScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authNotifierProvider);
+    final state = ref.watch(authStateProvider);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(30),
@@ -26,7 +26,7 @@ class DashboardScreen extends ConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                     onPressed: () async {
-                      ref.watch(authNotifierProvider.notifier).logout();
+                      ref.watch(authStateProvider.notifier).logout();
                       Get.off(const SplashScreen());
                     },
                     style: ElevatedButton.styleFrom(

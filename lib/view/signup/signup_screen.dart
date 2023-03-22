@@ -194,7 +194,7 @@ class SignupScreen extends ConsumerWidget {
                                     .read(signupStateProvider.notifier)
                                     .setLoading(true);
 
-                                ref.read(authNotifierProvider.notifier).signup(
+                                ref.read(authStateProvider.notifier).signup(
                                     name, email, password, confirmPassword);
 
                                 ref

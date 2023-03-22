@@ -16,10 +16,7 @@ class MyApp extends ConsumerWidget {
       title: 'Coodig',
       theme: ThemeData(
         primaryColor: Colors.orangeAccent,
-        textTheme: TextTheme(
-            bodyText2: TextStyle(
-          color: Colors.green.shade400,
-        )),
+        textTheme: const TextTheme(),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.blue,
         ),
