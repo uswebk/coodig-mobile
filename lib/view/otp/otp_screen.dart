@@ -64,12 +64,15 @@ class OtpScreen extends ConsumerWidget {
                                         ),
                                         TextSpan(
                                           text: '${user!.email}\n',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.bold,
                                             decoration:
                                                 TextDecoration.underline,
-                                            color: Colors.grey,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .color,
                                           ),
                                         ),
                                         const WidgetSpan(
