@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/provider/otp_provider.dart';
+import 'package:coodig_mobile/view/otp/widget/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,6 +8,7 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../provider/auth_provider.dart';
 import '../dashboard/dashboard_screen.dart';
+import '../launch/launch_screen.dart';
 
 class OtpScreen extends ConsumerWidget {
   const OtpScreen({super.key});
@@ -27,6 +29,12 @@ class OtpScreen extends ConsumerWidget {
     return Stack(children: [
       Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Get.to(const LaunchScreen());
+            },
+          ),
           backgroundColor: Colors.orangeAccent,
           title: const Text('Otp Verify'),
           elevation: 0,
@@ -59,9 +67,11 @@ class OtpScreen extends ConsumerWidget {
                                       children: [
                                         const TextSpan(
                                           text:
-                                              'An otp code has been sent to \n',
+                                              '📩An otp code has been sent to ',
                                           style: TextStyle(
-                                              fontSize: 11, color: Colors.grey),
+                                            fontSize: 11,
+                                            color: Colors.grey,
+                                          ),
                                         ),
                                         const WidgetSpan(
                                           child: SizedBox(height: 15),
@@ -69,8 +79,9 @@ class OtpScreen extends ConsumerWidget {
                                         TextSpan(
                                           text: '${user!.email}\n',
                                           style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.bold,
+                                            fontSize: 11,
+                                            decoration:
+                                                TextDecoration.underline,
                                             color: Theme.of(context)
                                                 .textTheme
                                                 .bodyText2!
@@ -82,8 +93,8 @@ class OtpScreen extends ConsumerWidget {
                                         ),
                                         const TextSpan(
                                           text:
-                                              'Please check the code in the email and enter it.\n'
-                                              'The validity period is 10 minutes after the email is sent.',
+                                              '️✅Please check the code in the email and enter it.\n'
+                                              '⏱️The validity period is 10 minutes after the email is sent.',
                                           style: TextStyle(
                                             fontSize: 11,
                                             color: Colors.grey,
@@ -96,37 +107,39 @@ class OtpScreen extends ConsumerWidget {
                               ),
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                TextButton(
-                                  onPressed: () async {
-                                    // Resend Otp
-                                    // Snackbar
-                                  },
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: const [
-                                      Text(
-                                        'Resend Otp ',
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Icons.send,
-                                        size: 16,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
                         ],
                       ),
+                    ),
+                    Column(
+                      children: [
+                        const ExpirationTimer(),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextButton(
+                              onPressed: () async {
+                                // Resend Otp
+                                // Snackbar
+                              },
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Text(
+                                    'Resend Otp ',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.send,
+                                    size: 16,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -137,6 +150,7 @@ class OtpScreen extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: Column(
                     children: [
+                      const Divider(),
                       Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -159,7 +173,7 @@ class OtpScreen extends ConsumerWidget {
                               ),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
