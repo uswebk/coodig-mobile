@@ -252,6 +252,31 @@ class OtpScreen extends ConsumerWidget {
                           child: const Text('Verify'),
                         ),
                       ),
+                      TextButton(
+                        onPressed: () async {
+                          // Reset Token
+                          // To Launch
+                        },
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text(
+                              'Don\'t remember registering? ',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Colors.grey,
+                              ),
+                            ),
+                            Text(
+                              'Reregistration',
+                              style: TextStyle(
+                                fontSize: 13,
+                                decoration: TextDecoration.underline,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ],
                   ),
                 ),
