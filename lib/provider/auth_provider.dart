@@ -21,6 +21,10 @@ class AuthNotifier extends StateNotifier<User?> {
     state = await _userService.fetchMe();
   }
 
+  Future<void> resetUser() async {
+    state = null;
+  }
+
   Future<bool> login(String email, String password) async {
     bool isLoggedIn = await _authService.login(email, password);
     await fetchMe();
@@ -35,6 +39,11 @@ class AuthNotifier extends StateNotifier<User?> {
     await fetchMe();
 
     return isSignUp;
+  }
+
+  Future<void> reregistration() async {
+    await _authService.logout();
+    await resetUser();
   }
 
   Future<void> logout() async {

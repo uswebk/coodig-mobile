@@ -7,6 +7,7 @@ import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../provider/auth_provider.dart';
+import '../../provider/login_provider.dart';
 import '../dashboard/dashboard_screen.dart';
 import '../launch/launch_screen.dart';
 
@@ -254,8 +255,13 @@ class OtpScreen extends ConsumerWidget {
                       ),
                       TextButton(
                         onPressed: () async {
-                          // Reset Token
-                          // To Launch
+                          await ref
+                              .read(authStateProvider.notifier)
+                              .reregistration();
+                          ref
+                              .read(loginStateProvider.notifier)
+                              .setLoading(false);
+                          Get.off(const LaunchScreen());
                         },
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
