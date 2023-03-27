@@ -1,5 +1,4 @@
 import 'package:coodig_mobile/provider/auth_provider.dart';
-import 'package:coodig_mobile/provider/login_provider.dart';
 import 'package:coodig_mobile/provider/signup_provider.dart';
 import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
 import 'package:coodig_mobile/view/otp/otp_screen.dart';
@@ -198,7 +197,7 @@ class SignupScreen extends ConsumerWidget {
                                     name, email, password, confirmPassword);
 
                                 ref
-                                    .read(loginStateProvider.notifier)
+                                    .read(signupStateProvider.notifier)
                                     .setLoading(false);
                               }
                             },
