@@ -18,13 +18,20 @@ class OtpState {
   int minutes;
   int seconds;
   bool isCalled;
-  OtpState({this.minutes = 0, this.seconds = 0, this.isCalled = false});
+  Timer? timer;
+  OtpState(
+      {this.minutes = 0, this.seconds = 0, this.isCalled = false, this.timer});
 }
 
 class OtpTimerNotifier extends StateNotifier<OtpState> {
   OtpTimerNotifier(this._otpService) : super(OtpState());
 
   final OtpService _otpService;
+
+  void reset() {
+    state.timer!.cancel();
+    state = OtpState();
+  }
 
   Future<void> startTimer() async {
     if (!state.isCalled) {
@@ -53,16 +60,22 @@ class OtpTimerNotifier extends StateNotifier<OtpState> {
       state = OtpState(minutes: minutes, seconds: seconds, isCalled: true);
 
       Timer.periodic(const Duration(seconds: 1), (timer) {
-        if (state.minutes == 0 && state.seconds == 0) {
+        if (state.isCalled == false) {
+          timer.cancel();
+        } else if (state.minutes == 0 && state.seconds == 0) {
           timer.cancel();
         } else if (state.seconds == 0) {
           int minutes = state.minutes - 1;
           int seconds = 59;
-          state = OtpState(minutes: minutes, seconds: seconds, isCalled: true);
+          state = OtpState(
+              minutes: minutes, seconds: seconds, isCalled: true, timer: timer);
         } else {
           int seconds = state.seconds - 1;
           state = OtpState(
-              minutes: state.minutes, seconds: seconds, isCalled: true);
+              minutes: state.minutes,
+              seconds: seconds,
+              isCalled: true,
+              timer: timer);
         }
       });
     }
