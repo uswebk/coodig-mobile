@@ -34,50 +34,48 @@ class OtpTimerNotifier extends StateNotifier<OtpState> {
   }
 
   Future<void> startTimer() async {
-    if (!state.isCalled) {
-      Otp? otp = await _otpService.fetch();
+    Otp? otp = await _otpService.fetch();
 
-      int minutes = 0;
-      int seconds = 0;
+    int minutes = 0;
+    int seconds = 0;
 
-      if (otp != null) {
-        DateTime now = DateTime.parse(DateTime.now()
-            .toString()
-            .substring(0, DateTime.now().toString().length - 7));
+    if (otp != null) {
+      DateTime now = DateTime.parse(DateTime.now()
+          .toString()
+          .substring(0, DateTime.now().toString().length - 7));
 
-        DateTime expirationAt = DateTime.parse(otp.expirationAt
-            .toString()
-            .substring(0, otp.expirationAt.toString().length - 5));
+      DateTime expirationAt = DateTime.parse(otp.expirationAt
+          .toString()
+          .substring(0, otp.expirationAt.toString().length - 5));
 
-        Duration difference = expirationAt.difference(now);
+      Duration difference = expirationAt.difference(now);
 
-        if (!difference.isNegative) {
-          minutes = difference.inMinutes;
-          seconds = difference.inSeconds.remainder(60);
-        }
+      if (!difference.isNegative) {
+        minutes = difference.inMinutes;
+        seconds = difference.inSeconds.remainder(60);
       }
-
-      state = OtpState(minutes: minutes, seconds: seconds, isCalled: true);
-
-      Timer.periodic(const Duration(seconds: 1), (timer) {
-        if (state.isCalled == false) {
-          timer.cancel();
-        } else if (state.minutes == 0 && state.seconds == 0) {
-          timer.cancel();
-        } else if (state.seconds == 0) {
-          int minutes = state.minutes - 1;
-          int seconds = 59;
-          state = OtpState(
-              minutes: minutes, seconds: seconds, isCalled: true, timer: timer);
-        } else {
-          int seconds = state.seconds - 1;
-          state = OtpState(
-              minutes: state.minutes,
-              seconds: seconds,
-              isCalled: true,
-              timer: timer);
-        }
-      });
     }
+
+    state = OtpState(minutes: minutes, seconds: seconds, isCalled: true);
+
+    Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (state.isCalled == false) {
+        timer.cancel();
+      } else if (state.minutes == 0 && state.seconds == 0) {
+        timer.cancel();
+      } else if (state.seconds == 0) {
+        int minutes = state.minutes - 1;
+        int seconds = 59;
+        state = OtpState(
+            minutes: minutes, seconds: seconds, isCalled: true, timer: timer);
+      } else {
+        int seconds = state.seconds - 1;
+        state = OtpState(
+            minutes: state.minutes,
+            seconds: seconds,
+            isCalled: true,
+            timer: timer);
+      }
+    });
   }
 }
