@@ -93,8 +93,8 @@ class AuthService {
     await _localStorage.removeToken();
   }
 
-  Future<bool> sendOtp(String otp) async {
-    final response = await _authRepository.sendOtp(otp);
+  Future<bool> verify(String otp) async {
+    final response = await _authRepository.verify(otp);
 
     if (response.statusCode == 200) {
       return true;
@@ -103,7 +103,7 @@ class AuthService {
     if (response.statusCode == 401) {
       await refresh();
 
-      final retryResponse = await _authRepository.sendOtp(otp);
+      final retryResponse = await _authRepository.verify(otp);
       if (retryResponse.statusCode == 200) {
         return true;
       }
@@ -121,6 +121,28 @@ class AuthService {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
       _ref.read(otpStateProvider.notifier).setMessage(errors);
+    }
+
+    return false;
+  }
+
+  Future<bool> resendOtp() async {
+    final response = await _authRepository.sendOtp();
+
+    if (response.statusCode == 200) {
+      return true;
+    }
+
+    if (response.statusCode == 401) {
+      await refresh();
+
+      final retryResponse = await _authRepository.sendOtp();
+
+      if (retryResponse.statusCode == 200) {
+        return true;
+      }
+
+      return false;
     }
 
     return false;

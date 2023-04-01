@@ -44,9 +44,15 @@ class AuthRepository {
         '');
   }
 
-  Future<http.Response> sendOtp(String otp) async {
+  Future<http.Response> verify(String otp) async {
     String accessToken = await _localStorage.getAccessToken() ?? '';
     return await _httpClient.post(
         '/api/v1/accounts/otp/verify/', {'otp': otp}, accessToken);
+  }
+
+  Future<http.Response> sendOtp() async {
+    String accessToken = await _localStorage.getAccessToken() ?? '';
+    return await _httpClient.post(
+        '/api/v1/accounts/otp/send/', {}, accessToken);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/provider/otp_provider.dart';
+import 'package:coodig_mobile/provider/otp_timer_provider.dart';
 import 'package:coodig_mobile/view/otp/widget/timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +17,7 @@ class OtpScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.read(authStateProvider);
+    final email = ref.watch(authStateProvider)?.email ?? '';
     final state = ref.watch(otpStateProvider);
     final controllers = state.controllers;
 
@@ -78,7 +79,7 @@ class OtpScreen extends ConsumerWidget {
                                           child: SizedBox(height: 15),
                                         ),
                                         TextSpan(
-                                          text: '${user!.email}\n',
+                                          text: '$email\n',
                                           style: TextStyle(
                                             fontSize: 11,
                                             decoration:
@@ -119,8 +120,12 @@ class OtpScreen extends ConsumerWidget {
                           children: [
                             TextButton(
                               onPressed: () async {
-                                // Resend Otp
-                                // Snackbar
+                                await ref
+                                    .read(otpStateProvider.notifier)
+                                    .resendOtp();
+                                ref
+                                    .read(otpTimerStateProvider.notifier)
+                                    .reset();
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -239,7 +244,7 @@ class OtpScreen extends ConsumerWidget {
                                       .setLoading(true);
                                   bool result = await ref
                                       .read(otpStateProvider.notifier)
-                                      .send();
+                                      .verify();
                                   if (result) {
                                     await ref
                                         .read(authStateProvider.notifier)
@@ -258,6 +263,7 @@ class OtpScreen extends ConsumerWidget {
                           await ref
                               .read(authStateProvider.notifier)
                               .reregistration();
+                          ref.read(otpStateProvider.notifier).resetState();
                           ref
                               .read(loginStateProvider.notifier)
                               .setLoading(false);

@@ -58,12 +58,24 @@ class OtpStateNotifier extends StateNotifier<OtpState> {
     state = state.copyWith(otp: otp, isButtonEnabled: isButtonEnabled);
   }
 
+  void resetState() {
+    final controllers = List.generate(
+        6, (index) => TextEditingController(text: ''),
+        growable: false);
+    state = OtpState(controllers);
+  }
+
   void setLoading(bool isLoading) {
     state = state.copyWith(isLoading: isLoading);
   }
 
-  Future<bool> send() async {
-    return await _authService.sendOtp(state.otp);
+  Future<bool> verify() async {
+    return await _authService.verify(state.otp);
+  }
+
+  Future<void> resendOtp() async {
+    resetState();
+    await _authService.resendOtp();
   }
 
   void setMessage(Map<String, dynamic> errors) {

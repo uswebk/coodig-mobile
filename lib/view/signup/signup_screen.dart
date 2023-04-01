@@ -21,8 +21,8 @@ class SignupScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
-      bool hasAccount = ref.watch(hasAccountProvider);
+      bool isEmailVerified = ref.watch(isEmailVerifiedProvider) ?? false;
+      bool hasAccount = ref.watch(hasAccountProvider) ?? false;
       if (isEmailVerified) {
         Get.off(const DashboardScreen());
       } else if (hasAccount) {
