@@ -29,3 +29,6 @@ class SignupNotifier extends StateNotifier<SignupState> {
         SignupState(isLoading: isLoading, errorMessages: state.errorMessages);
   }
 }
+
+final passwordVisibleProvider = StateProvider<bool>((ref) => false);
+final passwordConfirmVisibleProvider = StateProvider<bool>((ref) => false);

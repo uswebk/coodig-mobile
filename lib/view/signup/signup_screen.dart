@@ -34,6 +34,7 @@ class SignupScreen extends ConsumerWidget {
 
     return Stack(children: [
       Scaffold(
+        backgroundColor: Colors.grey[300],
         appBar: AppBar(
           backgroundColor: Colors.orangeAccent,
           title: const Text('SignUp'),
@@ -45,170 +46,227 @@ class SignupScreen extends ConsumerWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
-                  child: Column(
-                    children: [
-                      TextFormField(
-                        controller: nameController,
-                        decoration: const InputDecoration(labelText: 'Name'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your name';
-                          }
-                          return null;
-                        },
-                        onChanged: (String value) {},
-                      ),
-                      if (state.errorMessages != null &&
-                          state.errorMessages!['name'] != null)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: Text(
-                              state.errorMessages!['name']!,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Color.fromRGBO(217, 56, 45, 1.0),
+                Expanded(flex: 1, child: Container()),
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextFormField(
+                          controller: nameController,
+                          decoration: const InputDecoration(
+                            labelText: 'Name',
+                            icon: Icon(Icons.account_box),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your name';
+                            }
+                            return null;
+                          },
+                          onChanged: (String value) {},
+                        ),
+                        if (state.errorMessages != null &&
+                            state.errorMessages!['name'] != null)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                state.errorMessages!['name']!,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(217, 56, 45, 1.0),
+                                ),
                               ),
                             ),
                           ),
+                        const SizedBox(
+                          height: 10,
                         ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        controller: emailController,
-                        decoration: const InputDecoration(labelText: 'Email'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          return null;
-                        },
-                        onChanged: (String value) {},
-                      ),
-                      if (state.errorMessages != null &&
-                          state.errorMessages!['email'] != null)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: Text(
-                              state.errorMessages!['email']!,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Color.fromRGBO(217, 56, 45, 1.0),
+                        TextFormField(
+                          controller: emailController,
+                          decoration: const InputDecoration(
+                            labelText: 'Email',
+                            icon: Icon(Icons.email),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            return null;
+                          },
+                          onChanged: (String value) {},
+                        ),
+                        if (state.errorMessages != null &&
+                            state.errorMessages!['email'] != null)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                state.errorMessages!['email']!,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(217, 56, 45, 1.0),
+                                ),
                               ),
                             ),
                           ),
+                        const SizedBox(
+                          height: 10,
                         ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration:
-                            const InputDecoration(labelText: 'Password'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your password';
-                          }
+                        Consumer(
+                          builder: (BuildContext context, WidgetRef ref,
+                              Widget? child) {
+                            final passwordVisible =
+                                ref.watch(passwordVisibleProvider);
 
-                          if (value.length <= 6) {
-                            return 'Password must be at least 6 characters';
-                          }
-                          return null;
-                        },
-                        onChanged: (String value) {},
-                      ),
-                      if (state.errorMessages != null &&
-                          state.errorMessages!['password'] != null)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: Text(
-                              state.errorMessages!['password']!,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Color.fromRGBO(217, 56, 45, 1.0),
+                            return TextFormField(
+                              controller: passwordController,
+                              obscureText: !passwordVisible,
+                              decoration: InputDecoration(
+                                labelText: 'Password',
+                                icon: const Icon(Icons.lock),
+                                suffixIcon: IconButton(
+                                  icon: Icon(passwordVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  onPressed: () {
+                                    ref
+                                        .read(passwordVisibleProvider.notifier)
+                                        .state = !passwordVisible;
+                                  },
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter your password';
+                                }
+
+                                if (value.length <= 6) {
+                                  return 'Password must be at least 6 characters';
+                                }
+                                return null;
+                              },
+                              onChanged: (String value) {},
+                            );
+                          },
+                        ),
+                        if (state.errorMessages != null &&
+                            state.errorMessages!['password'] != null)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                state.errorMessages!['password']!,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(217, 56, 45, 1.0),
+                                ),
                               ),
                             ),
                           ),
+                        const SizedBox(
+                          height: 10,
                         ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextFormField(
-                        controller: confirmPasswordController,
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                            labelText: 'Confirm Password'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your ConfirmPassword';
-                          }
+                        Consumer(
+                          builder: (BuildContext context, WidgetRef ref,
+                              Widget? child) {
+                            final passwordConfirmVisible =
+                                ref.watch(passwordConfirmVisibleProvider);
 
-                          if (value.length <= 6) {
-                            return 'Password must be at least 6 characters';
-                          }
-                          return null;
-                        },
-                        onChanged: (String value) {},
-                      ),
-                      if (state.errorMessages != null &&
-                          state.errorMessages!['non_field_errors'] != null)
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: Text(
-                              state.errorMessages!['non_field_errors']!,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: Color.fromRGBO(217, 56, 45, 1.0),
+                            return TextFormField(
+                              controller: confirmPasswordController,
+                              obscureText: !passwordConfirmVisible,
+                              decoration: InputDecoration(
+                                labelText: 'Confirm Password',
+                                icon: const Icon(Icons.lock),
+                                suffixIcon: IconButton(
+                                  icon: Icon(passwordConfirmVisible
+                                      ? Icons.visibility
+                                      : Icons.visibility_off),
+                                  onPressed: () {
+                                    ref
+                                        .read(passwordConfirmVisibleProvider
+                                            .notifier)
+                                        .state = !passwordConfirmVisible;
+                                  },
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please enter your ConfirmPassword';
+                                }
+
+                                if (value.length <= 6) {
+                                  return 'Password must be at least 6 characters';
+                                }
+                                return null;
+                              },
+                              onChanged: (String value) {},
+                            );
+                          },
+                        ),
+                        if (state.errorMessages != null &&
+                            state.errorMessages!['non_field_errors'] != null)
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                state.errorMessages!['non_field_errors']!,
+                                style: const TextStyle(
+                                  fontSize: 13,
+                                  color: Color.fromRGBO(217, 56, 45, 1.0),
+                                ),
                               ),
                             ),
                           ),
+                        const SizedBox(
+                          height: 20,
                         ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
-                                String name = nameController.text;
-                                String email = emailController.text;
-                                String password = passwordController.text;
-                                String confirmPassword =
-                                    confirmPasswordController.text;
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                              onPressed: () async {
+                                if (_formKey.currentState!.validate()) {
+                                  _formKey.currentState!.save();
+                                  String name = nameController.text;
+                                  String email = emailController.text;
+                                  String password = passwordController.text;
+                                  String confirmPassword =
+                                      confirmPasswordController.text;
 
-                                ref
-                                    .read(signupStateProvider.notifier)
-                                    .setLoading(true);
+                                  ref
+                                      .read(signupStateProvider.notifier)
+                                      .setLoading(true);
 
-                                ref.read(authStateProvider.notifier).signup(
-                                    name, email, password, confirmPassword);
+                                  ref.read(authStateProvider.notifier).signup(
+                                      name, email, password, confirmPassword);
 
-                                ref
-                                    .read(signupStateProvider.notifier)
-                                    .setLoading(false);
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.orangeAccent,
-                            ),
-                            child: const Text('Sign up')),
-                      ),
-                    ],
+                                  ref
+                                      .read(signupStateProvider.notifier)
+                                      .setLoading(false);
+                                }
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.orangeAccent,
+                              ),
+                              child: const Text('Sign up')),
+                        ),
+                        const Divider(
+                          color: Colors.grey,
+                        ),
+                      ],
+                    ),
                   ),
-                )
+                ),
+                Expanded(flex: 1, child: Container()),
               ],
             ),
           ),
