@@ -20,34 +20,19 @@ class LaunchScreen extends ConsumerWidget {
               const SizedBox(
                 height: 20,
               ),
-              Column(children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: const [
-                    Text(
-                      'Coodig',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 42,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      width: 3,
-                    ),
-                    Text(
-                      '🎧',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 32,
-                      ),
-                    ),
-                  ],
+              Column(children: const [
+                Text(
+                  'Coodig',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 42,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 10,
                 ),
-                const Text(
+                Text(
                   '- Quiz Application For Engineers -',
                   style: TextStyle(
                     color: Colors.white,
