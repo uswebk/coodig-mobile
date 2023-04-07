@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
 import 'package:coodig_mobile/view/login/login_screen.dart';
 import 'package:coodig_mobile/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -5,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:uni_links/uni_links.dart';
 
-void main() {
+void main() async {
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -15,6 +16,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Coodig',
       theme: ThemeData(
         primaryColor: Colors.orangeAccent,
@@ -23,21 +25,23 @@ class MyApp extends ConsumerWidget {
           primarySwatch: Colors.blue,
         ),
       ),
-      // home: const SplashScreen(),
       onGenerateRoute: (settings) {
-        if (settings.name!.startsWith('/login')) {
-          return MaterialPageRoute(
-            builder: (context) => LoginScreen(),
-          );
-        }
         return null;
       },
       onGenerateInitialRoutes: (initialRoute) {
+        Widget screen;
+
+        if (initialRoute != '/') {
+          screen = LoginScreen();
+        } else {
+          screen = const SplashScreen();
+        }
+
         return [
           MaterialPageRoute(
             builder: (context) {
               initUniLinks(context);
-              return const SplashScreen();
+              return screen;
             },
           ),
         ];
@@ -49,7 +53,7 @@ class MyApp extends ConsumerWidget {
 void initUniLinks(BuildContext context) {
   linkStream.listen((String? link) {
     if (link != null && link.isNotEmpty) {
-      Navigator.of(context).pushNamed(link);
+      Get.to(const DashboardScreen());
     }
   }, onError: (err) {
     print("Error listening to links: $err");
