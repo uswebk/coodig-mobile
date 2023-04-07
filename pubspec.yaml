@@ -43,6 +43,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   modal_progress_hud_nsn: ^0.3.0
   uni_links: ^0.5.1
+  url_launcher: ^6.1.10
 
 dev_dependencies:
   flutter_test:
