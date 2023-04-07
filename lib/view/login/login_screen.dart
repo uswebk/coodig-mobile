@@ -1,16 +1,18 @@
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/provider/login_provider.dart';
 import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
+import 'package:coodig_mobile/view/login/widget/login_form.dart';
 import 'package:coodig_mobile/view/otp/otp_screen.dart';
+import 'package:coodig_mobile/view/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../launch/launch_screen.dart';
+
 class LoginScreen extends ConsumerWidget {
   LoginScreen({super.key});
-
-  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -31,103 +33,55 @@ class LoginScreen extends ConsumerWidget {
 
     return Stack(children: [
       Scaffold(
+        backgroundColor: Colors.grey[300],
         appBar: AppBar(
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios),
+            onPressed: () {
+              Get.to(const LaunchScreen());
+            },
+          ),
           backgroundColor: Colors.orangeAccent,
           title: const Text('Login'),
           elevation: 0,
         ),
-        body: Form(
-          key: _formKey,
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: (state.errorMessage != '')
-                      ? Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            color: Colors.red[50],
-                            borderRadius: BorderRadius.circular(4.0),
-                            border: Border.all(color: Colors.red.shade100),
-                          ),
-                          child: Text(
-                            state.errorMessage,
-                            style: TextStyle(color: Colors.red.shade300),
-                          ),
-                        )
-                      : Container(),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 30),
+        body: Column(
+          children: [
+            Expanded(flex: 2, child: Container()),
+            Expanded(
+                flex: 3,
+                child: SingleChildScrollView(
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      TextFormField(
-                        controller: emailController,
-                        decoration: const InputDecoration(labelText: 'Email'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          return null;
-                        },
-                        onChanged: (String value) {},
-                      ),
+                      const LoginForm(),
                       const SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
-                      TextFormField(
-                        controller: passwordController,
-                        obscureText: true,
-                        decoration:
-                            const InputDecoration(labelText: 'Password'),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your password';
-                          }
-
-                          if (value.length <= 6) {
-                            return 'Password must be at least 6 characters';
-                          }
-                          return null;
-                        },
-                        onChanged: (String value) {},
+                      const Divider(
+                        color: Colors.grey,
                       ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                            onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
-                                String email = emailController.text;
-                                String password = passwordController.text;
-                                ref
-                                    .read(loginStateProvider.notifier)
-                                    .setLoading(true);
-                                await ref
-                                    .watch(authStateProvider.notifier)
-                                    .login(email, password);
-                                ref
-                                    .read(loginStateProvider.notifier)
-                                    .setLoading(false);
-                              }
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Text(
+                            'Don’t have an account? ',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                          TextButton(
+                            child: const Text('Sign Up'),
+                            onPressed: () {
+                              Get.to(const SignupScreen());
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.orangeAccent,
-                            ),
-                            child: const Text('Login')),
-                      ),
+                          ),
+                        ],
+                      )
                     ],
                   ),
-                )
-              ],
-            ),
-          ),
+                )),
+            Expanded(flex: 2, child: Container()),
+          ],
         ),
       ),
       ModalProgressHUD(
