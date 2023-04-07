@@ -44,38 +44,40 @@ class SignupScreen extends ConsumerWidget {
         ),
         body: Column(
           children: [
-            Expanded(flex: 1, child: Container()),
+            Expanded(flex: 2, child: Container()),
             Expanded(
               flex: 5,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SignupForm(),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        'Already have an account? ',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      TextButton(
-                        child: const Text('Sign in'),
-                        onPressed: () {
-                          Get.to(LoginScreen());
-                        },
-                      ),
-                    ],
-                  )
-                ],
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SignupForm(),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Divider(
+                      color: Colors.grey,
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          'Already have an account? ',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        TextButton(
+                          child: const Text('Sign in'),
+                          onPressed: () {
+                            Get.to(LoginScreen());
+                          },
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
-            Expanded(flex: 1, child: Container()),
+            Expanded(flex: 2, child: Container()),
           ],
         ),
       ),
