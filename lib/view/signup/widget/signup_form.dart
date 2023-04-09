@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 import '../../../provider/auth_provider.dart';
 import '../../../provider/signup_provider.dart';
+import '../../otp/otp_screen.dart';
 
 class SignupForm extends ConsumerWidget {
   const SignupForm({super.key});
@@ -224,13 +226,15 @@ class SignupForm extends ConsumerWidget {
 
                         ref.read(signupStateProvider.notifier).setLoading(true);
 
-                        ref
+                        await ref
                             .read(authStateProvider.notifier)
                             .signup(name, email, password, confirmPassword);
 
                         ref
                             .read(signupStateProvider.notifier)
                             .setLoading(false);
+
+                        Get.off(const OtpScreen());
                       }
                     },
                     style: ElevatedButton.styleFrom(
