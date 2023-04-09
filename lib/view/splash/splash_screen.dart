@@ -13,7 +13,7 @@ class SplashScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future.delayed(const Duration(seconds: 2)).then((value) async {
-      await ref.watch(authStateProvider.notifier).fetchMe();
+      await ref.read(authStateProvider.notifier).fetchMe();
 
       final bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
       final bool hasAccount = ref.watch(hasAccountProvider);
