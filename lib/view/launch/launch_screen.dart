@@ -4,84 +4,104 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
+import '../../provider/auth_provider.dart';
+import '../dashboard/dashboard_screen.dart';
+import '../otp/otp_screen.dart';
+
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    bool isEmailVerified = ref.read(isEmailVerifiedProvider) ?? false;
+    bool hasAccount = ref.read(hasAccountProvider) ?? false;
     return Scaffold(
       backgroundColor: Colors.orangeAccent,
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 200, horizontal: 20),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(
-                height: 20,
-              ),
-              Column(children: const [
-                Text(
-                  'Coodig',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 42,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  '- Quiz Application For Engineers -',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                  ),
-                ),
-              ]),
-              const SizedBox(
-                height: 20,
-              ),
-              Column(
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Column(
                 children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                        onPressed: () {
-                          Get.to(SignupScreen());
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueAccent,
-                        ),
-                        child: const Text('Sign Up')),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Get.to(LoginScreen());
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                      ),
-                      child: const Text(
-                        'Sign In',
-                        style: TextStyle(
-                            color: Colors.black87, fontWeight: FontWeight.w600),
+                  Column(children: const [
+                    Text(
+                      'Coodig',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 42,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      '- Quiz Application For Engineers -',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ]),
+                  const SizedBox(
+                    height: 100,
+                  ),
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                            onPressed: () {
+                              if (isEmailVerified) {
+                                Get.off(const DashboardScreen());
+                              } else if (hasAccount) {
+                                Get.to(const OtpScreen());
+                              } else {
+                                Get.to(const SignupScreen());
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blueAccent,
+                            ),
+                            child: const Text('Sign Up')),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            if (isEmailVerified) {
+                              Get.off(const DashboardScreen());
+                            } else if (hasAccount) {
+                              Get.to(const OtpScreen());
+                            } else {
+                              Get.to(LoginScreen());
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                          ),
+                          child: const Text(
+                            'Sign In',
+                            style: TextStyle(
+                                color: Colors.black87,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
