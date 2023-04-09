@@ -12,7 +12,7 @@ class ExpirationTimer extends ConsumerWidget {
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       if (state!.isCalled == false) {
-        ref.read(otpTimerStateProvider.notifier).startTimer();
+        await ref.read(otpTimerStateProvider.notifier).startTimer();
       }
     });
 
