@@ -42,39 +42,37 @@ class SignupScreen extends ConsumerWidget {
           title: const Text('SignUp'),
           elevation: 0,
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SignupForm(),
-                  const SizedBox(
-                    height: 5,
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                  ),
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text(
-                        'Already have an account? ',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                      TextButton(
-                        child: const Text('Sign in'),
-                        onPressed: () {
-                          Get.to(LoginScreen());
-                        },
-                      ),
-                    ],
-                  )
-                ],
-              ),
+        body: Container(
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SignupForm(),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Divider(
+                  color: Colors.grey,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Already have an account? ',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    TextButton(
+                      child: const Text('Sign in'),
+                      onPressed: () {
+                        Get.to(LoginScreen());
+                      },
+                    ),
+                  ],
+                )
+              ],
             ),
-          ],
+          ),
         ),
       ),
       ModalProgressHUD(
