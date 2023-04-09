@@ -45,43 +45,36 @@ class LoginScreen extends ConsumerWidget {
           title: const Text('Login'),
           elevation: 0,
         ),
-        body: Column(
-          children: [
-            Expanded(flex: 2, child: Container()),
-            Expanded(
-                flex: 3,
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const LoginForm(),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      const Divider(
-                        color: Colors.grey,
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Text(
-                            'Don’t have an account? ',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          TextButton(
-                            child: const Text('Sign Up'),
-                            onPressed: () {
-                              Get.to(const SignupScreen());
-                            },
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                )),
-            Expanded(flex: 2, child: Container()),
-          ],
+        body: Container(
+          alignment: Alignment.center,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const LoginForm(),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Divider(
+                  color: Colors.grey,
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Don’t have an account? ',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    TextButton(
+                      child: const Text('Sign Up'),
+                      onPressed: () {
+                        Get.to(const SignupScreen());
+                      },
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
         ),
       ),
       ModalProgressHUD(
