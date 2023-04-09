@@ -6,13 +6,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../provider/auth_provider.dart';
+import '../dashboard/dashboard_screen.dart';
 import '../launch/launch_screen.dart';
+import '../otp/otp_screen.dart';
 
 class SignupScreen extends ConsumerWidget {
   const SignupScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
+      bool hasAccount = ref.watch(hasAccountProvider);
+      if (isEmailVerified) {
+        Get.off(const DashboardScreen());
+      } else if (hasAccount) {
+        Get.off(const OtpScreen());
+      }
+    });
+
     SignupState state = ref.watch(signupStateProvider);
 
     return Stack(children: [
@@ -30,41 +43,37 @@ class SignupScreen extends ConsumerWidget {
           elevation: 0,
         ),
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(flex: 2, child: Container()),
-            Expanded(
-              flex: 5,
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const SignupForm(),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    const Divider(
-                      color: Colors.grey,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          'Already have an account? ',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        TextButton(
-                          child: const Text('Sign in'),
-                          onPressed: () {
-                            Get.to(LoginScreen());
-                          },
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+            SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SignupForm(),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text(
+                        'Already have an account? ',
+                        style: TextStyle(color: Colors.grey),
+                      ),
+                      TextButton(
+                        child: const Text('Sign in'),
+                        onPressed: () {
+                          Get.to(LoginScreen());
+                        },
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
-            Expanded(flex: 2, child: Container()),
           ],
         ),
       ),

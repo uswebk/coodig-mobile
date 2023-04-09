@@ -1,10 +1,10 @@
+import 'package:coodig_mobile/provider/otp_provider.dart';
+import 'package:coodig_mobile/provider/otp_timer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
 
 import '../../../provider/auth_provider.dart';
 import '../../../provider/signup_provider.dart';
-import '../../otp/otp_screen.dart';
 
 class SignupForm extends ConsumerWidget {
   const SignupForm({super.key});
@@ -225,16 +225,14 @@ class SignupForm extends ConsumerWidget {
                         String confirmPassword = confirmPasswordController.text;
 
                         ref.read(signupStateProvider.notifier).setLoading(true);
-
                         await ref
                             .read(authStateProvider.notifier)
                             .signup(name, email, password, confirmPassword);
-
+                        ref.read(otpStateProvider.notifier).resetState();
+                        ref.read(otpTimerStateProvider.notifier).reset();
                         ref
                             .read(signupStateProvider.notifier)
                             .setLoading(false);
-
-                        Get.off(const OtpScreen());
                       }
                     },
                     style: ElevatedButton.styleFrom(
