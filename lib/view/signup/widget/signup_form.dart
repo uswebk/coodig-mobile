@@ -214,7 +214,7 @@ class SignupForm extends ConsumerWidget {
               ),
               SizedBox(
                 width: double.infinity,
-                height: 40,
+                height: 45,
                 child: ElevatedButton(
                     onPressed: () async {
                       if (formKey.currentState!.validate()) {
@@ -224,12 +224,13 @@ class SignupForm extends ConsumerWidget {
                         String password = passwordController.text;
                         String confirmPassword = confirmPasswordController.text;
 
+                        ref.read(signupStateProvider.notifier).resetState();
                         ref.read(signupStateProvider.notifier).setLoading(true);
                         await ref
                             .read(authStateProvider.notifier)
                             .signup(name, email, password, confirmPassword);
                         ref.read(otpStateProvider.notifier).resetState();
-                        ref.read(otpTimerStateProvider.notifier).reset();
+                        ref.read(otpTimerStateProvider.notifier).resetTimer();
                         ref
                             .read(signupStateProvider.notifier)
                             .setLoading(false);

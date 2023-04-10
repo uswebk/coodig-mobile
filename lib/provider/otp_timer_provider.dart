@@ -28,7 +28,7 @@ class OtpTimerNotifier extends StateNotifier<OtpState> {
 
   final OtpService _otpService;
 
-  void reset() {
+  void resetTimer() {
     if (state.timer != null) {
       state.timer!.cancel();
     }
