@@ -28,6 +28,10 @@ class SignupNotifier extends StateNotifier<SignupState> {
     state =
         SignupState(isLoading: isLoading, errorMessages: state.errorMessages);
   }
+
+  void resetState() {
+    state = SignupState();
+  }
 }
 
 final passwordVisibleProvider = StateProvider<bool>((ref) => false);
