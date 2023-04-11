@@ -46,7 +46,7 @@ class LaunchScreen extends ConsumerWidget {
                     ),
                   ]),
                   const SizedBox(
-                    height: 100,
+                    height: 220,
                   ),
                   Column(
                     children: [
@@ -74,18 +74,16 @@ class LaunchScreen extends ConsumerWidget {
                       SizedBox(
                         width: double.infinity,
                         height: 50,
-                        child: ElevatedButton(
+                        child: TextButton(
                           onPressed: () {
                             if (isEmailVerified) {
                               Get.off(const DashboardScreen());
-                            } else if (hasAccount) {
-                              Get.to(const OtpScreen());
                             } else {
                               Get.to(LoginScreen());
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
+                            backgroundColor: Colors.white70,
                           ),
                           child: const Text(
                             'Sign In',
