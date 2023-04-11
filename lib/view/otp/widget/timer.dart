@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../provider/otp_timer_provider.dart';
 
-class ExpirationTimer extends ConsumerWidget {
-  const ExpirationTimer({super.key});
+class Timer extends ConsumerWidget {
+  const Timer({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

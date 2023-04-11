@@ -119,7 +119,7 @@ class OtpScreen extends ConsumerWidget {
                     ),
                     Column(
                       children: [
-                        const ExpirationTimer(),
+                        const Timer(),
                         Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -130,7 +130,7 @@ class OtpScreen extends ConsumerWidget {
                                     .resendOtp();
                                 ref
                                     .read(otpTimerStateProvider.notifier)
-                                    .reset();
+                                    .resetTimer();
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
