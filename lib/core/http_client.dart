@@ -2,7 +2,8 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-const host = 'http://127.0.0.1:9999';
+// const host = 'http://10.0.2.2:9999'; // For Android
+const host = 'http://127.0.0.1:9999'; // For IOS
 
 class HttpClient {
   Future<http.Response> get(
