@@ -13,8 +13,8 @@ class LaunchScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    bool isEmailVerified = ref.read(isEmailVerifiedProvider) ?? false;
-    bool hasAccount = ref.read(hasAccountProvider) ?? false;
+    bool isEmailVerified = ref.watch(isEmailVerifiedProvider) ?? false;
+    bool hasAccount = ref.watch(hasAccountProvider) ?? false;
     return Scaffold(
       backgroundColor: Colors.orangeAccent,
       body: Column(
@@ -54,19 +54,20 @@ class LaunchScreen extends ConsumerWidget {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                            onPressed: () {
-                              if (isEmailVerified) {
-                                Get.off(const DashboardScreen());
-                              } else if (hasAccount) {
-                                Get.to(const OtpScreen());
-                              } else {
-                                Get.to(const SignupScreen());
-                              }
-                            },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueAccent,
-                            ),
-                            child: const Text('Sign Up')),
+                          onPressed: () {
+                            if (isEmailVerified) {
+                              Get.off(const DashboardScreen());
+                            } else if (hasAccount) {
+                              Get.to(const OtpScreen());
+                            } else {
+                              Get.to(const SignupScreen());
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueAccent,
+                          ),
+                          child: const Text('Sign Up'),
+                        ),
                       ),
                       const SizedBox(
                         height: 10,
