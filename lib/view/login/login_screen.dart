@@ -2,7 +2,6 @@ import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/provider/login_provider.dart';
 import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
 import 'package:coodig_mobile/view/login/widget/login_form.dart';
-import 'package:coodig_mobile/view/otp/otp_screen.dart';
 import 'package:coodig_mobile/view/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../launch/launch_screen.dart';
+import '../password_reset/forget_password_screen.dart';
 
 class LoginScreen extends ConsumerWidget {
   LoginScreen({super.key});
@@ -21,10 +21,7 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
-      bool hasAccount = ref.watch(hasAccountProvider);
       if (isEmailVerified) {
-        Get.off(const OtpScreen());
-      } else if (hasAccount) {
         Get.off(const DashboardScreen());
       }
     });
@@ -54,6 +51,12 @@ class LoginScreen extends ConsumerWidget {
                 const SizedBox(
                   height: 5,
                 ),
+                TextButton(
+                  child: const Text('Forget Password?'),
+                  onPressed: () {
+                    Get.to(const ForgetPasswordScreen());
+                  },
+                ),
                 const Divider(
                   color: Colors.grey,
                 ),
@@ -71,7 +74,7 @@ class LoginScreen extends ConsumerWidget {
                       },
                     ),
                   ],
-                )
+                ),
               ],
             ),
           ),
