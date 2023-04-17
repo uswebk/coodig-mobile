@@ -39,7 +39,7 @@ class LoginForm extends ConsumerWidget {
                     )
                   : Container(),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
@@ -95,26 +95,27 @@ class LoginForm extends ConsumerWidget {
                     width: double.infinity,
                     height: 40,
                     child: ElevatedButton(
-                        onPressed: () async {
-                          if (formKey.currentState!.validate()) {
-                            formKey.currentState!.save();
-                            String email = emailController.text;
-                            String password = passwordController.text;
-                            ref
-                                .read(loginStateProvider.notifier)
-                                .setLoading(true);
-                            await ref
-                                .watch(authStateProvider.notifier)
-                                .login(email, password);
-                            ref
-                                .read(loginStateProvider.notifier)
-                                .setLoading(false);
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.orangeAccent,
-                        ),
-                        child: const Text('Login')),
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          formKey.currentState!.save();
+                          String email = emailController.text;
+                          String password = passwordController.text;
+                          ref
+                              .read(loginStateProvider.notifier)
+                              .setLoading(true);
+                          await ref
+                              .watch(authStateProvider.notifier)
+                              .login(email, password);
+                          ref
+                              .read(loginStateProvider.notifier)
+                              .setLoading(false);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.orangeAccent,
+                      ),
+                      child: const Text('Login'),
+                    ),
                   ),
                 ],
               ),
