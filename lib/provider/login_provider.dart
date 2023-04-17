@@ -36,3 +36,5 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
     state = LoginState(isLoading: false, errorMessage: '');
   }
 }
+
+final loginPasswordVisibleProvider = StateProvider<bool>((ref) => false);
