@@ -25,14 +25,15 @@ class DashboardScreen extends ConsumerWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () async {
-                      ref.watch(authStateProvider.notifier).logout();
-                      Get.off(const SplashScreen());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey,
-                    ),
-                    child: const Text('Logout')),
+                  onPressed: () async {
+                    ref.watch(authStateProvider.notifier).logout();
+                    Get.off(const SplashScreen());
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey,
+                  ),
+                  child: const Text('Logout'),
+                ),
               ),
             ],
           ),
