@@ -44,6 +44,7 @@ dependencies:
   modal_progress_hud_nsn: ^0.3.0
   uni_links: ^0.5.1
   url_launcher: ^6.1.10
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -71,7 +72,8 @@ flutter:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
-
+  assets:
+    - .env
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
