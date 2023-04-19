@@ -2,13 +2,14 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-// const host = 'http://10.0.2.2:9999'; // For Android
-const host = 'http://127.0.0.1:9999'; // For IOS
+import '../config/http_config.dart';
 
 class HttpClient {
   Future<http.Response> get(
       String path, Map<String, String> query, String accessToken) async {
     Map<String, String> headers = {'content-type': 'application/json'};
+
+    String host = await getEndpoint();
 
     if (accessToken != '') {
       headers.addAll({'Authorization': 'Bearer $accessToken'});
@@ -46,6 +47,8 @@ class HttpClient {
   Future<http.Response> post(
       String path, Map<String, String> body, String accessToken) async {
     Map<String, String> headers = {'content-type': 'application/json'};
+
+    String host = await getEndpoint();
 
     if (accessToken != '') {
       headers.addAll({'Authorization': 'Bearer $accessToken'});
