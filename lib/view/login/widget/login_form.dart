@@ -66,27 +66,44 @@ class LoginForm extends ConsumerWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Password',
-                      filled: true,
-                      fillColor: Colors.white60,
-                      border: InputBorder.none,
-                      prefixIcon: Icon(Icons.lock),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your password';
-                      }
+                  Consumer(
+                    builder:
+                        (BuildContext context, WidgetRef ref, Widget? child) {
+                      final passwordVisible =
+                          ref.watch(loginPasswordVisibleProvider);
+                      return TextFormField(
+                        controller: passwordController,
+                        obscureText: !passwordVisible,
+                        decoration: InputDecoration(
+                          labelText: 'Password',
+                          filled: true,
+                          fillColor: Colors.white60,
+                          border: InputBorder.none,
+                          prefixIcon: const Icon(Icons.lock),
+                          suffixIcon: IconButton(
+                            icon: Icon(passwordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              ref
+                                  .read(loginPasswordVisibleProvider.notifier)
+                                  .state = !passwordVisible;
+                            },
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your password';
+                          }
 
-                      if (value.length <= 6) {
-                        return 'Password must be at least 6 characters';
-                      }
-                      return null;
+                          if (value.length <= 6) {
+                            return 'Password must be at least 6 characters';
+                          }
+                          return null;
+                        },
+                        onChanged: (String value) {},
+                      );
                     },
-                    onChanged: (String value) {},
                   ),
                   const SizedBox(
                     height: 20,
