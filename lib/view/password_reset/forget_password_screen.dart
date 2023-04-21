@@ -27,62 +27,66 @@ class ForgetPasswordScreen extends ConsumerWidget {
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: SingleChildScrollView(
-            child: Form(
-              key: formKey,
-              child: Column(
-                children: [
-                  const Text(
-                    'Enter your email address and we\'ll send you a link to reset your password.',
-                    style: TextStyle(
-                      color: Colors.black54,
-                      fontSize: 18,
-                    ),
+            child: Column(
+              children: [
+                const Text(
+                  'Enter your email address and we\'ll send you a link to reset your password.',
+                  style: TextStyle(
+                    color: Colors.black54,
+                    fontSize: 18,
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  TextFormField(
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                      prefixIcon: Icon(Icons.email),
-                      filled: true,
-                      fillColor: Colors.white60,
-                      border: InputBorder.none,
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      return null;
-                    },
-                    onChanged: (String value) {},
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
-
-                          String email = emailController.text;
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.orangeAccent,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                          labelText: 'Email',
+                          prefixIcon: Icon(Icons.email),
+                          filled: true,
+                          fillColor: Colors.white60,
+                          border: InputBorder.none,
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please enter your email';
+                          }
+                          return null;
+                        },
+                        onChanged: (String value) {},
                       ),
-                      child: const Text('Send Email'),
-                    ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 45,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              formKey.currentState!.save();
+
+                              String email = emailController.text;
+                            }
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.orangeAccent,
+                          ),
+                          child: const Text('Send Email'),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 150,
+                      ),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ));
