@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:coodig_mobile/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +27,9 @@ class PasswordResetScreen extends ConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Center(child: Text(link)),
+          DeeplinkService().verifySignedUri(link)
+              ? Center(child: Text(link))
+              : Center(),
         ],
       ),
     );
