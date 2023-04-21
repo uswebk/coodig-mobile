@@ -61,4 +61,9 @@ class AuthRepository {
     return await _httpClient.post(
         '/api/v1/accounts/otp/send/', {}, accessToken);
   }
+
+  Future<http.Response> sendResetPassword(String email) async {
+    return await _httpClient.post(
+        '/api/v1/accounts/reset-password/send/', {'email': email}, '');
+  }
 }
