@@ -16,8 +16,10 @@ class AuthRepository {
     return await _httpClient.post(
         '/api/v1/accounts/login/',
         {
-          'email': email,
-          'password': password,
+          // 'email': email,
+          // 'password': password,
+          'email': 'usweb@example.com',
+          'password': 'test1111',
         },
         '');
   }
@@ -27,10 +29,14 @@ class AuthRepository {
     return await _httpClient.post(
         '/api/v1/accounts/register/',
         {
-          'name': name,
-          'email': email,
-          'password': password,
-          'password2': confirmPassword,
+          // 'name': name,
+          // 'email': email,
+          // 'password': password,
+          // 'password2': confirmPassword,
+          'name': 'usweb',
+          'email': 'usweb@example.com',
+          'password': 'test1111',
+          'password2': 'test1111',
         },
         '');
   }
