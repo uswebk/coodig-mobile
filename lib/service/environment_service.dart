@@ -6,9 +6,9 @@ class EnvironmentService {
 
     if (dotenv.env['PRODUCTION'] != null &&
         bool.fromEnvironment(dotenv.env['PRODUCTION'].toString())) {
-      await dotenv.load(fileName: './lib/config/.env.pro');
+      await dotenv.load(fileName: '.env.pro');
     } else {
-      await dotenv.load(fileName: './lib/config/.env.dev');
+      await dotenv.load(fileName: '.env.dev');
     }
   }
 }
