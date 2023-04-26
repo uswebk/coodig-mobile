@@ -6,10 +6,9 @@ final signupStateProvider =
 });
 
 class SignupState {
-  bool isLoading;
   Map<String, String>? errorMessages;
 
-  SignupState({this.isLoading = false, this.errorMessages});
+  SignupState({this.errorMessages});
 }
 
 class SignupNotifier extends StateNotifier<SignupState> {
@@ -21,18 +20,14 @@ class SignupNotifier extends StateNotifier<SignupState> {
       errorMessages[key] = value[0];
     });
 
-    state = SignupState(isLoading: false, errorMessages: errorMessages);
+    state = SignupState(errorMessages: errorMessages);
   }
 
-  void setLoading(bool isLoading) {
-    state =
-        SignupState(isLoading: isLoading, errorMessages: state.errorMessages);
-  }
-
-  void resetState() {
+  void reset() {
     state = SignupState();
   }
 }
 
+final signupIsLoadingProvider = StateProvider<bool>((ref) => false);
 final passwordVisibleProvider = StateProvider<bool>((ref) => false);
 final passwordConfirmVisibleProvider = StateProvider<bool>((ref) => false);
