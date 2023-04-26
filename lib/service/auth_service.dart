@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:coodig_mobile/provider/login_provider.dart';
-import 'package:coodig_mobile/provider/signup_provider.dart';
+import 'package:coodig_mobile/exceptions/api_exception.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/local_storage.dart';
@@ -11,45 +10,40 @@ import '../repository/auth_repository.dart';
 final repository = Provider((ref) => ref.watch(authRepositoryProvider));
 
 final authServiceProvider =
-    Provider((ref) => AuthService(ref, ref.watch(repository), LocalStorage()));
+    Provider((ref) => AuthService(ref.watch(repository), LocalStorage()));
 
 class AuthService {
   AuthService(
-    this._ref,
     this._authRepository,
     this._localStorage,
   );
 
-  final ProviderRef _ref;
   final AuthRepository _authRepository;
   final LocalStorage _localStorage;
 
-  Future<bool> login(String email, String password) async {
+  Future<void> login(String email, String password) async {
     final response = await _authRepository.login(email, password);
 
     if (response.statusCode == 200) {
       Token token = Token.fromJson(json.decode(response.body)['token']);
       await _localStorage.addToken(token);
-
-      return true;
+      return;
     }
 
     if (response.statusCode == 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
-      _ref.read(loginStateProvider.notifier).setMessage(errors);
+      throw ApiException(errors);
     }
 
     if (response.statusCode > 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body)['errors']);
-      _ref.read(loginStateProvider.notifier).setMessage(errors);
+      throw ApiException(errors);
     }
-
-    return false;
   }
 
-  Future<bool> signup(String name, String email, String password,
+  Future<void> signup(String name, String email, String password,
       String confirmPassword) async {
     final response =
         await _authRepository.signup(name, email, password, confirmPassword);
@@ -57,23 +51,20 @@ class AuthService {
     if (response.statusCode == 201) {
       Token token = Token.fromJson(json.decode(response.body)['token']);
       await _localStorage.addToken(token);
-
-      return true;
+      return;
     }
 
     if (response.statusCode == 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
-      _ref.read(signupStateProvider.notifier).setMessage(errors);
+      throw ApiException(errors);
     }
 
     if (response.statusCode > 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body)['errors']);
-      _ref.read(signupStateProvider.notifier).setMessage(errors);
+      throw ApiException(errors);
     }
-
-    return false;
   }
 
   Future<void> refresh() async {
