@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../exceptions/api_exception.dart';
 import '../../../provider/auth_provider.dart';
 import '../../../provider/login_provider.dart';
 
@@ -120,9 +121,17 @@ class LoginForm extends ConsumerWidget {
                           ref
                               .read(loginStateProvider.notifier)
                               .setLoading(true);
-                          await ref
-                              .watch(authStateProvider.notifier)
-                              .login(email, password);
+
+                          try {
+                            await ref
+                                .read(authStateProvider.notifier)
+                                .login(email, password);
+                          } on ApiException catch (e) {
+                          } catch (e) {
+                            // Snackbar
+
+                          }
+
                           ref
                               .read(loginStateProvider.notifier)
                               .setLoading(false);
