@@ -25,20 +25,15 @@ class AuthNotifier extends StateNotifier<User?> {
     state = null;
   }
 
-  Future<bool> login(String email, String password) async {
-    bool isLoggedIn = await _authService.login(email, password);
+  Future<void> login(String email, String password) async {
+    await _authService.login(email, password);
     await fetchMe();
-
-    return isLoggedIn;
   }
 
-  Future<bool> signup(String name, String email, String password,
+  Future<void> signup(String name, String email, String password,
       String confirmPassword) async {
-    bool isSignUp =
-        await _authService.signup(name, email, password, confirmPassword);
+    await _authService.signup(name, email, password, confirmPassword);
     await fetchMe();
-
-    return isSignUp;
   }
 
   Future<void> reregistration() async {
@@ -60,9 +55,7 @@ final hasAccountProvider = Provider<bool>((ref) {
 final isEmailVerifiedProvider = Provider<bool>((ref) {
   final User? user = ref.watch(authStateProvider);
 
-  if (user == null) {
-    return false;
-  }
+  if (user == null) return false;
 
   return user.emailVerifiedAt != null;
 });
