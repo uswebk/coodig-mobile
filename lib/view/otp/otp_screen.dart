@@ -8,17 +8,19 @@ import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../provider/auth_provider.dart';
-import '../../provider/login_provider.dart';
 import '../dashboard/dashboard_screen.dart';
 import '../launch/launch_screen.dart';
+
+final scaffoldMessengerKeyProvider = GlobalKey<ScaffoldMessengerState>();
 
 class OtpScreen extends ConsumerWidget {
   const OtpScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(otpStateProvider);
-    final controllers = state.controllers;
+    final otpState = ref.watch(otpStateProvider);
+    final controllers = otpState.controllers;
+    final isLoading = ref.watch(otpLoadingProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       bool isAuthenticated = ref.watch(isEmailVerifiedProvider);
@@ -125,12 +127,20 @@ class OtpScreen extends ConsumerWidget {
                           children: [
                             TextButton(
                               onPressed: () async {
-                                await ref
-                                    .read(otpStateProvider.notifier)
-                                    .resendOtp();
-                                ref
-                                    .read(otpTimerStateProvider.notifier)
-                                    .resetTimer();
+                                try {
+                                  await ref
+                                      .read(otpStateProvider.notifier)
+                                      .resendOtp();
+                                  ref
+                                      .read(otpTimerStateProvider.notifier)
+                                      .resetTimer();
+                                  ref
+                                      .watch(otpErrorMessageProvider.notifier)
+                                      .state = '';
+                                  // Snack Bar
+                                } catch (e) {
+                                  // Snack Bar
+                                }
                               },
                               child: Row(
                                 mainAxisSize: MainAxisSize.min,
@@ -163,7 +173,7 @@ class OtpScreen extends ConsumerWidget {
                         Container(
                           width: double.infinity,
                           padding: const EdgeInsets.symmetric(horizontal: 10),
-                          child: (state.errorMessage != '')
+                          child: (ref.watch(otpErrorMessageProvider) != '')
                               ? Container(
                                   padding: const EdgeInsets.all(10),
                                   decoration: BoxDecoration(
@@ -173,7 +183,7 @@ class OtpScreen extends ConsumerWidget {
                                         Border.all(color: Colors.red.shade100),
                                   ),
                                   child: Text(
-                                    state.errorMessage,
+                                    ref.watch(otpErrorMessageProvider),
                                     style:
                                         TextStyle(color: Colors.red.shade300),
                                   ),
@@ -242,22 +252,29 @@ class OtpScreen extends ConsumerWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Theme.of(context).primaryColor,
                             ),
-                            onPressed: state.isButtonEnabled
+                            onPressed: otpState.isButtonEnabled
                                 ? () async {
                                     ref
-                                        .read(otpStateProvider.notifier)
-                                        .setLoading(true);
-                                    bool result = await ref
-                                        .read(otpStateProvider.notifier)
-                                        .verify();
-                                    if (result) {
+                                        .read(otpLoadingProvider.notifier)
+                                        .state = true;
+
+                                    try {
+                                      await ref
+                                          .read(otpStateProvider.notifier)
+                                          .verify();
                                       await ref
                                           .read(authStateProvider.notifier)
                                           .fetchMe();
+                                    } catch (e) {
+                                      ref
+                                          .read(
+                                              otpErrorMessageProvider.notifier)
+                                          .state = e.toString();
                                     }
+
                                     ref
-                                        .read(otpStateProvider.notifier)
-                                        .setLoading(false);
+                                        .read(otpLoadingProvider.notifier)
+                                        .state = false;
                                   }
                                 : null,
                             child: const Text('Verify'),
@@ -269,9 +286,6 @@ class OtpScreen extends ConsumerWidget {
                                 .read(authStateProvider.notifier)
                                 .reregistration();
                             ref.read(otpStateProvider.notifier).resetState();
-                            ref
-                                .read(loginStateProvider.notifier)
-                                .setLoading(false);
                             Get.off(const LaunchScreen());
                           },
                           child: Row(
@@ -304,7 +318,7 @@ class OtpScreen extends ConsumerWidget {
         ),
       ),
       ModalProgressHUD(
-        inAsyncCall: state.isLoading,
+        inAsyncCall: isLoading,
         child: Container(),
       ),
     ]);

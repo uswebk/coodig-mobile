@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:coodig_mobile/provider/login_provider.dart';
-import 'package:coodig_mobile/provider/otp_provider.dart';
 import 'package:coodig_mobile/provider/signup_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -102,50 +101,45 @@ class AuthService {
 
     if (response.statusCode == 401) {
       await refresh();
-
       final retryResponse = await _authRepository.verify(otp);
+
       if (retryResponse.statusCode == 200) {
         return true;
       }
-
       Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body));
-      Map<String, dynamic> errorMessage = {
-        'message': errors['messages'][0]['message']
-      };
-      _ref.read(otpStateProvider.notifier).setMessage(errorMessage);
-      return false;
+          Map<String, dynamic>.from(json.decode(retryResponse.body));
+      if (retryResponse.statusCode == 401) {
+        throw Exception(errors['messages'][0]['message'].toString());
+      }
+      if (retryResponse.statusCode >= 400) {
+        throw Exception(errors['messages'].toString());
+      }
     }
 
     if (response.statusCode >= 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
-      _ref.read(otpStateProvider.notifier).setMessage(errors);
+      throw Exception(errors['messages'].toString());
     }
 
     return false;
   }
 
-  Future<bool> resendOtp() async {
+  Future<void> resendOtp() async {
     final response = await _authRepository.sendOtp();
 
     if (response.statusCode == 200) {
-      return true;
+      return;
     }
 
     if (response.statusCode == 401) {
       await refresh();
-
       final retryResponse = await _authRepository.sendOtp();
 
-      if (retryResponse.statusCode == 200) {
-        return true;
+      if (retryResponse.statusCode != 200) {
+        throw Exception('Send Otp Fail');
       }
-
-      return false;
     }
-
-    return false;
   }
 
   Future<bool> sendResetPassword(String email) async {
@@ -155,22 +149,19 @@ class AuthService {
       return true;
     }
 
+    Map<String, dynamic> errors =
+        Map<String, dynamic>.from(json.decode(response.body));
     if (response.statusCode == 400) {
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body));
-      throw Exception(getMessageByErrorResponse(errors));
+      throw Exception(getMessageByErrors(errors));
     }
-
     if (response.statusCode == 404) {
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body));
       throw Exception(errors['message'].toString());
     }
 
     throw Exception('Server Error');
   }
 
-  String getMessageByErrorResponse(Map<String, dynamic> errors) {
+  String getMessageByErrors(Map<String, dynamic> errors) {
     String errorMessage = '';
 
     errors.forEach((key, value) {
