@@ -1,9 +1,10 @@
+import 'package:coodig_mobile/exceptions/api_exception.dart';
 import 'package:coodig_mobile/provider/otp_provider.dart';
-import 'package:coodig_mobile/provider/otp_timer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../provider/auth_provider.dart';
+import '../../../provider/otp_timer_provider.dart';
 import '../../../provider/signup_provider.dart';
 
 class SignupForm extends ConsumerWidget {
@@ -32,12 +33,13 @@ class SignupForm extends ConsumerWidget {
             children: [
               TextFormField(
                 controller: nameController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Name',
-                  prefixIcon: Icon(Icons.account_box),
+                  prefixIcon: const Icon(Icons.account_box),
                   filled: true,
                   fillColor: Colors.white60,
                   border: InputBorder.none,
+                  errorText: _getErrorText(context, ref, 'name'),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -47,32 +49,18 @@ class SignupForm extends ConsumerWidget {
                 },
                 onChanged: (String value) {},
               ),
-              if (state.errorMessages != null &&
-                  state.errorMessages!['name'] != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      state.errorMessages!['name']!,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Color.fromRGBO(217, 56, 45, 1.0),
-                      ),
-                    ),
-                  ),
-                ),
               const SizedBox(
                 height: 10,
               ),
               TextFormField(
                 controller: emailController,
-                decoration: const InputDecoration(
+                decoration: InputDecoration(
                   labelText: 'Email',
                   prefixIcon: Icon(Icons.email),
                   filled: true,
                   fillColor: Colors.white60,
                   border: InputBorder.none,
+                  errorText: _getErrorText(context, ref, 'email'),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -82,21 +70,6 @@ class SignupForm extends ConsumerWidget {
                 },
                 onChanged: (String value) {},
               ),
-              if (state.errorMessages != null &&
-                  state.errorMessages!['email'] != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      state.errorMessages!['email']!,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Color.fromRGBO(217, 56, 45, 1.0),
-                      ),
-                    ),
-                  ),
-                ),
               const SizedBox(
                 height: 10,
               ),
@@ -112,6 +85,7 @@ class SignupForm extends ConsumerWidget {
                       filled: true,
                       fillColor: Colors.white60,
                       border: InputBorder.none,
+                      errorText: _getErrorText(context, ref, 'password'),
                       prefixIcon: const Icon(Icons.lock),
                       suffixIcon: IconButton(
                         icon: Icon(passwordVisible
@@ -137,21 +111,6 @@ class SignupForm extends ConsumerWidget {
                   );
                 },
               ),
-              if (state.errorMessages != null &&
-                  state.errorMessages!['password'] != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      state.errorMessages!['password']!,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Color.fromRGBO(217, 56, 45, 1.0),
-                      ),
-                    ),
-                  ),
-                ),
               const SizedBox(
                 height: 10,
               ),
@@ -168,6 +127,8 @@ class SignupForm extends ConsumerWidget {
                       filled: true,
                       fillColor: Colors.white60,
                       border: InputBorder.none,
+                      errorText:
+                          _getErrorText(context, ref, 'non_field_errors'),
                       prefixIcon: const Icon(Icons.lock),
                       suffixIcon: IconButton(
                         icon: Icon(passwordConfirmVisible
@@ -194,21 +155,6 @@ class SignupForm extends ConsumerWidget {
                   );
                 },
               ),
-              if (state.errorMessages != null &&
-                  state.errorMessages!['non_field_errors'] != null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: Text(
-                      state.errorMessages!['non_field_errors']!,
-                      style: const TextStyle(
-                        fontSize: 13,
-                        color: Color.fromRGBO(217, 56, 45, 1.0),
-                      ),
-                    ),
-                  ),
-                ),
               const SizedBox(
                 height: 20,
               ),
@@ -224,16 +170,25 @@ class SignupForm extends ConsumerWidget {
                         String password = passwordController.text;
                         String confirmPassword = confirmPasswordController.text;
 
-                        ref.read(signupStateProvider.notifier).resetState();
-                        ref.read(signupStateProvider.notifier).setLoading(true);
-                        await ref
-                            .read(authStateProvider.notifier)
-                            .signup(name, email, password, confirmPassword);
-                        ref.read(otpStateProvider.notifier).resetState();
-                        ref.read(otpTimerStateProvider.notifier).resetTimer();
-                        ref
-                            .read(signupStateProvider.notifier)
-                            .setLoading(false);
+                        ref.read(signupIsLoadingProvider.notifier).state = true;
+                        ref.read(signupStateProvider.notifier).reset();
+                        ref.read(otpTimerStateProvider.notifier).reset();
+                        ref.read(otpStateProvider.notifier).reset();
+
+                        try {
+                          await ref
+                              .read(authStateProvider.notifier)
+                              .signup(name, email, password, confirmPassword);
+                        } on ApiException catch (e) {
+                          ref
+                              .read(signupStateProvider.notifier)
+                              .setMessage(e.errors);
+                        } catch (e) {
+                          // Snackbar
+
+                        }
+                        ref.watch(signupIsLoadingProvider.notifier).state =
+                            false;
                       }
                     },
                     style: ElevatedButton.styleFrom(
@@ -246,5 +201,13 @@ class SignupForm extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  String? _getErrorText(BuildContext context, WidgetRef ref, String key) {
+    final state = ref.read(signupStateProvider);
+    if (state.errorMessages != null && state.errorMessages![key] != null) {
+      return state.errorMessages![key].toString();
+    }
+    return null;
   }
 }

@@ -26,7 +26,7 @@ class SignupScreen extends ConsumerWidget {
       }
     });
 
-    SignupState state = ref.watch(signupStateProvider);
+    final isLoading = ref.watch(signupIsLoadingProvider);
 
     return Stack(children: [
       Scaffold(
@@ -76,7 +76,7 @@ class SignupScreen extends ConsumerWidget {
         ),
       ),
       ModalProgressHUD(
-        inAsyncCall: state.isLoading,
+        inAsyncCall: isLoading,
         child: Container(),
       ),
     ]);
