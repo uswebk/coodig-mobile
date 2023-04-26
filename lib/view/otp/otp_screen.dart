@@ -133,7 +133,7 @@ class OtpScreen extends ConsumerWidget {
                                       .resendOtp();
                                   ref
                                       .read(otpTimerStateProvider.notifier)
-                                      .resetTimer();
+                                      .reset();
                                   ref
                                       .watch(otpErrorMessageProvider.notifier)
                                       .state = '';
@@ -285,7 +285,7 @@ class OtpScreen extends ConsumerWidget {
                             await ref
                                 .read(authStateProvider.notifier)
                                 .reregistration();
-                            ref.read(otpStateProvider.notifier).resetState();
+                            ref.read(otpStateProvider.notifier).reset();
                             Get.off(const LaunchScreen());
                           },
                           child: Row(
