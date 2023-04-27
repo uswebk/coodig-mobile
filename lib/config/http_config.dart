@@ -1,4 +1,4 @@
-import 'package:flutter_flavor/flutter_flavor.dart';
+import 'flavor.dart';
 
 Future<String> getEndpoint() async {
   return FlavorConfig.instance.variables["apiEndpoint"];

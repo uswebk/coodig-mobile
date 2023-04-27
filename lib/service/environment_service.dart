@@ -20,9 +20,8 @@ class EnvironmentService {
   }
 
   Future<void> setFlavor() async {
-    final flavor =
-        String.fromEnvironment('FLAVOR', defaultValue: Flavor.development.name);
+    const flavor = String.fromEnvironment('FLAVOR');
 
-    flavors[flavor];
+    FlavorConfig.initialize(flavor);
   }
 }

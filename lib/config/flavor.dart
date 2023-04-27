@@ -1,5 +1,3 @@
-import 'package:flutter_flavor/flutter_flavor.dart';
-
 enum Flavor {
   development,
   developmentIos,
@@ -44,3 +42,24 @@ final Map<String, FlavorConfig> flavors = {
     },
   ),
 };
+
+class FlavorConfig {
+  final Map<String, dynamic> variables;
+
+  FlavorConfig({required this.variables});
+
+  static FlavorConfig? _instance;
+
+  static FlavorConfig get instance {
+    assert(_instance != null, 'Not Found Instance');
+    return _instance!;
+  }
+
+  static void initialize(String flavor) {
+    final flavorConfig = flavors[flavor];
+
+    assert(flavorConfig != null, 'Not Found Flavor');
+
+    _instance = FlavorConfig(variables: flavorConfig!.variables);
+  }
+}
