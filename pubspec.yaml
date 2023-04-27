@@ -42,10 +42,11 @@ dependencies:
   http: ^0.13.5
   flutter_secure_storage: ^8.0.0
   modal_progress_hud_nsn: ^0.3.0
-  uni_links: ^0.5.1
+  uni_links: ^0.5.0
   url_launcher: ^6.1.10
   flutter_dotenv: ^5.0.2
   crypto: ^3.0.2
+  flutter_flavor: ^3.1.1
 
 dev_dependencies:
   flutter_test:
