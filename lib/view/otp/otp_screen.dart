@@ -1,6 +1,8 @@
 import 'package:coodig_mobile/provider/otp_provider.dart';
 import 'package:coodig_mobile/provider/otp_timer_provider.dart';
 import 'package:coodig_mobile/view/otp/widget/timer.dart';
+import 'package:coodig_mobile/widgets/error_snackbar.dart';
+import 'package:coodig_mobile/widgets/suscess_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -138,21 +140,11 @@ class OtpScreen extends ConsumerWidget {
                                       .watch(otpErrorMessageProvider.notifier)
                                       .state = '';
                                   Future.delayed(Duration.zero, () {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text(
-                                            'Resent the OTP to your email.'),
-                                        backgroundColor: Colors.green,
-                                      ),
-                                    );
+                                    SuccessSnackbar.show(context,
+                                        'Resent the OTP to your email.');
                                   });
                                 } catch (e) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(e.toString()),
-                                      backgroundColor: Colors.redAccent,
-                                    ),
-                                  );
+                                  ErrorSnackbar.show(context, e.toString());
                                 }
                               },
                               child: Row(
