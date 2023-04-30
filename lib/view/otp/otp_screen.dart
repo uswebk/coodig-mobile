@@ -137,9 +137,22 @@ class OtpScreen extends ConsumerWidget {
                                   ref
                                       .watch(otpErrorMessageProvider.notifier)
                                       .state = '';
-                                  // Snack Bar
+                                  Future.delayed(Duration.zero, () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'Resent the OTP to your email.'),
+                                        backgroundColor: Colors.green,
+                                      ),
+                                    );
+                                  });
                                 } catch (e) {
-                                  // Snack Bar
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(e.toString()),
+                                      backgroundColor: Colors.redAccent,
+                                    ),
+                                  );
                                 }
                               },
                               child: Row(
