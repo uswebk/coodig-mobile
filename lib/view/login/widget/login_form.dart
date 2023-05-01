@@ -163,7 +163,7 @@ class LoginForm extends ConsumerWidget {
   }
 
   String? _getErrorText(BuildContext context, WidgetRef ref, String key) {
-    final state = ref.read(loginStateProvider);
+    final state = ref.watch(loginStateProvider);
     if (state.errorMessages[key] != null) {
       return state.errorMessages[key].toString();
     }
