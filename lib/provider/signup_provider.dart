@@ -6,13 +6,13 @@ final signupStateProvider =
 });
 
 class SignupState {
-  Map<String, String>? errorMessages;
+  Map<String, String> errorMessages;
 
-  SignupState({this.errorMessages});
+  SignupState(this.errorMessages);
 }
 
 class SignupNotifier extends StateNotifier<SignupState> {
-  SignupNotifier() : super(SignupState());
+  SignupNotifier() : super(SignupState({}));
 
   void setMessage(Map<String, dynamic> errors) {
     Map<String, String> errorMessages = {};
@@ -20,11 +20,11 @@ class SignupNotifier extends StateNotifier<SignupState> {
       errorMessages[key] = value[0];
     });
 
-    state = SignupState(errorMessages: errorMessages);
+    state = SignupState(errorMessages);
   }
 
   void reset() {
-    state = SignupState();
+    state = SignupState({});
   }
 }
 

@@ -20,8 +20,6 @@ class SignupForm extends ConsumerWidget {
     final TextEditingController confirmPasswordController =
         TextEditingController();
 
-    SignupState state = ref.watch(signupStateProvider);
-
     return Form(
       key: formKey,
       child: Center(
@@ -204,8 +202,8 @@ class SignupForm extends ConsumerWidget {
 
   String? _getErrorText(BuildContext context, WidgetRef ref, String key) {
     final state = ref.read(signupStateProvider);
-    if (state.errorMessages != null && state.errorMessages![key] != null) {
-      return state.errorMessages![key].toString();
+    if (state.errorMessages[key] != null) {
+      return state.errorMessages[key].toString();
     }
     return null;
   }
