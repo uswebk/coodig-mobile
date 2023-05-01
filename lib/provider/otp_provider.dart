@@ -26,11 +26,11 @@ class OtpState {
     this.isButtonEnabled = false,
   });
 
-  OtpState copyWith(
-      {List<TextEditingController>? controllers,
-      String? otp,
-      bool? isButtonEnabled,
-      String? errorMessage}) {
+  OtpState copyWith({
+    List<TextEditingController>? controllers,
+    String? otp,
+    bool? isButtonEnabled,
+  }) {
     return OtpState(
       this.controllers,
       otp: otp ?? this.otp,
@@ -62,7 +62,7 @@ class OtpStateNotifier extends StateNotifier<OtpState> {
     return await _authService.verify(state.otp);
   }
 
-  Future<void> resendOtp() async {
+  Future<void> resend() async {
     reset();
     await _authService.resendOtp();
   }

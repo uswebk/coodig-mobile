@@ -1,8 +1,7 @@
 import 'package:coodig_mobile/provider/otp_provider.dart';
 import 'package:coodig_mobile/provider/otp_timer_provider.dart';
 import 'package:coodig_mobile/view/otp/widget/timer.dart';
-import 'package:coodig_mobile/widgets/error_snackbar.dart';
-import 'package:coodig_mobile/widgets/suscess_snackbar.dart';
+import 'package:coodig_mobile/widgets/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,7 +43,6 @@ class OtpScreen extends ConsumerWidget {
           title: const Text('Otp Verify'),
           elevation: 0,
         ),
-        backgroundColor: Colors.grey[300],
         body: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -132,7 +130,7 @@ class OtpScreen extends ConsumerWidget {
                                 try {
                                   await ref
                                       .read(otpStateProvider.notifier)
-                                      .resendOtp();
+                                      .resend();
                                   ref
                                       .read(otpTimerStateProvider.notifier)
                                       .reset();
@@ -140,11 +138,12 @@ class OtpScreen extends ConsumerWidget {
                                       .watch(otpErrorMessageProvider.notifier)
                                       .state = '';
                                   Future.delayed(Duration.zero, () {
-                                    SuccessSnackbar.show(context,
+                                    Snackbar.showSuccess(context,
                                         'Resent the OTP to your email.');
                                   });
                                 } catch (e) {
-                                  ErrorSnackbar.show(context, e.toString());
+                                  Snackbar.showError(
+                                      context, 'Resent the OTP to your email.');
                                 }
                               },
                               child: Row(

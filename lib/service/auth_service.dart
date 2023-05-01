@@ -13,10 +13,7 @@ final authServiceProvider =
     Provider((ref) => AuthService(ref.watch(repository), LocalStorage()));
 
 class AuthService {
-  AuthService(
-    this._authRepository,
-    this._localStorage,
-  );
+  AuthService(this._authRepository, this._localStorage);
 
   final AuthRepository _authRepository;
   final LocalStorage _localStorage;
@@ -127,10 +124,11 @@ class AuthService {
       await refresh();
       final retryResponse = await _authRepository.sendOtp();
 
-      if (retryResponse.statusCode != 200) {
-        throw Exception('Send Otp Fail');
+      if (retryResponse.statusCode == 200) {
+        return;
       }
     }
+    throw Exception('Send Otp Fail');
   }
 
   Future<bool> sendResetPassword(String email) async {
