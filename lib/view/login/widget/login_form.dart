@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../exceptions/api_exception.dart';
+import '../../../exception/api_exception.dart';
 import '../../../provider/auth_provider.dart';
 import '../../../provider/login_provider.dart';
 

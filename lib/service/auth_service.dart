@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:coodig_mobile/exceptions/api_exception.dart';
+import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../core/local_storage.dart';
