@@ -24,9 +24,9 @@ class Timer extends ConsumerWidget {
       child: Column(
         children: [
           const Icon(
-            Icons.timer_sharp,
-            color: Colors.black38,
-            size: 26,
+            Icons.timer_outlined,
+            color: Colors.black26,
+            size: 24,
           ),
           const SizedBox(
             height: 4,
@@ -38,7 +38,7 @@ class Timer extends ConsumerWidget {
               fontWeight: FontWeight.bold,
               color: (minutes == 0 && seconds == 0)
                   ? Colors.black38
-                  : Colors.green.shade400,
+                  : Colors.green.shade300,
             ),
           ),
         ],
