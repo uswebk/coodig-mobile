@@ -12,10 +12,7 @@ import '../launch/launch_screen.dart';
 import '../password_reset/forget_password_screen.dart';
 
 class LoginScreen extends ConsumerWidget {
-  LoginScreen({super.key});
-
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  const LoginScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -26,7 +23,7 @@ class LoginScreen extends ConsumerWidget {
       }
     });
 
-    LoginState state = ref.watch(loginStateProvider);
+    final isLoading = ref.watch(loginIsLoadingProvider);
 
     return Stack(children: [
       Scaffold(
@@ -80,7 +77,7 @@ class LoginScreen extends ConsumerWidget {
         ),
       ),
       ModalProgressHUD(
-        inAsyncCall: state.isLoading,
+        inAsyncCall: isLoading,
         child: Container(),
       ),
     ]);

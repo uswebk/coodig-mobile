@@ -6,35 +6,27 @@ final loginStateProvider =
 });
 
 class LoginState {
-  bool isLoading;
-  String errorMessage;
+  Map<String, String> errorMessages;
 
-  LoginState({this.isLoading = false, this.errorMessage = ''});
+  LoginState(this.errorMessages);
 }
 
 class LoginStateNotifier extends StateNotifier<LoginState> {
-  LoginStateNotifier() : super(LoginState());
+  LoginStateNotifier() : super(LoginState({}));
 
   void setMessage(Map<String, dynamic> errors) {
-    String errorMessage = '';
-
-    errors.forEach((key, value) {
-      errorMessage += '${value[0]}\n';
+    Map<String, String> errorMessages = {};
+    errors.forEach((String key, dynamic value) {
+      errorMessages[key] = value[0];
     });
 
-    RegExp exp = RegExp(r'\n+$');
-    String message = errorMessage.replaceAll(exp, '');
-
-    state = LoginState(isLoading: false, errorMessage: message);
+    state = LoginState(errorMessages);
   }
 
-  void setLoading(bool isLoading) {
-    state = LoginState(isLoading: isLoading, errorMessage: state.errorMessage);
-  }
-
-  void initState() {
-    state = LoginState(isLoading: false, errorMessage: '');
+  void reset() {
+    state = LoginState({});
   }
 }
 
+final loginIsLoadingProvider = StateProvider<bool>((ref) => false);
 final loginPasswordVisibleProvider = StateProvider<bool>((ref) => false);

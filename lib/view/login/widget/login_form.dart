@@ -15,8 +15,6 @@ class LoginForm extends ConsumerWidget {
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
-    LoginState state = ref.watch(loginStateProvider);
-
     return Form(
       key: formKey,
       child: Center(
@@ -25,7 +23,7 @@ class LoginForm extends ConsumerWidget {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: (state.errorMessage != '')
+              child: (_getErrorText(context, ref, 'non_field_errors') != null)
                   ? Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
@@ -34,14 +32,15 @@ class LoginForm extends ConsumerWidget {
                         border: Border.all(color: Colors.red.shade100),
                       ),
                       child: Text(
-                        state.errorMessage,
+                        _getErrorText(context, ref, 'non_field_errors')
+                            .toString(),
                         style: TextStyle(color: Colors.red.shade300),
                       ),
                     )
                   : Container(),
             ),
             const SizedBox(
-              height: 10,
+              height: 15,
             ),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -59,6 +58,7 @@ class LoginForm extends ConsumerWidget {
                         borderSide:
                             BorderSide(color: Colors.grey.withOpacity(0.2)),
                       ),
+                      errorText: _getErrorText(context, ref, 'email'),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -99,6 +99,7 @@ class LoginForm extends ConsumerWidget {
                                   .state = !passwordVisible;
                             },
                           ),
+                          errorText: _getErrorText(context, ref, 'password'),
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -126,22 +127,24 @@ class LoginForm extends ConsumerWidget {
                           formKey.currentState!.save();
                           String email = emailController.text;
                           String password = passwordController.text;
-                          ref
-                              .read(loginStateProvider.notifier)
-                              .setLoading(true);
+
+                          ref.read(loginIsLoadingProvider.notifier).state =
+                              true;
 
                           try {
                             await ref
                                 .read(authStateProvider.notifier)
                                 .login(email, password);
                           } on ApiException catch (e) {
+                            ref
+                                .read(loginStateProvider.notifier)
+                                .setMessage(e.errors);
                           } catch (e) {
                             // Snackbar
                           }
 
-                          ref
-                              .read(loginStateProvider.notifier)
-                              .setLoading(false);
+                          ref.read(loginIsLoadingProvider.notifier).state =
+                              false;
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -157,5 +160,13 @@ class LoginForm extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  String? _getErrorText(BuildContext context, WidgetRef ref, String key) {
+    final state = ref.read(loginStateProvider);
+    if (state.errorMessages[key] != null) {
+      return state.errorMessages[key].toString();
+    }
+    return null;
   }
 }
