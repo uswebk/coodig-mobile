@@ -1,7 +1,7 @@
 import 'package:coodig_mobile/provider/otp_provider.dart';
 import 'package:coodig_mobile/provider/otp_timer_provider.dart';
 import 'package:coodig_mobile/view/otp/widget/timer.dart';
-import 'package:coodig_mobile/widgets/snackbar.dart';
+import 'package:coodig_mobile/widget/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -91,7 +91,7 @@ class OtpScreen extends ConsumerWidget {
                                                     TextDecoration.underline,
                                                 color: Theme.of(context)
                                                     .textTheme
-                                                    .bodyText2!
+                                                    .bodyMedium!
                                                     .color,
                                               ),
                                             ),
