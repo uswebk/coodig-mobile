@@ -1,4 +1,3 @@
-import 'package:coodig_mobile/provider/signup_provider.dart';
 import 'package:coodig_mobile/view/login/login_screen.dart';
 import 'package:coodig_mobile/view/signup/widget/signup_form.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../provider/auth_provider.dart';
+import '../../provider/signup_provider.dart';
 import '../dashboard/dashboard_screen.dart';
 import '../launch/launch_screen.dart';
 import '../otp/otp_screen.dart';
@@ -26,11 +26,8 @@ class SignupScreen extends ConsumerWidget {
       }
     });
 
-    final isLoading = ref.watch(signupIsLoadingProvider);
-
     return Stack(children: [
       Scaffold(
-        backgroundColor: Colors.grey[300],
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
@@ -65,7 +62,7 @@ class SignupScreen extends ConsumerWidget {
                     TextButton(
                       child: const Text('Sign in'),
                       onPressed: () {
-                        Get.to(LoginScreen());
+                        Get.to(const LoginScreen());
                       },
                     ),
                   ],
@@ -75,9 +72,14 @@ class SignupScreen extends ConsumerWidget {
           ),
         ),
       ),
-      ModalProgressHUD(
-        inAsyncCall: isLoading,
-        child: Container(),
+      Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          final isLoading = ref.watch(signupIsLoadingProvider);
+          return ModalProgressHUD(
+            inAsyncCall: isLoading,
+            child: Container(),
+          );
+        },
       ),
     ]);
   }
