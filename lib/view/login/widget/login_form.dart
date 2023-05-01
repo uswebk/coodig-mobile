@@ -49,12 +49,16 @@ class LoginForm extends ConsumerWidget {
                 children: [
                   TextFormField(
                     controller: emailController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Email',
-                      prefixIcon: Icon(Icons.email),
+                      prefixIcon: const Icon(Icons.email),
                       filled: true,
-                      fillColor: Colors.white60,
-                      border: InputBorder.none,
+                      fillColor: Colors.grey.withOpacity(0.1),
+                      border: const OutlineInputBorder(),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Colors.grey.withOpacity(0.2)),
+                      ),
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -78,8 +82,12 @@ class LoginForm extends ConsumerWidget {
                         decoration: InputDecoration(
                           labelText: 'Password',
                           filled: true,
-                          fillColor: Colors.white60,
-                          border: InputBorder.none,
+                          fillColor: Colors.grey.withOpacity(0.1),
+                          border: const OutlineInputBorder(),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                BorderSide(color: Colors.grey.withOpacity(0.2)),
+                          ),
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
                             icon: Icon(passwordVisible
@@ -111,7 +119,7 @@ class LoginForm extends ConsumerWidget {
                   ),
                   SizedBox(
                     width: double.infinity,
-                    height: 40,
+                    height: 48,
                     child: ElevatedButton(
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
@@ -129,7 +137,6 @@ class LoginForm extends ConsumerWidget {
                           } on ApiException catch (e) {
                           } catch (e) {
                             // Snackbar
-
                           }
 
                           ref

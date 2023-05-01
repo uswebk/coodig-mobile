@@ -30,7 +30,6 @@ class LoginScreen extends ConsumerWidget {
 
     return Stack(children: [
       Scaffold(
-        backgroundColor: Colors.grey[300],
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
