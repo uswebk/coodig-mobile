@@ -23,8 +23,6 @@ class LoginScreen extends ConsumerWidget {
       }
     });
 
-    final isLoading = ref.watch(loginIsLoadingProvider);
-
     return Stack(children: [
       Scaffold(
         appBar: AppBar(
@@ -76,9 +74,14 @@ class LoginScreen extends ConsumerWidget {
           ),
         ),
       ),
-      ModalProgressHUD(
-        inAsyncCall: isLoading,
-        child: Container(),
+      Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          final isLoading = ref.watch(loginIsLoadingProvider);
+          return ModalProgressHUD(
+            inAsyncCall: isLoading,
+            child: Container(),
+          );
+        },
       ),
     ]);
   }

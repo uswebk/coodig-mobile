@@ -7,11 +7,11 @@ import '../../../provider/otp_provider.dart';
 import '../../../provider/otp_timer_provider.dart';
 import '../../../provider/signup_provider.dart';
 
-class SignupForm extends ConsumerWidget {
+class SignupForm extends StatelessWidget {
   const SignupForm({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
 
     final TextEditingController nameController = TextEditingController();
