@@ -27,17 +27,13 @@ class AuthService {
       return;
     }
 
-    if (response.statusCode == 400) {
+    if (response.statusCode == 400 || response.statusCode == 404) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
       throw ApiException(errors);
     }
 
-    if (response.statusCode > 400) {
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body)['errors']);
-      throw ApiException(errors);
-    }
+    throw Exception('Server Error');
   }
 
   Future<void> signup(String name, String email, String password,
