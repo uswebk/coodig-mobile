@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/widget/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -37,7 +38,9 @@ class LoginForm extends StatelessWidget {
                               child: Text(
                                 _getErrorText(context, ref, 'non_field_errors')
                                     .toString(),
-                                style: TextStyle(color: Colors.red.shade300),
+                                style: TextStyle(
+                                    color: Colors.red.shade300,
+                                    fontWeight: FontWeight.w600),
                               ),
                             )
                           : Container(),
@@ -89,7 +92,8 @@ class LoginForm extends StatelessWidget {
                               border: const OutlineInputBorder(),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                    color: Colors.grey.withOpacity(0.2)),
+                                  color: Colors.grey.withOpacity(0.2),
+                                ),
                               ),
                               prefixIcon: const Icon(Icons.lock),
                               suffixIcon: IconButton(
@@ -135,17 +139,22 @@ class LoginForm extends StatelessWidget {
 
                               ref.read(loginIsLoadingProvider.notifier).state =
                                   true;
+                              ref.read(loginStateProvider.notifier).reset();
 
                               try {
                                 await ref
                                     .read(authStateProvider.notifier)
                                     .login(email, password);
+                                Future.delayed(Duration.zero, () {
+                                  Snackbar.showSuccess(
+                                      context, 'Login Success!');
+                                });
                               } on ApiException catch (e) {
                                 ref
                                     .read(loginStateProvider.notifier)
                                     .setMessage(e.errors);
                               } catch (e) {
-                                // Snackbar
+                                Snackbar.showError(context, e.toString());
                               }
 
                               ref.read(loginIsLoadingProvider.notifier).state =
