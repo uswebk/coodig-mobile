@@ -6,6 +6,7 @@ import '../../../provider/auth_provider.dart';
 import '../../../provider/otp_provider.dart';
 import '../../../provider/otp_timer_provider.dart';
 import '../../../provider/signup_provider.dart';
+import '../../../widget/snackbar.dart';
 
 class SignupForm extends StatelessWidget {
   const SignupForm({super.key});
@@ -199,12 +200,16 @@ class SignupForm extends StatelessWidget {
                             try {
                               await ref.read(authStateProvider.notifier).signup(
                                   name, email, password, confirmPassword);
+                              Future.delayed(Duration.zero, () {
+                                Snackbar.showSuccess(
+                                    context, 'otp sent to your email address');
+                              });
                             } on ApiException catch (e) {
                               ref
                                   .read(signupStateProvider.notifier)
                                   .setMessage(e.errors);
                             } catch (e) {
-                              // Snackbar
+                              Snackbar.showError(context, e.toString());
                             }
                             ref.watch(signupIsLoadingProvider.notifier).state =
                                 false;
