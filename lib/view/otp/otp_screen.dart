@@ -21,7 +21,6 @@ class OtpScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final otpState = ref.watch(otpStateProvider);
     final controllers = otpState.controllers;
-    final isLoading = ref.watch(otpLoadingProvider);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       bool isAuthenticated = ref.watch(isEmailVerifiedProvider);
@@ -321,9 +320,14 @@ class OtpScreen extends ConsumerWidget {
           ),
         ),
       ),
-      ModalProgressHUD(
-        inAsyncCall: isLoading,
-        child: Container(),
+      Consumer(
+        builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          bool isLoading = ref.watch(otpLoadingProvider);
+          return ModalProgressHUD(
+            inAsyncCall: isLoading,
+            child: Container(),
+          );
+        },
       ),
     ]);
   }
