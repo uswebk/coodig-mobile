@@ -48,6 +48,6 @@ class DeeplinkService {
         Hmac(sha256, utf8.encode(dotenv.env['URI_SECRET_KEY'].toString()));
     Digest digest = hmacSha256.convert(utf8.encode(signedUrl));
 
-    return digest.toString() != segment[3].toString();
+    return digest.toString() == segment[3].toString();
   }
 }
