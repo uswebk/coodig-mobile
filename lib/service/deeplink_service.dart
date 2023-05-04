@@ -34,7 +34,6 @@ class DeeplinkService {
 
   bool verifySignedUri(String uri) {
     final segment = uri.split(':');
-
     final expireTime = double.parse(segment[2]);
     final now = DateTime.now().millisecondsSinceEpoch / 1000;
 
@@ -45,14 +44,10 @@ class DeeplinkService {
     String link = '${segment[0]}:${segment[1]}';
     String signedUrl = '$link:$expireTime';
 
-    var hmacSha256 =
+    Hmac hmacSha256 =
         Hmac(sha256, utf8.encode(dotenv.env['URI_SECRET_KEY'].toString()));
-    final digest = hmacSha256.convert(utf8.encode(signedUrl));
+    Digest digest = hmacSha256.convert(utf8.encode(signedUrl));
 
-    if (digest.toString() != segment[3].toString()) {
-      return false;
-    }
-
-    return true;
+    return digest.toString() != segment[3].toString();
   }
 }
