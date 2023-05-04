@@ -134,28 +134,12 @@ class AuthService {
       return true;
     }
 
-    Map<String, dynamic> errors =
-        Map<String, dynamic>.from(json.decode(response.body));
-    if (response.statusCode == 400) {
-      throw Exception(getMessageByErrors(errors));
-    }
-    if (response.statusCode == 404) {
-      throw Exception(errors['message'].toString());
+    if (response.statusCode == 400 || response.statusCode == 404) {
+      Map<String, dynamic> errors =
+          Map<String, dynamic>.from(json.decode(response.body));
+      throw ApiException(errors);
     }
 
     throw Exception('Server Error');
-  }
-
-  String getMessageByErrors(Map<String, dynamic> errors) {
-    String errorMessage = '';
-
-    errors.forEach((key, value) {
-      errorMessage += '${value[0]}\n';
-    });
-
-    RegExp exp = RegExp(r'\n+$');
-    String message = errorMessage.replaceAll(exp, '');
-
-    return message;
   }
 }

@@ -9,25 +9,29 @@ final resetPasswordStateProvider =
 });
 
 class ResetPasswordState {
-  bool isLoading;
-  String errorMessage;
+  Map<String, String> errorMessages;
 
-  ResetPasswordState({this.isLoading = false, this.errorMessage = ''});
+  ResetPasswordState(this.errorMessages);
 }
 
 class ResetPasswordNotifier extends StateNotifier<ResetPasswordState> {
-  ResetPasswordNotifier(this._authService) : super(ResetPasswordState());
+  ResetPasswordNotifier(this._authService) : super(ResetPasswordState({}));
 
   final AuthService _authService;
 
-  Future<bool> sendResetPassword(String email) async {
-    state = ResetPasswordState(isLoading: true, errorMessage: '');
+  Future<void> sendResetPassword(String email) async {
+    state = ResetPasswordState({});
+    await _authService.sendResetPassword(email);
+  }
 
-    try {
-      return await _authService.sendResetPassword(email);
-    } catch (e) {
-      state = ResetPasswordState(isLoading: false, errorMessage: e.toString());
-    }
-    return false;
+  void setMessage(Map<String, dynamic> errors) {
+    Map<String, String> errorMessages = {};
+    errors.forEach((String key, dynamic value) {
+      errorMessages[key] = value[0];
+    });
+
+    state = ResetPasswordState(errorMessages);
   }
 }
+
+final resetPasswordIsLoadingProvider = StateProvider<bool>((ref) => false);
