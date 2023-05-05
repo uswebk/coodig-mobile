@@ -24,7 +24,7 @@ class DeeplinkService {
 
     switch (uri.host) {
       case 'reset-password':
-        Get.to(PasswordResetScreen(link));
+        Get.offAll(PasswordResetScreen(link));
         break;
 
       default:

@@ -35,3 +35,7 @@ class ResetPasswordNotifier extends StateNotifier<ResetPasswordState> {
 }
 
 final resetPasswordIsLoadingProvider = StateProvider<bool>((ref) => false);
+final resetPasswordPasswordVisibleProvider =
+    StateProvider<bool>((ref) => false);
+final resetPasswordPasswordConfirmVisibleProvider =
+    StateProvider<bool>((ref) => false);
