@@ -1,5 +1,5 @@
 import 'package:coodig_mobile/exception/api_exception.dart';
-import 'package:coodig_mobile/provider/reset_password_provider.dart';
+import 'package:coodig_mobile/provider/forget_password_provider.dart';
 import 'package:coodig_mobile/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -96,13 +96,14 @@ class ForgetPasswordScreen extends ConsumerWidget {
                                         String email = emailController.text;
 
                                         ref
-                                            .read(resetPasswordIsLoadingProvider
-                                                .notifier)
+                                            .read(
+                                                forgetPasswordIsLoadingProvider
+                                                    .notifier)
                                             .state = true;
 
                                         try {
                                           await ref
-                                              .read(resetPasswordStateProvider
+                                              .read(forgetPasswordStateProvider
                                                   .notifier)
                                               .sendResetPassword(email);
                                           Future.delayed(Duration.zero, () {
@@ -112,7 +113,7 @@ class ForgetPasswordScreen extends ConsumerWidget {
                                           emailController.clear();
                                         } on ApiException catch (e) {
                                           ref
-                                              .read(resetPasswordStateProvider
+                                              .read(forgetPasswordStateProvider
                                                   .notifier)
                                               .setMessage(e.errors);
                                         } catch (e) {
@@ -120,8 +121,9 @@ class ForgetPasswordScreen extends ConsumerWidget {
                                               context, e.toString());
                                         }
                                         ref
-                                            .read(resetPasswordIsLoadingProvider
-                                                .notifier)
+                                            .read(
+                                                forgetPasswordIsLoadingProvider
+                                                    .notifier)
                                             .state = false;
                                       }
                                     },
@@ -147,7 +149,7 @@ class ForgetPasswordScreen extends ConsumerWidget {
           ),
           Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              bool isLoading = ref.watch(resetPasswordIsLoadingProvider);
+              bool isLoading = ref.watch(forgetPasswordIsLoadingProvider);
               return ModalProgressHUD(
                 inAsyncCall: isLoading,
                 child: Container(),
@@ -160,7 +162,7 @@ class ForgetPasswordScreen extends ConsumerWidget {
   }
 
   String? _getErrorText(BuildContext context, WidgetRef ref, String key) {
-    final state = ref.watch(resetPasswordStateProvider);
+    final state = ref.watch(forgetPasswordStateProvider);
     if (state.errorMessages[key] != null) {
       return state.errorMessages[key].toString();
     }
