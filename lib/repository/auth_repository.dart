@@ -66,4 +66,21 @@ class AuthRepository {
     return await _httpClient.post(
         '/api/v1/accounts/reset-password/send/', {'email': email}, '');
   }
+
+  Future<http.Response> resetPassword(
+    String uid,
+    String token,
+    String password,
+    String confirmPassword,
+  ) async {
+    return await _httpClient.post(
+        '/api/v1/accounts/reset-password/',
+        {
+          'uid': uid,
+          'token': token,
+          'password': password,
+          'password2': confirmPassword
+        },
+        '');
+  }
 }

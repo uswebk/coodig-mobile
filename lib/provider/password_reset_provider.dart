@@ -19,9 +19,16 @@ class ResetPasswordNotifier extends StateNotifier<ResetPasswordState> {
 
   final AuthService _authService;
 
-  Future<void> sendResetPassword(String email) async {
+  Future<void> resetPassword(
+      String link, String password, String confirmPassword) async {
     state = ResetPasswordState({});
-    await _authService.sendResetPassword(email);
+
+    Uri uri = Uri.parse(link);
+    List<String> pathSegments = uri.pathSegments;
+    String uid = pathSegments[0];
+    String token = pathSegments[1].split(':')[0];
+
+    await _authService.resetPassword(uid, token, password, confirmPassword);
   }
 
   void setMessage(Map<String, dynamic> errors) {

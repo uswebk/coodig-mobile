@@ -1,6 +1,5 @@
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:coodig_mobile/view/launch/launch_screen.dart';
-import 'package:coodig_mobile/view/login/login_screen.dart';
 import 'package:coodig_mobile/view/password_reset/forget_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,6 +45,32 @@ class PasswordResetScreen extends ConsumerWidget {
                       child: Center(
                         child: Column(
                           children: [
+                            Container(
+                              width: double.infinity,
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: (_getErrorText(context, ref, 'message') !=
+                                      null)
+                                  ? Container(
+                                      padding: const EdgeInsets.all(10),
+                                      decoration: BoxDecoration(
+                                        color: Colors.red[50],
+                                        borderRadius:
+                                            BorderRadius.circular(4.0),
+                                        border: Border.all(
+                                            color: Colors.red.shade100),
+                                      ),
+                                      child: Text(
+                                        _getErrorText(context, ref, 'message')
+                                            .toString(),
+                                        style: TextStyle(
+                                            color: Colors.red.shade300),
+                                      ),
+                                    )
+                                  : Container(
+                                      padding: const EdgeInsets.all(10),
+                                    ),
+                            ),
                             Form(
                               key: formKey,
                               child: Column(
@@ -168,17 +193,19 @@ class PasswordResetScreen extends ConsumerWidget {
                                                         .notifier)
                                                 .state = true;
                                             try {
-                                              // Change Password API
-                                              print(link);
-                                              print(password);
-                                              print(confirmPassword);
+                                              await ref
+                                                  .read(
+                                                      resetPasswordStateProvider
+                                                          .notifier)
+                                                  .resetPassword(link, password,
+                                                      confirmPassword);
 
                                               Future.delayed(Duration.zero, () {
                                                 Snackbar.showSuccess(context,
                                                     'change password success');
                                               });
 
-                                              Get.to(const LoginScreen());
+                                              // Get.to(const LoginScreen());
                                             } on ApiException catch (e) {
                                               ref
                                                   .read(
@@ -240,5 +267,13 @@ class PasswordResetScreen extends ConsumerWidget {
         },
       ),
     ]);
+  }
+
+  String? _getErrorText(BuildContext context, WidgetRef ref, String key) {
+    final state = ref.watch(resetPasswordStateProvider);
+    if (state.errorMessages[key] != null) {
+      return state.errorMessages[key].toString();
+    }
+    return null;
   }
 }

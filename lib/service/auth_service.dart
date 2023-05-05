@@ -127,14 +127,32 @@ class AuthService {
     throw Exception('Send Otp Fail');
   }
 
-  Future<bool> sendResetPassword(String email) async {
+  Future<void> sendResetPassword(String email) async {
     final response = await _authRepository.sendResetPassword(email);
 
     if (response.statusCode == 200) {
-      return true;
+      return;
     }
 
     if (response.statusCode == 400 || response.statusCode == 404) {
+      Map<String, dynamic> errors =
+          Map<String, dynamic>.from(json.decode(response.body));
+      throw ApiException(errors);
+    }
+
+    throw Exception('Server Error');
+  }
+
+  Future<void> resetPassword(
+      String uid, String token, String password, String passwordConfirm) async {
+    final response = await _authRepository.resetPassword(
+        uid, token, password, passwordConfirm);
+
+    if (response.statusCode == 200) {
+      return;
+    }
+
+    if (response.statusCode == 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
       throw ApiException(errors);
