@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../launch/launch_screen.dart';
+import '../otp/otp_screen.dart';
 import '../password_reset/forget_password_screen.dart';
 
 class LoginScreen extends ConsumerWidget {
@@ -18,8 +19,11 @@ class LoginScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
+      bool hasAccount = ref.watch(hasAccountProvider);
       if (isEmailVerified) {
         Get.off(const DashboardScreen());
+      } else if (hasAccount) {
+        Get.off(const OtpScreen());
       }
     });
 
