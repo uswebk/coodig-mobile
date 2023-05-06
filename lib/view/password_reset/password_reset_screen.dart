@@ -18,10 +18,6 @@ class PasswordResetScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ref.read(resetPasswordStateProvider.notifier).setMessage({});
-    });
-
     final formKey = GlobalKey<FormState>();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController confirmPasswordController =
