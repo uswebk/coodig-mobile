@@ -18,6 +18,8 @@ class LoginScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      ref.read(loginStateProvider.notifier).reset();
+
       bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
       bool hasAccount = ref.watch(hasAccountProvider);
       if (isEmailVerified) {
@@ -33,7 +35,7 @@ class LoginScreen extends ConsumerWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Get.to(const LaunchScreen());
+              Get.offAll(const LaunchScreen());
             },
           ),
           backgroundColor: Colors.orangeAccent,
