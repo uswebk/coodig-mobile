@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../exception/api_exception.dart';
 import '../../../provider/auth_provider.dart';
 import '../../../provider/login_provider.dart';
+import '../../../widget/greeting_box.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
@@ -26,24 +27,14 @@ class LoginForm extends StatelessWidget {
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child:
-                      (_getErrorText(context, ref, 'non_field_errors') != null)
-                          ? Container(
-                              padding: const EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                color: Colors.red[50],
-                                borderRadius: BorderRadius.circular(4.0),
-                                border: Border.all(color: Colors.red.shade100),
-                              ),
-                              child: Text(
-                                _getErrorText(context, ref, 'non_field_errors')
-                                    .toString(),
-                                style: TextStyle(
-                                    color: Colors.red.shade300,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                            )
-                          : Container(),
+                  child: (_getErrorText(context, ref, 'non_field_errors') !=
+                          null)
+                      ? GreetingBox(
+                          message:
+                              _getErrorText(context, ref, 'non_field_errors')
+                                  .toString(),
+                        )
+                      : Container(),
                 ),
                 const SizedBox(
                   height: 15,
