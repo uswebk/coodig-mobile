@@ -57,6 +57,9 @@ class ForgetPasswordScreen extends ConsumerWidget {
                         child: Consumer(
                           builder: (BuildContext context, WidgetRef ref,
                               Widget? child) {
+                            final errors = ref
+                                .watch(forgetPasswordStateProvider)
+                                .errorMessages;
                             return Column(
                               children: [
                                 TextFormField(
@@ -71,8 +74,7 @@ class ForgetPasswordScreen extends ConsumerWidget {
                                       borderSide: BorderSide(
                                           color: Colors.grey.withOpacity(0.2)),
                                     ),
-                                    errorText:
-                                        _getErrorText(context, ref, 'email'),
+                                    errorText: errors['email'],
                                   ),
                                   validator: (value) {
                                     if (value!.isEmpty) {
@@ -80,7 +82,6 @@ class ForgetPasswordScreen extends ConsumerWidget {
                                     }
                                     return null;
                                   },
-                                  onChanged: (String value) {},
                                 ),
                                 const SizedBox(
                                   height: 20,
@@ -159,13 +160,5 @@ class ForgetPasswordScreen extends ConsumerWidget {
         ],
       ),
     );
-  }
-
-  String? _getErrorText(BuildContext context, WidgetRef ref, String key) {
-    final state = ref.watch(forgetPasswordStateProvider);
-    if (state.errorMessages[key] != null) {
-      return state.errorMessages[key].toString();
-    }
-    return null;
   }
 }

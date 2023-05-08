@@ -134,10 +134,16 @@ class AuthService {
       return;
     }
 
-    if (response.statusCode == 400 || response.statusCode == 404) {
+    if (response.statusCode == 400) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
       throw ApiException(errors);
+    }
+
+    if (response.statusCode == 404) {
+      Map<String, dynamic> errors =
+          Map<String, dynamic>.from(json.decode(response.body));
+      throw Exception(errors['message'].toString());
     }
 
     throw Exception('Server Error');

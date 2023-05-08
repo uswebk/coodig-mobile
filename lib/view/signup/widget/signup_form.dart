@@ -14,7 +14,6 @@ class SignupForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-
     final TextEditingController nameController = TextEditingController();
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
@@ -28,6 +27,7 @@ class SignupForm extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
+              final errors = ref.watch(signupStateProvider).errorMessages;
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -44,7 +44,7 @@ class SignupForm extends StatelessWidget {
                         borderSide:
                             BorderSide(color: Colors.grey.withOpacity(0.2)),
                       ),
-                      errorText: _getErrorText(context, ref, 'name'),
+                      errorText: errors['name'],
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -52,7 +52,6 @@ class SignupForm extends StatelessWidget {
                       }
                       return null;
                     },
-                    onChanged: (String value) {},
                   ),
                   const SizedBox(
                     height: 10,
@@ -69,7 +68,7 @@ class SignupForm extends StatelessWidget {
                         borderSide:
                             BorderSide(color: Colors.grey.withOpacity(0.2)),
                       ),
-                      errorText: _getErrorText(context, ref, 'email'),
+                      errorText: errors['email'],
                     ),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -77,7 +76,6 @@ class SignupForm extends StatelessWidget {
                       }
                       return null;
                     },
-                    onChanged: (String value) {},
                   ),
                   const SizedBox(
                     height: 10,
@@ -100,7 +98,7 @@ class SignupForm extends StatelessWidget {
                             borderSide:
                                 BorderSide(color: Colors.grey.withOpacity(0.2)),
                           ),
-                          errorText: _getErrorText(context, ref, 'password'),
+                          errorText: errors['password'],
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
                             icon: Icon(passwordVisible
@@ -122,7 +120,6 @@ class SignupForm extends StatelessWidget {
                           }
                           return null;
                         },
-                        onChanged: (String value) {},
                       );
                     },
                   ),
@@ -147,8 +144,7 @@ class SignupForm extends StatelessWidget {
                             borderSide:
                                 BorderSide(color: Colors.grey.withOpacity(0.2)),
                           ),
-                          errorText:
-                              _getErrorText(context, ref, 'non_field_errors'),
+                          errorText: errors['non_field_errors'],
                           prefixIcon: const Icon(Icons.lock),
                           suffixIcon: IconButton(
                             icon: Icon(passwordConfirmVisible
@@ -171,7 +167,6 @@ class SignupForm extends StatelessWidget {
                           }
                           return null;
                         },
-                        onChanged: (String value) {},
                       );
                     },
                   ),
@@ -227,13 +222,5 @@ class SignupForm extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String? _getErrorText(BuildContext context, WidgetRef ref, String key) {
-    final state = ref.watch(signupStateProvider);
-    if (state.errorMessages[key] != null) {
-      return state.errorMessages[key].toString();
-    }
-    return null;
   }
 }

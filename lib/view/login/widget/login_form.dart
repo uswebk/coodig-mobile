@@ -22,17 +22,15 @@ class LoginForm extends StatelessWidget {
       child: Center(
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
+            final errors = ref.watch(loginStateProvider).errorMessages;
             return Column(
               children: [
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: (_getErrorText(context, ref, 'non_field_errors') !=
-                          null)
+                  child: (errors['non_field_errors'] != null)
                       ? GreetingBox(
-                          message:
-                              _getErrorText(context, ref, 'non_field_errors')
-                                  .toString(),
+                          message: errors['non_field_errors'].toString(),
                         )
                       : Container(),
                 ),
@@ -55,7 +53,7 @@ class LoginForm extends StatelessWidget {
                             borderSide:
                                 BorderSide(color: Colors.grey.withOpacity(0.2)),
                           ),
-                          errorText: _getErrorText(context, ref, 'email'),
+                          errorText: errors['email'],
                         ),
                         validator: (value) {
                           if (value!.isEmpty) {
@@ -63,7 +61,6 @@ class LoginForm extends StatelessWidget {
                           }
                           return null;
                         },
-                        onChanged: (String value) {},
                       ),
                       const SizedBox(
                         height: 10,
@@ -98,8 +95,7 @@ class LoginForm extends StatelessWidget {
                                       .state = !passwordVisible;
                                 },
                               ),
-                              errorText:
-                                  _getErrorText(context, ref, 'password'),
+                              errorText: errors['password'],
                             ),
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -111,7 +107,6 @@ class LoginForm extends StatelessWidget {
                               }
                               return null;
                             },
-                            onChanged: (String value) {},
                           );
                         },
                       ),
@@ -167,13 +162,5 @@ class LoginForm extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  String? _getErrorText(BuildContext context, WidgetRef ref, String key) {
-    final state = ref.watch(loginStateProvider);
-    if (state.errorMessages[key] != null) {
-      return state.errorMessages[key].toString();
-    }
-    return null;
   }
 }
