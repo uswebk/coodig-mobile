@@ -16,7 +16,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
+      // debugShowCheckedModeBanner: false,
       title: 'Coodig',
       theme: ThemeData(
         primaryColor: Colors.orangeAccent,
