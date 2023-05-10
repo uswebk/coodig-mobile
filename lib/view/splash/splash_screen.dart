@@ -17,7 +17,7 @@ class SplashScreen extends ConsumerWidget {
       final bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
       final bool hasAccount = ref.watch(hasAccountProvider);
       Widget screen =
-          await SplashService().getScreen(isEmailVerified, hasAccount);
+          await SplashService().getScreen(isEmailVerified, hasAccount, ref);
       Get.off(screen);
     });
 
