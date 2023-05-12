@@ -1,11 +1,12 @@
 import 'dart:async';
 
-import 'package:coodig_mobile/service/splash_service.dart';
+import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 import '../../provider/auth_provider.dart';
+import '../../service/splash_service.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
@@ -13,11 +14,11 @@ class SplashScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future.delayed(const Duration(seconds: 2)).then((value) async {
+      SplashService splashService = SplashService();
+      splashService.initDeeplink(ref);
       await ref.read(authStateProvider.notifier).fetchMe();
-      final bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
-      final bool hasAccount = ref.watch(hasAccountProvider);
-      Widget screen =
-          await SplashService().getScreen(isEmailVerified, hasAccount, ref);
+      final UserStatus userStatus = ref.watch(userStatusProvider);
+      Widget screen = await splashService.getScreen(userStatus);
       Get.off(screen);
     });
 

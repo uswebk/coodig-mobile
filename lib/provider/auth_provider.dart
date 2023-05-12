@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:coodig_mobile/service/user_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -46,16 +47,16 @@ class AuthNotifier extends StateNotifier<User?> {
   }
 }
 
-final hasAccountProvider = Provider<bool>((ref) {
+final userStatusProvider = Provider<UserStatus>((ref) {
   final User? user = ref.watch(authStateProvider);
 
-  return user != null;
-});
+  if (user == null) {
+    return UserStatus.unauthenticated;
+  }
 
-final isEmailVerifiedProvider = Provider<bool>((ref) {
-  final User? user = ref.watch(authStateProvider);
+  if (user.emailVerifiedAt == null) {
+    return UserStatus.emailNotVerified;
+  }
 
-  if (user == null) return false;
-
-  return user.emailVerifiedAt != null;
+  return UserStatus.authenticated;
 });

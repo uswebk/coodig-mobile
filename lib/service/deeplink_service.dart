@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:coodig_mobile/provider/password_reset_provider.dart';
 import 'package:coodig_mobile/view/splash/splash_screen.dart';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -14,24 +15,36 @@ class DeeplinkService {
   void initDeeplink(WidgetRef ref) {
     linkStream.listen((String? link) {
       if (link != null && link.isNotEmpty) {
-        handleDeeplink(link, ref);
+        setDeeplink(ref, link);
+        Widget screen = getScreen(link);
+        Get.offAll(screen);
       }
     }, onError: (err) {
       print("Error listening to links: $err");
     });
   }
 
-  void handleDeeplink(String link, WidgetRef ref) {
+  Widget getScreen(String link) {
+    Uri uri = Uri.parse(link);
+
+    switch (uri.host) {
+      case 'reset-password':
+        return const PasswordResetScreen();
+      default:
+        return const SplashScreen();
+    }
+  }
+
+  void setDeeplink(WidgetRef ref, String link) {
     Uri uri = Uri.parse(link);
 
     switch (uri.host) {
       case 'reset-password':
         ref.read(resetPasswordLinkProvider.notifier).state = link;
-        Get.offAll(const PasswordResetScreen());
-        break;
+        return;
 
       default:
-        Get.off(const SplashScreen());
+        return;
     }
   }
 

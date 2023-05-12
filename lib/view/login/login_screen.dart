@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../enum/user_status.dart';
 import '../launch/launch_screen.dart';
 import '../otp/otp_screen.dart';
 import '../password_reset/forget_password_screen.dart';
@@ -20,11 +21,10 @@ class LoginScreen extends ConsumerWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(loginStateProvider.notifier).reset();
 
-      bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
-      bool hasAccount = ref.watch(hasAccountProvider);
-      if (isEmailVerified) {
+      final UserStatus userStatus = ref.watch(userStatusProvider);
+      if (userStatus == UserStatus.authenticated) {
         Get.off(const DashboardScreen());
-      } else if (hasAccount) {
+      } else if (userStatus == UserStatus.emailNotVerified) {
         Get.off(const OtpScreen());
       }
     });

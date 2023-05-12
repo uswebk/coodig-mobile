@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../enum/user_status.dart';
 import '../../provider/auth_provider.dart';
 import '../../provider/signup_provider.dart';
 import '../dashboard/dashboard_screen.dart';
@@ -18,12 +19,11 @@ class SignupScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(signupStateProvider.notifier).reset();
+      final UserStatus userStatus = ref.watch(userStatusProvider);
 
-      bool isEmailVerified = ref.watch(isEmailVerifiedProvider);
-      bool hasAccount = ref.watch(hasAccountProvider);
-      if (isEmailVerified) {
+      if (userStatus == UserStatus.authenticated) {
         Get.off(const DashboardScreen());
-      } else if (hasAccount) {
+      } else if (userStatus == UserStatus.emailNotVerified) {
         Get.off(const OtpScreen());
       }
     });

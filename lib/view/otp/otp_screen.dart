@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+import '../../enum/user_status.dart';
 import '../../provider/auth_provider.dart';
 import '../dashboard/dashboard_screen.dart';
 import '../launch/launch_screen.dart';
@@ -23,8 +24,8 @@ class OtpScreen extends ConsumerWidget {
     final controllers = otpState.controllers;
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      bool isAuthenticated = ref.watch(isEmailVerifiedProvider);
-      if (isAuthenticated) {
+      final UserStatus userStatus = ref.watch(userStatusProvider);
+      if (userStatus == UserStatus.authenticated) {
         Get.off(const DashboardScreen());
       }
     });
