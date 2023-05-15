@@ -1,10 +1,4 @@
-enum Flavor {
-  development,
-  developmentIos,
-  developmentAndroid,
-  staging,
-  production,
-}
+import '../enum/flavor.dart';
 
 extension FlavorExtension on Flavor {
   String get name {
