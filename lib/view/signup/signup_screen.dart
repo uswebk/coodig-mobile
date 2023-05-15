@@ -1,4 +1,4 @@
-import 'package:coodig_mobile/view/login/login_screen.dart';
+import 'package:coodig_mobile/view/signup/widget/already_have_account_row.dart';
 import 'package:coodig_mobile/view/signup/widget/signup_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -44,32 +44,21 @@ class SignupScreen extends ConsumerWidget {
         body: Container(
           alignment: Alignment.center,
           child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SignupForm(),
-                const SizedBox(
-                  height: 5,
-                ),
-                const Divider(
-                  color: Colors.grey,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text(
-                      'Already have an account? ',
-                      style: TextStyle(color: Colors.grey),
-                    ),
-                    TextButton(
-                      child: const Text('Sign in'),
-                      onPressed: () {
-                        Get.to(const LoginScreen());
-                      },
-                    ),
-                  ],
-                )
-              ],
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  SignupForm(),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Divider(
+                    color: Colors.grey,
+                  ),
+                  AlreadyHaveAccountRow(),
+                ],
+              ),
             ),
           ),
         ),
