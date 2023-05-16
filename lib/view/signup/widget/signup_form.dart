@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/exception/api_exception.dart';
+import 'package:coodig_mobile/widget/form/email_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,6 +7,9 @@ import '../../../provider/auth_provider.dart';
 import '../../../provider/otp_provider.dart';
 import '../../../provider/otp_timer_provider.dart';
 import '../../../provider/signup_provider.dart';
+import '../../../widget/form/name_text_field.dart';
+import '../../../widget/form/password_confirm_text_field.dart';
+import '../../../widget/form/password_text_field.dart';
 import '../../../widget/snackbar.dart';
 
 class SignupForm extends StatelessWidget {
@@ -28,143 +32,20 @@ class SignupForm extends StatelessWidget {
             final errors = ref.watch(signupStateProvider).errorMessages;
             return Column(
               children: [
-                TextFormField(
-                  controller: nameController,
-                  decoration: InputDecoration(
-                    labelText: 'Name',
-                    prefixIcon: const Icon(Icons.account_box),
-                    filled: true,
-                    fillColor: Colors.grey.withOpacity(0.1),
-                    border: const OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.grey.withOpacity(0.2)),
-                    ),
-                    errorText: errors['name'],
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your name';
-                    }
-                    return null;
-                  },
-                ),
+                NameTextField(nameController, errors['name']),
                 const SizedBox(
                   height: 10,
                 ),
-                TextFormField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    prefixIcon: const Icon(Icons.email),
-                    filled: true,
-                    fillColor: Colors.grey.withOpacity(0.1),
-                    border: const OutlineInputBorder(),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: Colors.grey.withOpacity(0.2)),
-                    ),
-                    errorText: errors['email'],
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    return null;
-                  },
-                ),
+                EmailTextField(emailController, errors['email']),
                 const SizedBox(
                   height: 10,
                 ),
-                Consumer(
-                  builder:
-                      (BuildContext context, WidgetRef ref, Widget? child) {
-                    final passwordVisible = ref.watch(passwordVisibleProvider);
-
-                    return TextFormField(
-                      controller: passwordController,
-                      obscureText: !passwordVisible,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        filled: true,
-                        fillColor: Colors.grey.withOpacity(0.1),
-                        border: const OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey.withOpacity(0.2)),
-                        ),
-                        errorText: errors['password'],
-                        prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                          icon: Icon(passwordVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          onPressed: () {
-                            ref.read(passwordVisibleProvider.notifier).state =
-                                !passwordVisible;
-                          },
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your password';
-                        }
-
-                        if (value.length <= 6) {
-                          return 'Password must be at least 6 characters';
-                        }
-                        return null;
-                      },
-                    );
-                  },
-                ),
+                PasswordTextField(passwordController, errors['password']),
                 const SizedBox(
                   height: 10,
                 ),
-                Consumer(
-                  builder:
-                      (BuildContext context, WidgetRef ref, Widget? child) {
-                    final passwordConfirmVisible =
-                        ref.watch(passwordConfirmVisibleProvider);
-
-                    return TextFormField(
-                      controller: confirmPasswordController,
-                      obscureText: !passwordConfirmVisible,
-                      decoration: InputDecoration(
-                        labelText: 'Confirm Password',
-                        filled: true,
-                        fillColor: Colors.grey.withOpacity(0.1),
-                        border: const OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: Colors.grey.withOpacity(0.2)),
-                        ),
-                        errorText: errors['non_field_errors'],
-                        prefixIcon: const Icon(Icons.lock),
-                        suffixIcon: IconButton(
-                          icon: Icon(passwordConfirmVisible
-                              ? Icons.visibility
-                              : Icons.visibility_off),
-                          onPressed: () {
-                            ref
-                                .read(passwordConfirmVisibleProvider.notifier)
-                                .state = !passwordConfirmVisible;
-                          },
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your ConfirmPassword';
-                        }
-
-                        if (value.length <= 6) {
-                          return 'Password must be at least 6 characters';
-                        }
-                        return null;
-                      },
-                    );
-                  },
-                ),
+                PasswordConfirmTextField(
+                    confirmPasswordController, errors['non_field_errors']),
                 const SizedBox(
                   height: 20,
                 ),
