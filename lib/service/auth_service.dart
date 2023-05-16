@@ -27,7 +27,7 @@ class AuthService {
       return;
     }
 
-    if (response.statusCode == 400 || response.statusCode == 404) {
+    if ([400, 404].contains(response.statusCode)) {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
       throw ApiException(errors);
@@ -53,11 +53,7 @@ class AuthService {
       throw ApiException(errors);
     }
 
-    if (response.statusCode > 400) {
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body)['errors']);
-      throw ApiException(errors);
-    }
+    throw Exception('Server Error');
   }
 
   Future<void> refresh() async {
@@ -90,6 +86,7 @@ class AuthService {
       if (retryResponse.statusCode == 200) {
         return true;
       }
+
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(retryResponse.body));
       if (retryResponse.statusCode == 401) {
@@ -138,12 +135,6 @@ class AuthService {
       Map<String, dynamic> errors =
           Map<String, dynamic>.from(json.decode(response.body));
       throw ApiException(errors);
-    }
-
-    if (response.statusCode == 404) {
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body));
-      throw Exception(errors['message'].toString());
     }
 
     throw Exception('Server Error');
