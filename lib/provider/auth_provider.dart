@@ -22,7 +22,7 @@ class AuthNotifier extends StateNotifier<User?> {
     state = await _userService.fetchMe();
   }
 
-  Future<void> resetUser() async {
+  void reset() {
     state = null;
   }
 
@@ -37,13 +37,9 @@ class AuthNotifier extends StateNotifier<User?> {
     await fetchMe();
   }
 
-  Future<void> reregistration() async {
-    await _authService.logout();
-    await resetUser();
-  }
-
   Future<void> logout() async {
     await _authService.logout();
+    reset();
   }
 }
 

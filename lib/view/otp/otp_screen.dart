@@ -286,9 +286,7 @@ class OtpScreen extends ConsumerWidget {
                         ),
                         TextButton(
                           onPressed: () async {
-                            await ref
-                                .read(authStateProvider.notifier)
-                                .reregistration();
+                            await ref.read(authStateProvider.notifier).logout();
                             ref.read(otpStateProvider.notifier).reset();
                             Get.off(const LaunchScreen());
                           },
