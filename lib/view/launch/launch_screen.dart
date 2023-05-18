@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/view/login/login_screen.dart';
 import 'package:coodig_mobile/view/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -84,7 +85,7 @@ class LaunchScreen extends ConsumerWidget {
                                 if (userStatus == UserStatus.authenticated) {
                                   Get.off(const DashboardScreen());
                                 } else {
-                                  Get.to(const SignupScreen());
+                                  Get.to(const LoginScreen());
                                 }
                               },
                               style: ElevatedButton.styleFrom(
@@ -93,8 +94,9 @@ class LaunchScreen extends ConsumerWidget {
                               child: const Text(
                                 'Sign In',
                                 style: TextStyle(
-                                    color: Colors.black87,
-                                    fontWeight: FontWeight.w600),
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                           ),
