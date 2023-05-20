@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/exception/api_exception.dart';
+import 'package:coodig_mobile/feature/signup/signup_state_notifier.dart';
 import 'package:coodig_mobile/widget/form/email_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../provider/auth_provider.dart';
 import '../../../provider/otp_provider.dart';
 import '../../../provider/otp_timer_provider.dart';
-import '../../../provider/signup_provider.dart';
 import '../../../widget/form/name_text_field.dart';
 import '../../../widget/form/password_confirm_text_field.dart';
 import '../../../widget/form/password_text_field.dart';
@@ -75,7 +75,6 @@ class SignupForm extends ConsumerWidget {
                           } catch (e) {
                             Snackbar.showError(context, e.toString());
                           } finally {
-                            notifier.reset();
                             notifier.hideHUD();
                           }
                         }

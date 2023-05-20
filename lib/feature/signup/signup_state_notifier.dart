@@ -1,11 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 
-final signupStateNotifierProvider1 =
+final signupStateNotifierProvider =
     StateNotifierProvider<SignupStateNotifier, SignupState>(
         (ref) => SignupStateNotifier());
 
-@freezed
 class SignupState {
   Map<String, String> errorMessages;
   bool isLoading;
