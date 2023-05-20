@@ -24,7 +24,7 @@ class SignupForm extends ConsumerWidget {
     final TextEditingController confirmPasswordController =
         TextEditingController();
 
-    final store = ref.read(signupStateNotifierProvider.notifier);
+    final notifier = ref.read(signupStateNotifierProvider.notifier);
 
     return Form(
       key: formKey,
@@ -59,8 +59,7 @@ class SignupForm extends ConsumerWidget {
                           ref.read(otpTimerStateProvider.notifier).reset();
                           ref.read(otpStateProvider.notifier);
 
-                          store.reset();
-                          store.showHUD();
+                          notifier.showHUD();
                           try {
                             await ref
                                 .read(authStateProvider.notifier)
@@ -72,11 +71,12 @@ class SignupForm extends ConsumerWidget {
                               );
                             });
                           } on ApiException catch (e) {
-                            store.setMessage(e.errors);
+                            notifier.setMessage(e.errors);
                           } catch (e) {
                             Snackbar.showError(context, e.toString());
                           } finally {
-                            store.hideHUD();
+                            notifier.reset();
+                            notifier.hideHUD();
                           }
                         }
                       },

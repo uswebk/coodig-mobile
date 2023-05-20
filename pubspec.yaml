@@ -48,6 +48,8 @@ dependencies:
   crypto: ^3.0.2
   flutter_flavor: ^3.1.1
   freezed: ^2.3.4
+  hooks_riverpod: ^2.3.6
+  flutter_hooks: ^0.18.6
 
 dev_dependencies:
   flutter_test:
