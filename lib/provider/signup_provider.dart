@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final signupStateProvider =
+final signupStateNotifierProvider =
     StateNotifierProvider<SignupNotifier, SignupState>((ref) {
   return SignupNotifier();
 });

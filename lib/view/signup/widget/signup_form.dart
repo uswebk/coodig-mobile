@@ -29,7 +29,7 @@ class SignupForm extends StatelessWidget {
       child: Center(
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final errors = ref.watch(signupStateProvider).errorMessages;
+            final errors = ref.watch(signupStateNotifierProvider).errorMessages;
             return Column(
               children: [
                 NameTextField(nameController, errors['name']),
@@ -64,7 +64,9 @@ class SignupForm extends StatelessWidget {
 
                           ref.read(signupIsLoadingProvider.notifier).state =
                               true;
-                          ref.read(signupStateProvider.notifier).reset();
+                          ref
+                              .read(signupStateNotifierProvider.notifier)
+                              .reset();
                           ref.read(otpTimerStateProvider.notifier).reset();
                           ref.read(otpStateProvider.notifier).reset();
 
@@ -78,7 +80,7 @@ class SignupForm extends StatelessWidget {
                             });
                           } on ApiException catch (e) {
                             ref
-                                .read(signupStateProvider.notifier)
+                                .read(signupStateNotifierProvider.notifier)
                                 .setMessage(e.errors);
                           } catch (e) {
                             Snackbar.showError(context, e.toString());

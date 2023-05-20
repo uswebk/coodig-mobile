@@ -18,7 +18,7 @@ class SignupScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ref.read(signupStateProvider.notifier).reset();
+      ref.read(signupStateNotifierProvider.notifier).reset();
       final UserStatus userStatus = ref.watch(userStatusProvider);
 
       if (userStatus == UserStatus.authenticated) {
@@ -50,12 +50,8 @@ class SignupScreen extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
                   SignupForm(),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Divider(
-                    color: Colors.grey,
-                  ),
+                  SizedBox(height: 5),
+                  Divider(color: Colors.grey),
                   AlreadyHaveAccountRow(),
                 ],
               ),
