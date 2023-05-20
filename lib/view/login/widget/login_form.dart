@@ -5,6 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../exception/api_exception.dart';
 import '../../../provider/auth_provider.dart';
 import '../../../provider/login_provider.dart';
+import '../../../widget/form/email_text_field.dart';
+import '../../../widget/form/password_text_field.dart';
 import '../../../widget/greeting_box.dart';
 
 class LoginForm extends StatelessWidget {
@@ -13,7 +15,6 @@ class LoginForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
 
@@ -34,85 +35,15 @@ class LoginForm extends StatelessWidget {
                         )
                       : Container(),
                 ),
-                const SizedBox(
-                  height: 15,
-                ),
+                const SizedBox(height: 15),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: [
-                      TextFormField(
-                        controller: emailController,
-                        decoration: InputDecoration(
-                          labelText: 'Email',
-                          prefixIcon: const Icon(Icons.email),
-                          filled: true,
-                          fillColor: Colors.grey.withOpacity(0.1),
-                          border: const OutlineInputBorder(),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(color: Colors.grey.withOpacity(0.2)),
-                          ),
-                          errorText: errors['email'],
-                        ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please enter your email';
-                          }
-                          return null;
-                        },
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Consumer(
-                        builder: (BuildContext context, WidgetRef ref,
-                            Widget? child) {
-                          final passwordVisible =
-                              ref.watch(loginPasswordVisibleProvider);
-                          return TextFormField(
-                            controller: passwordController,
-                            obscureText: !passwordVisible,
-                            decoration: InputDecoration(
-                              labelText: 'Password',
-                              filled: true,
-                              fillColor: Colors.grey.withOpacity(0.1),
-                              border: const OutlineInputBorder(),
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey.withOpacity(0.2),
-                                ),
-                              ),
-                              prefixIcon: const Icon(Icons.lock),
-                              suffixIcon: IconButton(
-                                icon: Icon(passwordVisible
-                                    ? Icons.visibility
-                                    : Icons.visibility_off),
-                                onPressed: () {
-                                  ref
-                                      .read(
-                                          loginPasswordVisibleProvider.notifier)
-                                      .state = !passwordVisible;
-                                },
-                              ),
-                              errorText: errors['password'],
-                            ),
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter your password';
-                              }
-
-                              if (value.length <= 6) {
-                                return 'Password must be at least 6 characters';
-                              }
-                              return null;
-                            },
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        height: 20,
-                      ),
+                      EmailTextField(emailController, errors['email']),
+                      const SizedBox(height: 10),
+                      PasswordTextField(passwordController, errors['password']),
+                      const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
                         height: 48,
