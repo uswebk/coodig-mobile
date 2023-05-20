@@ -1,5 +1,4 @@
 import 'package:coodig_mobile/feature/signup/signup_state_notifier.dart';
-import 'package:coodig_mobile/view/signup/widget/already_have_account_row.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -10,6 +9,7 @@ import '../../../provider/auth_provider.dart';
 import '../../view/dashboard/dashboard_screen.dart';
 import '../../view/launch/launch_screen.dart';
 import '../../view/otp/otp_screen.dart';
+import 'components/already_have_account_row.dart';
 import 'components/signup_form.dart';
 
 class SignupPage extends HookConsumerWidget {

@@ -1,8 +1,8 @@
+import 'package:coodig_mobile/feature/signup/signup_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/provider/login_provider.dart';
 import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
 import 'package:coodig_mobile/view/login/widget/login_form.dart';
-import 'package:coodig_mobile/view/signup/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -70,7 +70,7 @@ class LoginScreen extends ConsumerWidget {
                     TextButton(
                       child: const Text('Sign Up'),
                       onPressed: () {
-                        Get.to(const SignupScreen());
+                        Get.off(const SignupPage());
                       },
                     ),
                   ],
