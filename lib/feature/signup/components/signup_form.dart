@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../provider/auth_provider.dart';
-import '../../../provider/otp_provider.dart';
-import '../../../provider/otp_timer_provider.dart';
 import '../../../widget/form/name_text_field.dart';
 import '../../../widget/form/password_confirm_text_field.dart';
 import '../../../widget/form/password_text_field.dart';
@@ -55,9 +53,6 @@ class SignupForm extends ConsumerWidget {
                           String password = passwordController.text;
                           String confirmPassword =
                               confirmPasswordController.text;
-
-                          ref.read(otpTimerStateProvider.notifier).reset();
-                          ref.read(otpStateProvider.notifier);
 
                           notifier.showHUD();
                           try {
