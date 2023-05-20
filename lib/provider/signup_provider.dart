@@ -1,18 +1,18 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final signupStateNotifierProvider =
-    StateNotifierProvider<SignupNotifier, SignupState>((ref) {
-  return SignupNotifier();
-});
+    StateNotifierProvider<SignupStateNotifier, SignupState>(
+        (ref) => SignupStateNotifier());
 
 class SignupState {
   Map<String, String> errorMessages;
+  bool isLoading;
 
-  SignupState(this.errorMessages);
+  SignupState(this.errorMessages, this.isLoading);
 }
 
-class SignupNotifier extends StateNotifier<SignupState> {
-  SignupNotifier() : super(SignupState({}));
+class SignupStateNotifier extends StateNotifier<SignupState> {
+  SignupStateNotifier() : super(SignupState({}, false));
 
   void setMessage(Map<String, dynamic> errors) {
     Map<String, String> errorMessages = {};
@@ -20,14 +20,20 @@ class SignupNotifier extends StateNotifier<SignupState> {
       errorMessages[key] = value[0];
     });
 
-    state = SignupState(errorMessages);
+    state = SignupState(errorMessages, false);
   }
 
   void reset() {
-    state = SignupState({});
+    state = SignupState({}, false);
+  }
+
+  void showHUD() {
+    state = SignupState(state.errorMessages, true);
+  }
+
+  void hideHUD() {
+    state = SignupState(state.errorMessages, false);
   }
 }
 
 final signupIsLoadingProvider = StateProvider<bool>((ref) => false);
-final passwordVisibleProvider = StateProvider<bool>((ref) => false);
-final passwordConfirmVisibleProvider = StateProvider<bool>((ref) => false);

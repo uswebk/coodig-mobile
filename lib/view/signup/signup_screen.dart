@@ -28,15 +28,14 @@ class SignupScreen extends ConsumerWidget {
       }
     });
 
+    final state = ref.watch(signupStateNotifierProvider);
+
     return Stack(children: [
       Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () {
-              Get.offAll(const LaunchScreen());
-            },
-          ),
+              icon: const Icon(Icons.arrow_back_ios),
+              onPressed: () => Get.offAll(const LaunchScreen())),
           backgroundColor: Colors.orangeAccent,
           title: const Text('SignUp'),
           elevation: 0,
@@ -59,14 +58,9 @@ class SignupScreen extends ConsumerWidget {
           ),
         ),
       ),
-      Consumer(
-        builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          final isLoading = ref.watch(signupIsLoadingProvider);
-          return ModalProgressHUD(
-            inAsyncCall: isLoading,
-            child: Container(),
-          );
-        },
+      ModalProgressHUD(
+        inAsyncCall: state.isLoading,
+        child: Container(),
       ),
     ]);
   }

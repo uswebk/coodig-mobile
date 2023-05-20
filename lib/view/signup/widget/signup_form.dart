@@ -12,17 +12,21 @@ import '../../../widget/form/password_confirm_text_field.dart';
 import '../../../widget/form/password_text_field.dart';
 import '../../../widget/snackbar.dart';
 
-class SignupForm extends StatelessWidget {
+class SignupForm extends ConsumerWidget {
   const SignupForm({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
     final TextEditingController nameController = TextEditingController();
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
     final TextEditingController confirmPasswordController =
         TextEditingController();
+
+    final store = ref.read(signupStateNotifierProvider.notifier);
+    final timer = ref.read(otpTimerStateProvider.notifier);
+    final otp = ref.read(otpStateProvider.notifier);
 
     return Form(
       key: formKey,
@@ -62,31 +66,28 @@ class SignupForm extends StatelessWidget {
                           String confirmPassword =
                               confirmPasswordController.text;
 
-                          ref.read(signupIsLoadingProvider.notifier).state =
-                              true;
-                          ref
-                              .read(signupStateNotifierProvider.notifier)
-                              .reset();
-                          ref.read(otpTimerStateProvider.notifier).reset();
-                          ref.read(otpStateProvider.notifier).reset();
+                          store.reset();
+                          timer.reset();
+                          otp.reset();
 
+                          store.showHUD();
                           try {
                             await ref
                                 .read(authStateProvider.notifier)
                                 .signup(name, email, password, confirmPassword);
                             Future.delayed(Duration.zero, () {
                               Snackbar.showSuccess(
-                                  context, 'otp sent to your email address');
+                                context,
+                                'otp sent to your email address',
+                              );
                             });
                           } on ApiException catch (e) {
-                            ref
-                                .read(signupStateNotifierProvider.notifier)
-                                .setMessage(e.errors);
+                            store.setMessage(e.errors);
                           } catch (e) {
                             Snackbar.showError(context, e.toString());
+                          } finally {
+                            store.hideHUD();
                           }
-                          ref.watch(signupIsLoadingProvider.notifier).state =
-                              false;
                         }
                       },
                       style: ElevatedButton.styleFrom(
