@@ -5,22 +5,22 @@ final signupStateNotifierProvider =
         (ref) => SignupStateNotifier());
 
 class SignupState {
-  Map<String, String> errorMessages;
+  Map<String, String> errors;
   bool isLoading;
 
-  SignupState(this.errorMessages, this.isLoading);
+  SignupState(this.errors, this.isLoading);
 }
 
 class SignupStateNotifier extends StateNotifier<SignupState> {
   SignupStateNotifier() : super(SignupState({}, false));
 
   void setMessage(Map<String, dynamic> errors) {
-    Map<String, String> errorMessages = {};
+    Map<String, String> errors = {};
     errors.forEach((String key, dynamic value) {
-      errorMessages[key] = value[0];
+      errors[key] = value[0];
     });
 
-    state = SignupState(errorMessages, false);
+    state = SignupState(errors, false);
   }
 
   void reset() {
@@ -28,11 +28,11 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
   }
 
   void showHUD() {
-    state = SignupState(state.errorMessages, true);
+    state = SignupState(state.errors, true);
   }
 
   void hideHUD() {
-    state = SignupState(state.errorMessages, false);
+    state = SignupState(state.errors, false);
   }
 }
 

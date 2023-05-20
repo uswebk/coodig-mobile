@@ -23,23 +23,23 @@ class SignupForm extends ConsumerWidget {
         TextEditingController();
 
     final notifier = ref.read(signupStateNotifierProvider.notifier);
+    final state = ref.watch(signupStateNotifierProvider);
 
     return Form(
       key: formKey,
       child: Center(
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final errors = ref.watch(signupStateNotifierProvider).errorMessages;
             return Column(
               children: [
-                NameTextField(nameController, errors['name']),
+                NameTextField(nameController, state.errors['name']),
                 const SizedBox(height: 10),
-                EmailTextField(emailController, errors['email']),
+                EmailTextField(emailController, state.errors['email']),
                 const SizedBox(height: 10),
-                PasswordTextField(passwordController, errors['password']),
+                PasswordTextField(passwordController, state.errors['password']),
                 const SizedBox(height: 10),
-                PasswordConfirmTextField(
-                    confirmPasswordController, errors['non_field_errors']),
+                PasswordConfirmTextField(confirmPasswordController,
+                    state.errors['non_field_errors']),
                 const SizedBox(height: 20),
                 SizedBox(
                   width: double.infinity,
