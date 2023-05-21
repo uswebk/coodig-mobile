@@ -47,7 +47,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   crypto: ^3.0.2
   flutter_flavor: ^3.1.1
-  freezed: ^2.3.4
+  freezed_annotation: ^2.2.0
   hooks_riverpod: ^2.3.6
   flutter_hooks: ^0.18.6
 
@@ -61,6 +61,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
