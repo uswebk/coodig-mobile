@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../service/auth_service.dart';
+import '../../service/auth_service.dart';
 
 final authService = Provider((ref) => ref.watch(authServiceProvider));
 
-final otpStateProvider =
+final otpStateNotifierProvider =
     StateNotifierProvider<OtpStateNotifier, OtpState>((ref) {
   final controllers = List.generate(
       6, (index) => TextEditingController(text: ''),

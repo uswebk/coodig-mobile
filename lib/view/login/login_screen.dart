@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/provider/login_provider.dart';
@@ -10,7 +11,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../enum/user_status.dart';
 import '../launch/launch_screen.dart';
-import '../otp/otp_screen.dart';
 import '../password_reset/forget_password_screen.dart';
 
 class LoginScreen extends ConsumerWidget {
@@ -25,7 +25,7 @@ class LoginScreen extends ConsumerWidget {
       if (userStatus == UserStatus.authenticated) {
         Get.off(const DashboardScreen());
       } else if (userStatus == UserStatus.emailNotVerified) {
-        Get.off(const OtpScreen());
+        Get.off(const OtpPage());
       }
     });
 

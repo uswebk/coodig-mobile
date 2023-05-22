@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uni_links/uni_links.dart';
@@ -5,7 +6,6 @@ import 'package:uni_links/uni_links.dart';
 import '../enum/user_status.dart';
 import '../view/dashboard/dashboard_screen.dart';
 import '../view/launch/launch_screen.dart';
-import '../view/otp/otp_screen.dart';
 import 'deeplink_service.dart';
 
 class SplashService {
@@ -28,7 +28,7 @@ class SplashService {
       case UserStatus.unauthenticated:
         return const LaunchScreen();
       case UserStatus.emailNotVerified:
-        return const OtpScreen();
+        return const OtpPage();
       case UserStatus.authenticated:
         return const DashboardScreen();
       default:

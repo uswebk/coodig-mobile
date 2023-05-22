@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/view/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -7,7 +8,6 @@ import '../../enum/user_status.dart';
 import '../../feature/signup/signup_page.dart';
 import '../../provider/auth_provider.dart';
 import '../dashboard/dashboard_screen.dart';
-import '../otp/otp_screen.dart';
 
 class LaunchScreen extends ConsumerWidget {
   const LaunchScreen({super.key});
@@ -63,7 +63,7 @@ class LaunchScreen extends ConsumerWidget {
                                   Get.off(const DashboardScreen());
                                 } else if (userStatus ==
                                     UserStatus.emailNotVerified) {
-                                  Get.to(const OtpScreen());
+                                  Get.to(const OtpPage());
                                 } else {
                                   Get.to(const SignupPage());
                                 }

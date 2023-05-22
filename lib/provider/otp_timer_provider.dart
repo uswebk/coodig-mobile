@@ -9,33 +9,31 @@ import '../service/otp_service.dart';
 final authService = Provider((ref) => ref.watch(authServiceProvider));
 final otpService = Provider((ref) => ref.watch(otpServiceProvider));
 
-final otpTimerStateProvider =
-    StateNotifierProvider<OtpTimerNotifier, OtpState?>((ref) {
+final otpTimerStateNotifierProvider =
+    StateNotifierProvider<OtpTimerNotifier, TimerState?>((ref) {
   return OtpTimerNotifier(ref.watch(otpService));
 });
 
-class OtpState {
+class TimerState {
   int minutes;
   int seconds;
-  bool isCalled;
-  Timer? timer;
-  OtpState(
-      {this.minutes = 0, this.seconds = 0, this.isCalled = false, this.timer});
+  TimerState({this.minutes = 0, this.seconds = 0});
 }
 
-class OtpTimerNotifier extends StateNotifier<OtpState> {
-  OtpTimerNotifier(this._otpService) : super(OtpState());
+class OtpTimerNotifier extends StateNotifier<TimerState> {
+  OtpTimerNotifier(this._otpService) : super(TimerState());
 
   final OtpService _otpService;
+  Timer? _timer;
 
   void reset() {
-    if (state.timer != null) {
-      state.timer!.cancel();
-    }
-    state = OtpState();
+    _timer?.cancel();
+    state = TimerState();
   }
 
   Future<void> startTimer() async {
+    reset();
+
     Otp? otp = await _otpService.fetch();
 
     int minutes = 0;
@@ -45,11 +43,9 @@ class OtpTimerNotifier extends StateNotifier<OtpState> {
       DateTime now = DateTime.parse(DateTime.now()
           .toString()
           .substring(0, DateTime.now().toString().length - 7));
-
       DateTime expirationAt = DateTime.parse(otp.expirationAt
           .toString()
           .substring(0, otp.expirationAt.toString().length - 5));
-
       Duration difference = expirationAt.difference(now);
 
       if (!difference.isNegative) {
@@ -58,26 +54,25 @@ class OtpTimerNotifier extends StateNotifier<OtpState> {
       }
     }
 
-    state = OtpState(minutes: minutes, seconds: seconds, isCalled: true);
+    state = TimerState(minutes: minutes, seconds: seconds);
 
-    Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (state.isCalled == false) {
-        timer.cancel();
-      } else if (state.minutes == 0 && state.seconds == 0) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (state.minutes == 0 && state.seconds == 0) {
         timer.cancel();
       } else if (state.seconds == 0) {
         int minutes = state.minutes - 1;
         int seconds = 59;
-        state = OtpState(
-            minutes: minutes, seconds: seconds, isCalled: true, timer: timer);
+        state = TimerState(minutes: minutes, seconds: seconds);
       } else {
         int seconds = state.seconds - 1;
-        state = OtpState(
-            minutes: state.minutes,
-            seconds: seconds,
-            isCalled: true,
-            timer: timer);
+        state = TimerState(minutes: state.minutes, seconds: seconds);
       }
     });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 }

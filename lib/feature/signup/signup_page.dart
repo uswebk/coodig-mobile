@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +9,6 @@ import '../../../enum/user_status.dart';
 import '../../../provider/auth_provider.dart';
 import '../../view/dashboard/dashboard_screen.dart';
 import '../../view/launch/launch_screen.dart';
-import '../../view/otp/otp_screen.dart';
 import 'components/already_have_account_row.dart';
 import 'components/signup_form.dart';
 
@@ -23,7 +23,7 @@ class SignupPage extends HookConsumerWidget {
       if (userStatus == UserStatus.authenticated) {
         Get.off(const DashboardScreen());
       } else if (userStatus == UserStatus.emailNotVerified) {
-        Get.off(const OtpScreen());
+        Get.off(const OtpPage());
       }
     });
 
