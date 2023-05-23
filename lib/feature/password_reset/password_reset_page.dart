@@ -2,13 +2,12 @@ import 'package:coodig_mobile/components/greeting_box.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/password_reset/components/password_reset_form.dart';
 import 'package:coodig_mobile/feature/password_reset/forget_password_page.dart';
+import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
-import '../../provider/password_reset_provider.dart';
 
 class PasswordResetPage extends ConsumerWidget {
   const PasswordResetPage({super.key});
@@ -16,7 +15,7 @@ class PasswordResetPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ref.read(resetPasswordStateProvider.notifier).reset();
+      ref.read(passwordResetStateNotifierProvider.notifier).reset();
     });
 
     String link = ref.watch(resetPasswordLinkProvider);
@@ -50,8 +49,8 @@ class PasswordResetPage extends ConsumerWidget {
                                 builder: (BuildContext context, WidgetRef ref,
                                     Widget? child) {
                                   final errors = ref
-                                      .watch(resetPasswordStateProvider)
-                                      .errorMessages;
+                                      .watch(passwordResetStateNotifierProvider)
+                                      .errors;
                                   return Column(
                                     children: [
                                       SizedBox(
@@ -95,7 +94,8 @@ class PasswordResetPage extends ConsumerWidget {
           ),
           Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              bool isLoading = ref.watch(resetPasswordIsLoadingProvider);
+              bool isLoading =
+                  ref.watch(passwordResetStateNotifierProvider).isLoading;
               return ModalProgressHUD(
                 inAsyncCall: isLoading,
                 child: Container(),

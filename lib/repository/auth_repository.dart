@@ -1,8 +1,7 @@
 import 'package:coodig_mobile/core/http_client.dart';
+import 'package:coodig_mobile/core/local_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
-
-import '../core/local_storage.dart';
 
 final authRepositoryProvider = Provider((ref) => AuthRepository(HttpClient()));
 
@@ -34,7 +33,7 @@ class AuthRepository {
           // 'password': password,
           // 'password2': confirmPassword,
           'name': 'usweb',
-          'email': 'usweb@example.com',
+          'email': 'abc@example.com',
           'password': 'test1111',
           'password2': 'test1111',
         },

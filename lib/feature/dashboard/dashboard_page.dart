@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
-class DashboardScreen extends ConsumerWidget {
-  const DashboardScreen({super.key});
+class DashboardPage extends ConsumerWidget {
+  const DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authStateProvider);
+    final notifier = ref.read(authStateProvider.notifier);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(30),
@@ -26,7 +27,7 @@ class DashboardScreen extends ConsumerWidget {
                 width: double.infinity,
                 child: ElevatedButton(
                   onPressed: () async {
-                    ref.watch(authStateProvider.notifier).logout();
+                    notifier.logout();
                     Get.off(const Splash());
                   },
                   style: ElevatedButton.styleFrom(

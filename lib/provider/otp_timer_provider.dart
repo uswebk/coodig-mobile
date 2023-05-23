@@ -1,9 +1,8 @@
 import 'dart:async';
 
 import 'package:coodig_mobile/model/otp.dart';
+import 'package:coodig_mobile/service/otp_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../service/otp_service.dart';
 
 final otpTimerStateNotifierProvider =
     StateNotifierProvider<OtpTimerNotifier, TimerState>((ref) {

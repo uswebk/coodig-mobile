@@ -1,11 +1,11 @@
+import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
+import 'package:coodig_mobile/feature/login/components/login_form.dart';
+import 'package:coodig_mobile/feature/login/login_state_notifier.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/feature/password_reset/forget_password_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
-import 'package:coodig_mobile/provider/login_provider.dart';
-import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
-import 'package:coodig_mobile/view/login/widget/login_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -13,17 +13,17 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../enum/user_status.dart';
 
-class LoginScreen extends ConsumerWidget {
-  const LoginScreen({super.key});
+class LoginPage extends ConsumerWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ref.read(loginStateProvider.notifier).reset();
+      ref.read(loginStateNotifierProvider.notifier).reset();
 
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
-        Get.off(const DashboardScreen());
+        Get.off(const DashboardPage());
       } else if (userStatus == UserStatus.emailNotVerified) {
         Get.off(const OtpPage());
       }
@@ -82,7 +82,7 @@ class LoginScreen extends ConsumerWidget {
       ),
       Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          final isLoading = ref.watch(loginIsLoadingProvider);
+          final isLoading = ref.watch(loginStateNotifierProvider).isLoading;
           return ModalProgressHUD(
             inAsyncCall: isLoading,
             child: Container(),

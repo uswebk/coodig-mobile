@@ -1,7 +1,6 @@
+import 'package:coodig_mobile/feature/login/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../../view/login/login_screen.dart';
 
 class AlreadyHaveAccountRow extends StatelessWidget {
   const AlreadyHaveAccountRow({super.key});
@@ -18,7 +17,7 @@ class AlreadyHaveAccountRow extends StatelessWidget {
         TextButton(
           child: const Text('Sign in'),
           onPressed: () {
-            Get.to(const LoginScreen());
+            Get.to(const LoginPage());
           },
         ),
       ],

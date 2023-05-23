@@ -1,12 +1,12 @@
+import 'package:coodig_mobile/components/form/email_text_field.dart';
+import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
-import 'package:coodig_mobile/provider/forget_password_provider.dart';
+import 'package:coodig_mobile/feature/password_reset/forget_password_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
-import '../../components/snackbar.dart';
 
 class ForgetPasswordPage extends ConsumerWidget {
   const ForgetPasswordPage({super.key});
@@ -15,6 +15,8 @@ class ForgetPasswordPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
     final TextEditingController emailController = TextEditingController();
+
+    final notifier = ref.read(forgetPasswordStateNotifierProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -57,32 +59,12 @@ class ForgetPasswordPage extends ConsumerWidget {
                         child: Consumer(
                           builder: (BuildContext context, WidgetRef ref,
                               Widget? child) {
-                            final errors = ref
-                                .watch(forgetPasswordStateProvider)
-                                .errorMessages;
+                            final state =
+                                ref.watch(forgetPasswordStateNotifierProvider);
                             return Column(
                               children: [
-                                TextFormField(
-                                  controller: emailController,
-                                  decoration: InputDecoration(
-                                    labelText: 'Email',
-                                    prefixIcon: const Icon(Icons.email),
-                                    filled: true,
-                                    fillColor: Colors.grey.withOpacity(0.1),
-                                    border: const OutlineInputBorder(),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                          color: Colors.grey.withOpacity(0.2)),
-                                    ),
-                                    errorText: errors['email'],
-                                  ),
-                                  validator: (value) {
-                                    if (value!.isEmpty) {
-                                      return 'Please enter your email';
-                                    }
-                                    return null;
-                                  },
-                                ),
+                                EmailTextField(
+                                    emailController, state.errors['email']),
                                 const SizedBox(
                                   height: 20,
                                 ),
@@ -93,19 +75,11 @@ class ForgetPasswordPage extends ConsumerWidget {
                                     onPressed: () async {
                                       if (formKey.currentState!.validate()) {
                                         formKey.currentState!.save();
-
                                         String email = emailController.text;
 
-                                        ref
-                                            .read(
-                                                forgetPasswordIsLoadingProvider
-                                                    .notifier)
-                                            .state = true;
-
+                                        notifier.setLoading(true);
                                         try {
-                                          await ref
-                                              .read(forgetPasswordStateProvider
-                                                  .notifier)
+                                          await notifier
                                               .sendResetPassword(email);
                                           Future.delayed(Duration.zero, () {
                                             Snackbar.showSuccess(context,
@@ -113,19 +87,13 @@ class ForgetPasswordPage extends ConsumerWidget {
                                           });
                                           emailController.clear();
                                         } on ApiException catch (e) {
-                                          ref
-                                              .read(forgetPasswordStateProvider
-                                                  .notifier)
-                                              .setMessage(e.errors);
+                                          notifier.setMessage(e.errors);
                                         } catch (e) {
                                           Snackbar.showError(
                                               context, e.toString());
+                                        } finally {
+                                          notifier.setLoading(false);
                                         }
-                                        ref
-                                            .read(
-                                                forgetPasswordIsLoadingProvider
-                                                    .notifier)
-                                            .state = false;
                                       }
                                     },
                                     style: ElevatedButton.styleFrom(
@@ -150,7 +118,8 @@ class ForgetPasswordPage extends ConsumerWidget {
           ),
           Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              bool isLoading = ref.watch(forgetPasswordIsLoadingProvider);
+              bool isLoading =
+                  ref.watch(forgetPasswordStateNotifierProvider).isLoading;
               return ModalProgressHUD(
                 inAsyncCall: isLoading,
                 child: Container(),

@@ -5,11 +5,8 @@ import 'package:coodig_mobile/repository/user_repository.dart';
 import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final authService = Provider((ref) => ref.watch(authServiceProvider));
-final userRepository = Provider((ref) => ref.watch(userRepositoryProvider));
-
-final userServiceProvider = Provider(
-    (ref) => UserService(ref.watch(authService), ref.watch(userRepository)));
+final userServiceProvider = Provider((ref) => UserService(
+    ref.watch(authServiceProvider), ref.watch(userRepositoryProvider)));
 
 class UserService {
   UserService(this._authService, this._userRepository);

@@ -1,16 +1,13 @@
 import 'dart:convert';
 
+import 'package:coodig_mobile/core/local_storage.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
+import 'package:coodig_mobile/model/token.dart';
+import 'package:coodig_mobile/repository/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../core/local_storage.dart';
-import '../model/token.dart';
-import '../repository/auth_repository.dart';
-
-final repository = Provider((ref) => ref.watch(authRepositoryProvider));
-
-final authServiceProvider =
-    Provider((ref) => AuthService(ref.watch(repository), LocalStorage()));
+final authServiceProvider = Provider(
+    (ref) => AuthService(ref.watch(authRepositoryProvider), LocalStorage()));
 
 class AuthService {
   AuthService(this._authRepository, this._localStorage);

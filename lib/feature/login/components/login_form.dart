@@ -1,29 +1,30 @@
+import 'package:coodig_mobile/components/form/email_text_field.dart';
+import 'package:coodig_mobile/components/form/password_text_field.dart';
+import 'package:coodig_mobile/components/greeting_box.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
+import 'package:coodig_mobile/exception/api_exception.dart';
+import 'package:coodig_mobile/feature/login/login_state_notifier.dart';
+import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../components/form/email_text_field.dart';
-import '../../../components/form/password_text_field.dart';
-import '../../../components/greeting_box.dart';
-import '../../../exception/api_exception.dart';
-import '../../../provider/auth_provider.dart';
-import '../../../provider/login_provider.dart';
-
-class LoginForm extends StatelessWidget {
+class LoginForm extends ConsumerWidget {
   const LoginForm({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
     final TextEditingController emailController = TextEditingController();
     final TextEditingController passwordController = TextEditingController();
+
+    final notifier = ref.read(loginStateNotifierProvider.notifier);
 
     return Form(
       key: formKey,
       child: Center(
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final errors = ref.watch(loginStateProvider).errorMessages;
+            final errors = ref.watch(loginStateNotifierProvider).errors;
             return Column(
               children: [
                 Container(
@@ -54,10 +55,8 @@ class LoginForm extends StatelessWidget {
                               String email = emailController.text;
                               String password = passwordController.text;
 
-                              ref.read(loginIsLoadingProvider.notifier).state =
-                                  true;
-                              ref.read(loginStateProvider.notifier).reset();
-
+                              notifier.reset();
+                              notifier.setLoading(true);
                               try {
                                 await ref
                                     .read(authStateProvider.notifier)
@@ -67,15 +66,12 @@ class LoginForm extends StatelessWidget {
                                       context, 'Login Success!');
                                 });
                               } on ApiException catch (e) {
-                                ref
-                                    .read(loginStateProvider.notifier)
-                                    .setMessage(e.errors);
+                                notifier.setMessage(e.errors);
                               } catch (e) {
                                 Snackbar.showError(context, e.toString());
+                              } finally {
+                                notifier.setLoading(false);
                               }
-
-                              ref.read(loginIsLoadingProvider.notifier).state =
-                                  false;
                             }
                           },
                           style: ElevatedButton.styleFrom(

@@ -1,14 +1,13 @@
 import 'package:coodig_mobile/components/form/email_text_field.dart';
+import 'package:coodig_mobile/components/form/name_text_field.dart';
+import 'package:coodig_mobile/components/form/password_confirm_text_field.dart';
+import 'package:coodig_mobile/components/form/password_text_field.dart';
+import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/signup/signup_state_notifier.dart';
+import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../../../components/form/name_text_field.dart';
-import '../../../components/form/password_confirm_text_field.dart';
-import '../../../components/form/password_text_field.dart';
-import '../../../components/snackbar.dart';
-import '../../../provider/auth_provider.dart';
 
 class SignupForm extends ConsumerWidget {
   const SignupForm({super.key});

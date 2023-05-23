@@ -1,9 +1,8 @@
 import 'package:coodig_mobile/enum/user_status.dart';
+import 'package:coodig_mobile/model/user.dart';
 import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:coodig_mobile/service/user_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import '../model/user.dart';
 
 final authService = Provider((ref) => ref.watch(authServiceProvider));
 final userService = Provider((ref) => ref.watch(userServiceProvider));

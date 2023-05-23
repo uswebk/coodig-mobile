@@ -1,13 +1,12 @@
+import 'package:coodig_mobile/enum/user_status.dart';
+import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
+import 'package:coodig_mobile/feature/login/login_screen.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
-import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
-import 'package:coodig_mobile/view/login/login_screen.dart';
+import 'package:coodig_mobile/feature/signup/signup_page.dart';
+import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-
-import '../../enum/user_status.dart';
-import '../../feature/signup/signup_page.dart';
-import '../../provider/auth_provider.dart';
 
 class LaunchPage extends ConsumerWidget {
   const LaunchPage({super.key});
@@ -57,7 +56,7 @@ class LaunchPage extends ConsumerWidget {
                         child: ElevatedButton(
                           onPressed: () {
                             if (userStatus == UserStatus.authenticated) {
-                              Get.off(const DashboardScreen());
+                              Get.off(const DashboardPage());
                             } else if (userStatus ==
                                 UserStatus.emailNotVerified) {
                               Get.to(const OtpPage());
@@ -80,9 +79,9 @@ class LaunchPage extends ConsumerWidget {
                         child: TextButton(
                           onPressed: () {
                             if (userStatus == UserStatus.authenticated) {
-                              Get.off(const DashboardScreen());
+                              Get.off(const DashboardPage());
                             } else {
-                              Get.to(const LoginScreen());
+                              Get.to(const LoginPage());
                             }
                           },
                           style: ElevatedButton.styleFrom(

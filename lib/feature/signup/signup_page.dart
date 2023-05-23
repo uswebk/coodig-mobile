@@ -1,16 +1,15 @@
+import 'package:coodig_mobile/enum/user_status.dart';
+import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
+import 'package:coodig_mobile/feature/signup/components/already_have_account_row.dart';
+import 'package:coodig_mobile/feature/signup/components/signup_form.dart';
 import 'package:coodig_mobile/feature/signup/signup_state_notifier.dart';
+import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
-import '../../../enum/user_status.dart';
-import '../../../provider/auth_provider.dart';
-import '../../view/dashboard/dashboard_screen.dart';
-import 'components/already_have_account_row.dart';
-import 'components/signup_form.dart';
 
 class SignupPage extends HookConsumerWidget {
   const SignupPage({super.key});
@@ -21,7 +20,7 @@ class SignupPage extends HookConsumerWidget {
       ref.read(signupStateNotifierProvider.notifier).reset();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
-        Get.off(const DashboardScreen());
+        Get.off(const DashboardPage());
       } else if (userStatus == UserStatus.emailNotVerified) {
         Get.off(const OtpPage());
       }

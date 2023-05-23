@@ -9,7 +9,7 @@ class Otp {
 
   factory Otp.fromJson(Map<String, dynamic> json) {
     return Otp(
-      code: json['code'],
+      code: json['code'] ?? '',
       expirationAt: DateTime.parse(json['expiration_at']),
     );
   }
