@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/enum/user_status.dart';
+import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/otp/components/explanation.dart';
 import 'package:coodig_mobile/feature/otp/components/otp_field.dart';
 import 'package:coodig_mobile/feature/otp/components/reregistration_button.dart';
@@ -9,7 +10,6 @@ import 'package:coodig_mobile/feature/otp/otp_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/provider/otp_timer_provider.dart';
 import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
-import 'package:coodig_mobile/view/launch/launch_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -37,7 +37,7 @@ class OtpPage extends ConsumerWidget {
               color: Colors.black45,
             ),
             onPressed: () {
-              Get.to(const LaunchScreen());
+              Get.to(const LaunchPage());
             },
           ),
           backgroundColor: Colors.white,

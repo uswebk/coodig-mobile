@@ -1,6 +1,6 @@
 import 'package:coodig_mobile/components/greeting_box.dart';
+import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
-import 'package:coodig_mobile/view/launch/launch_screen.dart';
 import 'package:coodig_mobile/view/password_reset/forget_password_screen.dart';
 import 'package:coodig_mobile/view/password_reset/widget/password_reset_form.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class PasswordResetScreen extends ConsumerWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Get.to(const LaunchScreen());
+            Get.to(const LaunchPage());
           },
         ),
         backgroundColor: Colors.orangeAccent,

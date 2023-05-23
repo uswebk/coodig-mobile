@@ -1,6 +1,6 @@
 import 'package:coodig_mobile/exception/api_exception.dart';
+import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/provider/forget_password_provider.dart';
-import 'package:coodig_mobile/view/launch/launch_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -21,7 +21,7 @@ class ForgetPasswordScreen extends ConsumerWidget {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios),
           onPressed: () {
-            Get.to(const LaunchScreen());
+            Get.to(const LaunchPage());
           },
         ),
         backgroundColor: Colors.orangeAccent,

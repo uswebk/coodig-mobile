@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_state_notifier.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,6 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import '../../../enum/user_status.dart';
 import '../../../provider/auth_provider.dart';
 import '../../view/dashboard/dashboard_screen.dart';
-import '../../view/launch/launch_screen.dart';
 import 'components/already_have_account_row.dart';
 import 'components/signup_form.dart';
 
@@ -32,7 +32,7 @@ class SignupPage extends HookConsumerWidget {
         appBar: AppBar(
           leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios),
-              onPressed: () => Get.offAll(const LaunchScreen())),
+              onPressed: () => Get.offAll(const LaunchPage())),
           backgroundColor: Colors.orangeAccent,
           title: const Text('SignUp'),
           elevation: 0,

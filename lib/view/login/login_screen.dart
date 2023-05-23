@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
@@ -10,7 +11,6 @@ import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../enum/user_status.dart';
-import '../launch/launch_screen.dart';
 import '../password_reset/forget_password_screen.dart';
 
 class LoginScreen extends ConsumerWidget {
@@ -35,7 +35,7 @@ class LoginScreen extends ConsumerWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios),
             onPressed: () {
-              Get.offAll(const LaunchScreen());
+              Get.offAll(const LaunchPage());
             },
           ),
           backgroundColor: Colors.orangeAccent,
