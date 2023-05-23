@@ -12,7 +12,7 @@ class PasswordConfirmTextField extends StatefulWidget {
 }
 
 class PasswordConfirmTextFieldState extends State<PasswordConfirmTextField> {
-  bool _isObscure = true;
+  bool _isObscure = false;
 
   @override
   Widget build(BuildContext context) {
