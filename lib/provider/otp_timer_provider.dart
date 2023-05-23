@@ -1,34 +1,31 @@
 import 'dart:async';
 
 import 'package:coodig_mobile/model/otp.dart';
-import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../service/otp_service.dart';
 
-final authService = Provider((ref) => ref.watch(authServiceProvider));
-final otpService = Provider((ref) => ref.watch(otpServiceProvider));
-
 final otpTimerStateNotifierProvider =
-    StateNotifierProvider<OtpTimerNotifier, TimerState?>((ref) {
-  return OtpTimerNotifier(ref.watch(otpService));
+    StateNotifierProvider<OtpTimerNotifier, TimerState>((ref) {
+  return OtpTimerNotifier(ref.watch(otpServiceProvider));
 });
 
 class TimerState {
   int minutes;
   int seconds;
-  TimerState({this.minutes = 0, this.seconds = 0});
+  TimerState({required this.minutes, required this.seconds});
 }
 
 class OtpTimerNotifier extends StateNotifier<TimerState> {
-  OtpTimerNotifier(this._otpService) : super(TimerState());
+  OtpTimerNotifier(this._otpService)
+      : super(TimerState(minutes: 0, seconds: 0));
 
   final OtpService _otpService;
   Timer? _timer;
 
   void reset() {
     _timer?.cancel();
-    state = TimerState();
+    state = TimerState(minutes: 0, seconds: 0);
   }
 
   Future<void> startTimer() async {
@@ -65,14 +62,9 @@ class OtpTimerNotifier extends StateNotifier<TimerState> {
         state = TimerState(minutes: minutes, seconds: seconds);
       } else {
         int seconds = state.seconds - 1;
-        state = TimerState(minutes: state.minutes, seconds: seconds);
+        int minutes = state.minutes;
+        state = TimerState(minutes: minutes, seconds: seconds);
       }
     });
-  }
-
-  @override
-  void dispose() {
-    _timer?.cancel();
-    super.dispose();
   }
 }

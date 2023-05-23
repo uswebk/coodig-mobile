@@ -1,8 +1,8 @@
 import 'package:coodig_mobile/enum/user_status.dart';
-import 'package:coodig_mobile/feature/otp/components/explanation_box.dart';
+import 'package:coodig_mobile/feature/otp/components/explanation.dart';
 import 'package:coodig_mobile/feature/otp/components/otp_field.dart';
 import 'package:coodig_mobile/feature/otp/components/reregistration_button.dart';
-import 'package:coodig_mobile/feature/otp/components/resend_bottuon.dart';
+import 'package:coodig_mobile/feature/otp/components/resend_button.dart';
 import 'package:coodig_mobile/feature/otp/components/timer.dart';
 import 'package:coodig_mobile/feature/otp/components/verify_button.dart';
 import 'package:coodig_mobile/feature/otp/otp_state_notifier.dart';
@@ -10,7 +10,6 @@ import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/provider/otp_timer_provider.dart';
 import 'package:coodig_mobile/view/dashboard/dashboard_screen.dart';
 import 'package:coodig_mobile/view/launch/launch_screen.dart';
-import 'package:coodig_mobile/widget/greeting_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -55,7 +54,7 @@ class OtpPage extends ConsumerWidget {
               children: [
                 Column(
                   children: [
-                    const ExplanationBox(),
+                    const Explanation(),
                     Column(
                       children: const [
                         Timer(),
@@ -68,21 +67,13 @@ class OtpPage extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 12.0),
                   child: SingleChildScrollView(
                     child: Column(
-                      children: [
-                        const Divider(),
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
-                          child: (ref.watch(otpErrorMessageProvider) != '')
-                              ? GreetingBox(
-                                  message: ref.watch(otpErrorMessageProvider))
-                              : Container(),
-                        ),
-                        const SizedBox(height: 10),
-                        const OtpField(),
-                        const SizedBox(height: 20),
-                        const VerifyButton(),
-                        const ReregistrationButton(),
+                      children: const [
+                        Divider(),
+                        SizedBox(height: 10),
+                        OtpField(),
+                        SizedBox(height: 20),
+                        VerifyButton(),
+                        ReregistrationButton(),
                       ],
                     ),
                   ),
@@ -94,7 +85,7 @@ class OtpPage extends ConsumerWidget {
       ),
       Consumer(
         builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          bool isLoading = ref.watch(otpLoadingProvider);
+          bool isLoading = ref.watch(otpStateNotifierProvider).isLoading;
           return ModalProgressHUD(
             inAsyncCall: isLoading,
             child: Container(),

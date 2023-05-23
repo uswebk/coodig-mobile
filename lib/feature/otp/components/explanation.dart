@@ -2,8 +2,8 @@ import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ExplanationBox extends ConsumerWidget {
-  const ExplanationBox({super.key});
+class Explanation extends ConsumerWidget {
+  const Explanation({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

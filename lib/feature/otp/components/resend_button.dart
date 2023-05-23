@@ -1,6 +1,6 @@
+import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/feature/otp/otp_state_notifier.dart';
 import 'package:coodig_mobile/provider/otp_timer_provider.dart';
-import 'package:coodig_mobile/widget/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,8 +36,6 @@ class ResendButton extends ConsumerWidget {
           });
         } catch (e) {
           Snackbar.showError(context, 'Resent the OTP to your email.');
-        } finally {
-          // Navigator.of(context).pop();
         }
       },
     );

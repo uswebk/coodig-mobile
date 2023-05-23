@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/feature/otp/otp_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,9 @@ class VerifyButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final otpState = ref.watch(otpStateNotifierProvider);
+    final notifier = ref.read(otpStateNotifierProvider.notifier);
+    final auth = ref.read(authStateProvider.notifier);
+    final state = ref.watch(otpStateNotifierProvider);
     return SizedBox(
       width: double.infinity,
       height: 42,
@@ -16,19 +19,18 @@ class VerifyButton extends ConsumerWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: Theme.of(context).primaryColor,
         ),
-        onPressed: otpState.isButtonEnabled
+        onPressed: state.isButtonEnabled
             ? () async {
-                ref.read(otpLoadingProvider.notifier).state = true;
-
+                ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                notifier.setLoading(true);
                 try {
-                  await ref.read(otpStateNotifierProvider.notifier).verify();
-                  await ref.read(authStateProvider.notifier).fetchMe();
+                  await notifier.verify();
+                  await auth.fetchMe();
                 } catch (e) {
-                  ref.read(otpErrorMessageProvider.notifier).state =
-                      e.toString();
+                  Snackbar.showError(context, e.toString());
+                } finally {
+                  notifier.setLoading(false);
                 }
-
-                ref.read(otpLoadingProvider.notifier).state = false;
               }
             : null,
         child: const Text('Verify'),

@@ -10,7 +10,7 @@ class Timer extends ConsumerWidget {
     return Consumer(
       builder: (BuildContext context, WidgetRef ref, Widget? child) {
         final state = ref.watch(otpTimerStateNotifierProvider);
-        int minutes = state!.minutes;
+        int minutes = state.minutes;
         int seconds = state.seconds;
         return Padding(
           padding: const EdgeInsets.only(top: 50.0),

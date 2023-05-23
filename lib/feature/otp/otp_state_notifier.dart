@@ -5,36 +5,40 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../service/auth_service.dart';
 
-final authService = Provider((ref) => ref.watch(authServiceProvider));
-
 final otpStateNotifierProvider =
     StateNotifierProvider<OtpStateNotifier, OtpState>((ref) {
   final controllers = List.generate(
       6, (index) => TextEditingController(text: ''),
       growable: false);
-  return OtpStateNotifier(OtpState(controllers), ref.watch(authService));
+  return OtpStateNotifier(
+      OtpState(controllers), ref.watch(authServiceProvider));
 });
 
 class OtpState {
   final List<TextEditingController> controllers;
   final String otp;
   final bool isButtonEnabled;
+  final bool isLoading;
 
   OtpState(
     this.controllers, {
     this.otp = '',
     this.isButtonEnabled = false,
+    this.isLoading = false,
   });
 
   OtpState copyWith({
     List<TextEditingController>? controllers,
     String? otp,
     bool? isButtonEnabled,
+    String? errorMessage,
+    bool? isLoading,
   }) {
     return OtpState(
       this.controllers,
       otp: otp ?? this.otp,
       isButtonEnabled: isButtonEnabled ?? this.isButtonEnabled,
+      isLoading: isLoading ?? this.isLoading,
     );
   }
 }
@@ -66,7 +70,8 @@ class OtpStateNotifier extends StateNotifier<OtpState> {
     reset();
     await _authService.resendOtp();
   }
-}
 
-final otpErrorMessageProvider = StateProvider<String>((ref) => '');
-final otpLoadingProvider = StateProvider<bool>((ref) => false);
+  void setLoading(bool isLoading) async {
+    state = state.copyWith(isLoading: isLoading);
+  }
+}
