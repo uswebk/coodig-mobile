@@ -15,8 +15,8 @@ class User {
         : null;
 
     return User(
-        name: json['name'],
-        email: json['email'],
+        name: json['name'] ?? '',
+        email: json['email'] ?? '',
         emailVerifiedAt: emailVerifiedAt);
   }
 }
