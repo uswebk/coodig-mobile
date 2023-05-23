@@ -8,8 +8,8 @@ import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../components/snackbar.dart';
 
-class ForgetPasswordScreen extends ConsumerWidget {
-  const ForgetPasswordScreen({super.key});
+class ForgetPasswordPage extends ConsumerWidget {
+  const ForgetPasswordPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

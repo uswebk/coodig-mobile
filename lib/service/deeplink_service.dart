@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:coodig_mobile/feature/password_reset/password_reset_page.dart';
 import 'package:coodig_mobile/feature/splash/splash.dart';
 import 'package:coodig_mobile/provider/password_reset_provider.dart';
 import 'package:crypto/crypto.dart';
@@ -8,8 +9,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:uni_links/uni_links.dart';
-
-import '../view/password_reset/password_reset_screen.dart';
 
 class DeeplinkService {
   void initDeeplink(WidgetRef ref) {
@@ -29,7 +28,7 @@ class DeeplinkService {
 
     switch (uri.host) {
       case 'reset-password':
-        return const PasswordResetScreen();
+        return const PasswordResetPage();
       default:
         return const Splash();
     }

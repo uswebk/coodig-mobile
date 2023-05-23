@@ -1,5 +1,6 @@
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
+import 'package:coodig_mobile/feature/password_reset/forget_password_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/provider/login_provider.dart';
@@ -11,7 +12,6 @@ import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 import '../../enum/user_status.dart';
-import '../password_reset/forget_password_screen.dart';
 
 class LoginScreen extends ConsumerWidget {
   const LoginScreen({super.key});
@@ -54,7 +54,7 @@ class LoginScreen extends ConsumerWidget {
                 TextButton(
                   child: const Text('Forget Password?'),
                   onPressed: () {
-                    Get.to(const ForgetPasswordScreen());
+                    Get.to(const ForgetPasswordPage());
                   },
                 ),
                 const Divider(
