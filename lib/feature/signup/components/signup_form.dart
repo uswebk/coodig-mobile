@@ -1,14 +1,14 @@
+import 'package:coodig_mobile/components/form/email_text_field.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/signup/signup_state_notifier.dart';
-import 'package:coodig_mobile/widget/form/email_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../components/form/name_text_field.dart';
+import '../../../components/form/password_confirm_text_field.dart';
+import '../../../components/form/password_text_field.dart';
+import '../../../components/snackbar.dart';
 import '../../../provider/auth_provider.dart';
-import '../../../widget/form/name_text_field.dart';
-import '../../../widget/form/password_confirm_text_field.dart';
-import '../../../widget/form/password_text_field.dart';
-import '../../../widget/snackbar.dart';
 
 class SignupForm extends ConsumerWidget {
   const SignupForm({super.key});
@@ -23,13 +23,13 @@ class SignupForm extends ConsumerWidget {
         TextEditingController();
 
     final notifier = ref.read(signupStateNotifierProvider.notifier);
-    final state = ref.watch(signupStateNotifierProvider);
 
     return Form(
       key: formKey,
       child: Center(
         child: Consumer(
           builder: (BuildContext context, WidgetRef ref, Widget? child) {
+            final state = ref.watch(signupStateNotifierProvider);
             return Column(
               children: [
                 NameTextField(nameController, state.errors['name']),
@@ -53,24 +53,21 @@ class SignupForm extends ConsumerWidget {
                           String password = passwordController.text;
                           String confirmPassword =
                               confirmPasswordController.text;
-
-                          notifier.showHUD();
+                          notifier.setLoading(true);
                           try {
                             await ref
                                 .read(authStateProvider.notifier)
                                 .signup(name, email, password, confirmPassword);
                             Future.delayed(Duration.zero, () {
                               Snackbar.showSuccess(
-                                context,
-                                'otp sent to your email address',
-                              );
+                                  context, 'Otp sent to your email address');
                             });
                           } on ApiException catch (e) {
                             notifier.setMessage(e.errors);
                           } catch (e) {
                             Snackbar.showError(context, e.toString());
                           } finally {
-                            notifier.hideHUD();
+                            notifier.setLoading(false);
                           }
                         }
                       },

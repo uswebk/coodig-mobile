@@ -22,11 +22,7 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
     state = state.copyWith(errors: {}, isLoading: false);
   }
 
-  void showHUD() {
-    state = state.copyWith(isLoading: true);
-  }
-
-  void hideHUD() {
-    state = state.copyWith(isLoading: false);
+  void setLoading(bool isLoading) {
+    state = state.copyWith(isLoading: isLoading);
   }
 }
