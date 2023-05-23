@@ -1,8 +1,8 @@
+import 'package:coodig_mobile/components/greeting_box.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:coodig_mobile/view/launch/launch_screen.dart';
 import 'package:coodig_mobile/view/password_reset/forget_password_screen.dart';
 import 'package:coodig_mobile/view/password_reset/widget/password_reset_form.dart';
-import 'package:coodig_mobile/widget/greeting_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';

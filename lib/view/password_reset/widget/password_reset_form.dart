@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
+import '../../../components/snackbar.dart';
 import '../../../provider/password_reset_provider.dart';
-import '../../../widget/snackbar.dart';
 import '../../login/login_screen.dart';
 
 class PasswordResetForm extends StatelessWidget {

@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../widget/snackbar.dart';
+import '../../components/snackbar.dart';
 
 class ForgetPasswordScreen extends ConsumerWidget {
   const ForgetPasswordScreen({super.key});

@@ -1,13 +1,13 @@
-import 'package:coodig_mobile/widget/snackbar.dart';
+import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../components/form/email_text_field.dart';
+import '../../../components/form/password_text_field.dart';
+import '../../../components/greeting_box.dart';
 import '../../../exception/api_exception.dart';
 import '../../../provider/auth_provider.dart';
 import '../../../provider/login_provider.dart';
-import '../../../widget/form/email_text_field.dart';
-import '../../../widget/form/password_text_field.dart';
-import '../../../widget/greeting_box.dart';
 
 class LoginForm extends StatelessWidget {
   const LoginForm({super.key});
