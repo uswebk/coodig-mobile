@@ -8,15 +8,14 @@ import 'package:get/get.dart';
 import '../../provider/auth_provider.dart';
 import '../../service/splash_service.dart';
 
-class SplashScreen extends ConsumerWidget {
-  const SplashScreen({super.key});
+class Splash extends ConsumerWidget {
+  const Splash({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future.delayed(const Duration(seconds: 2)).then((value) async {
       final SplashService splashService = SplashService();
       splashService.initDeeplink(ref);
-
       await ref.read(authStateProvider.notifier).fetchMe();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       Widget screen = await splashService.getScreen(userStatus);

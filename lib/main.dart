@@ -1,6 +1,6 @@
+import 'package:coodig_mobile/feature/splash/splash.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:coodig_mobile/service/environment_service.dart';
-import 'package:coodig_mobile/view/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -33,7 +33,7 @@ class MyApp extends ConsumerWidget {
           MaterialPageRoute(
             builder: (context) {
               DeeplinkService().initDeeplink(ref);
-              return const SplashScreen();
+              return const Splash();
             },
           ),
         ];

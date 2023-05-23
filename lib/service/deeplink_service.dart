@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:coodig_mobile/feature/splash/splash.dart';
 import 'package:coodig_mobile/provider/password_reset_provider.dart';
-import 'package:coodig_mobile/view/splash/splash_screen.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -31,7 +31,7 @@ class DeeplinkService {
       case 'reset-password':
         return const PasswordResetScreen();
       default:
-        return const SplashScreen();
+        return const Splash();
     }
   }
 
