@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uni_links/uni_links.dart';
 
 class SplashService {
-  Future<void> initDeeplink(WidgetRef ref) async {
+  static Future<void> initDeeplink(WidgetRef ref) async {
     String? link = await getInitialLink();
 
     if (link != null) {
@@ -16,7 +16,7 @@ class SplashService {
     }
   }
 
-  Future<Widget> getScreen(UserStatus userStatus) async {
+  static Future<Widget> getScreen(UserStatus userStatus) async {
     String? link = await getInitialLink();
 
     if (link != null) {
