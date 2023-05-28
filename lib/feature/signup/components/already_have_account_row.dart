@@ -1,4 +1,4 @@
-import 'package:coodig_mobile/feature/login/login_screen.dart';
+import 'package:coodig_mobile/feature/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

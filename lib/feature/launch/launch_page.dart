@@ -1,6 +1,6 @@
 import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
-import 'package:coodig_mobile/feature/login/login_screen.dart';
+import 'package:coodig_mobile/feature/login/login_page.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
@@ -34,9 +34,7 @@ class LaunchPage extends ConsumerWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    SizedBox(height: 10),
                     Text(
                       '- Quiz Application For Engineers -',
                       style: TextStyle(
@@ -45,9 +43,7 @@ class LaunchPage extends ConsumerWidget {
                       ),
                     ),
                   ]),
-                  const SizedBox(
-                    height: 220,
-                  ),
+                  const SizedBox(height: 220),
                   Column(
                     children: [
                       SizedBox(
@@ -70,9 +66,7 @@ class LaunchPage extends ConsumerWidget {
                           child: const Text('Sign Up'),
                         ),
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      const SizedBox(height: 10),
                       SizedBox(
                         width: double.infinity,
                         height: 50,

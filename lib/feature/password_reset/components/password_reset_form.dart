@@ -2,7 +2,7 @@ import 'package:coodig_mobile/components/form/password_confirm_text_field.dart';
 import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
-import 'package:coodig_mobile/feature/login/login_screen.dart';
+import 'package:coodig_mobile/feature/login/login_page.dart';
 import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

@@ -4,11 +4,9 @@ import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:coodig_mobile/service/user_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final authService = Provider((ref) => ref.watch(authServiceProvider));
-final userService = Provider((ref) => ref.watch(userServiceProvider));
-
 final authStateProvider = StateNotifierProvider<AuthNotifier, User?>((ref) {
-  return AuthNotifier(ref.watch(authService), ref.watch(userService));
+  return AuthNotifier(
+      ref.watch(authServiceProvider), ref.watch(userServiceProvider));
 });
 
 class AuthNotifier extends StateNotifier<User?> {
@@ -44,11 +42,9 @@ class AuthNotifier extends StateNotifier<User?> {
 
 final userStatusProvider = Provider<UserStatus>((ref) {
   final User? user = ref.watch(authStateProvider);
-
   if (user == null) {
     return UserStatus.unauthenticated;
   }
-
   if (user.emailVerifiedAt == null) {
     return UserStatus.emailNotVerified;
   }
