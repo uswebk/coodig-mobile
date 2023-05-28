@@ -61,10 +61,6 @@ class LoginForm extends ConsumerWidget {
                                 await ref
                                     .read(authStateProvider.notifier)
                                     .login(email, password);
-                                Future.delayed(Duration.zero, () {
-                                  Snackbar.showSuccess(
-                                      context, 'Login Success!');
-                                });
                               } on ApiException catch (e) {
                                 notifier.setMessage(e.errors);
                               } catch (e) {
