@@ -11,7 +11,7 @@ class PasswordTextField extends StatefulWidget {
 }
 
 class PasswordTextFieldState extends State<PasswordTextField> {
-  bool _isObscure = false;
+  bool _isObscure = true;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class PasswordTextFieldState extends State<PasswordTextField> {
         errorText: widget._error,
         suffixIcon: IconButton(
           icon: Icon(
-            _isObscure ? Icons.visibility : Icons.visibility_off,
+            _isObscure ? Icons.visibility_off : Icons.visibility,
             size: 22,
           ),
           onPressed: () {
