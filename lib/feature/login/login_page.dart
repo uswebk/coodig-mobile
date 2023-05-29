@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/login/components/login_form.dart';
@@ -20,7 +21,6 @@ class LoginPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(loginStateNotifierProvider.notifier).reset();
-
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
         Get.off(const DashboardPage());
@@ -33,51 +33,64 @@ class LoginPage extends ConsumerWidget {
       Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios),
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.grey,
+            ),
             onPressed: () {
               Get.offAll(const LaunchPage());
             },
           ),
-          backgroundColor: Colors.orangeAccent,
-          title: const Text('Login'),
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: Container(
-          alignment: Alignment.center,
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const LoginForm(),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextButton(
-                  child: const Text('Forget Password?'),
-                  onPressed: () {
-                    Get.to(const ForgetPasswordPage());
-                  },
-                ),
-                const Divider(
-                  color: Colors.grey,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
+        body: Column(
+          children: [
+            Container(
+              alignment: AlignmentDirectional.centerStart,
+              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+              child: const Text(
+                'Login',
+                style: TextStyle(
+                    color: CoodigColors.grey,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800),
+              ),
+            ),
+            Container(
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    const Text(
-                      'Don’t have an account? ',
-                      style: TextStyle(color: Colors.grey),
-                    ),
+                    const LoginForm(),
+                    const SizedBox(height: 5),
                     TextButton(
-                      child: const Text('Sign Up'),
+                      child: const Text('Forget Password?'),
                       onPressed: () {
-                        Get.off(const SignupPage());
+                        Get.to(const ForgetPasswordPage());
                       },
+                    ),
+                    const Divider(color: Colors.grey),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Text(
+                          'Don’t have an account? ',
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                        TextButton(
+                          child: const Text('Sign Up'),
+                          onPressed: () {
+                            Get.off(const SignupPage());
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
       Consumer(

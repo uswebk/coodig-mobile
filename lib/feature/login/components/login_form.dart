@@ -2,6 +2,7 @@ import 'package:coodig_mobile/components/form/email_text_field.dart';
 import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/greeting_box.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/login/login_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
@@ -71,7 +72,7 @@ class LoginForm extends ConsumerWidget {
                             }
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.orangeAccent,
+                            backgroundColor: CoodigColors.buttonPrimary,
                           ),
                           child: const Text('Login'),
                         ),
