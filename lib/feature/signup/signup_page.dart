@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
@@ -30,27 +31,45 @@ class SignupPage extends HookConsumerWidget {
       Scaffold(
         appBar: AppBar(
           leading: IconButton(
-              icon: const Icon(Icons.arrow_back_ios),
+              icon: const Icon(
+                Icons.arrow_back_ios,
+                color: Colors.grey,
+              ),
               onPressed: () => Get.offAll(const LaunchPage())),
-          backgroundColor: Colors.orangeAccent,
-          title: const Text('SignUp'),
+          backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: Container(
-          alignment: Alignment.center,
-          child: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  SignupForm(),
-                  SizedBox(height: 5),
-                  Divider(color: Colors.grey),
-                  AlreadyHaveAccountRow(),
-                ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                alignment: AlignmentDirectional.centerStart,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                child: const Text(
+                  'Sign Up',
+                  style: TextStyle(
+                      color: CoodigColors.grey,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w800),
+                ),
               ),
-            ),
+              Container(
+                alignment: Alignment.center,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      SignupForm(),
+                      SizedBox(height: 5),
+                      Divider(color: Colors.grey),
+                      AlreadyHaveAccountRow(),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
