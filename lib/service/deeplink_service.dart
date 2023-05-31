@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:coodig_mobile/feature/password_reset/password_reset_page.dart';
 import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
-import 'package:coodig_mobile/feature/splash/splash.dart';
+import 'package:coodig_mobile/feature/splash/splash_screen.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -19,7 +19,7 @@ class DeeplinkService {
         Get.offAll(screen);
       }
     }, onError: (err) {
-      print("Error listening to links: $err");
+      debugPrint("Error listening to links: $err");
     });
   }
 
@@ -30,7 +30,7 @@ class DeeplinkService {
       case 'reset-password':
         return const PasswordResetPage();
       default:
-        return const Splash();
+        return const SplashScreen();
     }
   }
 

@@ -1,4 +1,4 @@
-import 'package:coodig_mobile/feature/splash/splash.dart';
+import 'package:coodig_mobile/feature/splash/splash_screen.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -28,7 +28,7 @@ class DashboardPage extends ConsumerWidget {
                 child: ElevatedButton(
                   onPressed: () async {
                     notifier.logout();
-                    Get.off(const Splash());
+                    Get.off(const SplashScreen());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey,
