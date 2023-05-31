@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/service/splash_service.dart';
@@ -21,7 +22,7 @@ class Splash extends ConsumerWidget {
     });
 
     return Scaffold(
-      backgroundColor: Colors.orangeAccent,
+      backgroundColor: CoodigColors.secondary,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
