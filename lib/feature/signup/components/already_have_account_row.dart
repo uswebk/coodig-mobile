@@ -17,7 +17,7 @@ class AlreadyHaveAccountRow extends StatelessWidget {
         TextButton(
           child: const Text('Sign in'),
           onPressed: () {
-            Get.to(const LoginPage());
+            Get.off(const LoginPage());
           },
         ),
       ],
