@@ -1,10 +1,10 @@
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
+import 'package:coodig_mobile/feature/login/components/forget_password_sheet.dart';
 import 'package:coodig_mobile/feature/login/components/login_form.dart';
 import 'package:coodig_mobile/feature/login/login_state_notifier.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
-import 'package:coodig_mobile/feature/password_reset/forget_password_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -44,22 +44,24 @@ class LoginPage extends ConsumerWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
-        body: Column(
-          children: [
-            Container(
-              alignment: AlignmentDirectional.centerStart,
-              padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
-              child: const Text(
-                'Login',
-                style: TextStyle(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                alignment: AlignmentDirectional.centerStart,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
                     color: CoodigColors.grey,
                     fontSize: 30,
-                    fontWeight: FontWeight.w800),
+                    fontWeight: FontWeight.w800,
+                  ),
+                ),
               ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              child: SingleChildScrollView(
+              Container(
+                alignment: Alignment.center,
                 child: Column(
                   children: [
                     const LoginForm(),
@@ -67,7 +69,16 @@ class LoginPage extends ConsumerWidget {
                     TextButton(
                       child: const Text('Forget Password?'),
                       onPressed: () {
-                        Get.to(const ForgetPasswordPage());
+                        showModalBottomSheet(
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(30.0),
+                            ),
+                          ),
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) => const ForgetPasswordSheet(),
+                        );
                       },
                     ),
                     const Divider(color: Colors.grey),
@@ -89,8 +100,8 @@ class LoginPage extends ConsumerWidget {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       Consumer(
