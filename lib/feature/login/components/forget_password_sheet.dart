@@ -8,17 +8,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class ForgetPasswordSheet extends ConsumerWidget {
-  const ForgetPasswordSheet({super.key});
+  final emailController;
+
+  const ForgetPasswordSheet({
+    Key? key,
+    required this.emailController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final formKey = GlobalKey<FormState>();
-    final TextEditingController emailController = TextEditingController();
-
     final notifier = ref.read(forgetPasswordStateNotifierProvider.notifier);
 
-    return Container(
-      height: 500,
+    double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+    return SizedBox(
+      height: keyboardHeight + 300,
       child: Stack(
         children: [
           SingleChildScrollView(
@@ -41,7 +44,6 @@ class ForgetPasswordSheet extends ConsumerWidget {
                         ),
                         const SizedBox(height: 30),
                         Form(
-                          key: formKey,
                           child: Consumer(
                             builder: (BuildContext context, WidgetRef ref,
                                 Widget? child) {
@@ -57,29 +59,26 @@ class ForgetPasswordSheet extends ConsumerWidget {
                                     height: 48,
                                     child: ElevatedButton(
                                       onPressed: () async {
-                                        if (formKey.currentState!.validate()) {
-                                          formKey.currentState!.save();
-                                          String email = emailController.text;
+                                        String email = emailController.text;
 
-                                          notifier.setLoading(true);
+                                        notifier.setLoading(true);
 
-                                          try {
-                                            await notifier
-                                                .sendResetPassword(email);
-                                            Future.delayed(Duration.zero, () {
-                                              Snackbar.showSuccess(context,
-                                                  'Sent Reset Password Link');
-                                              Navigator.pop(context);
-                                            });
-                                            emailController.clear();
-                                          } on ApiException catch (e) {
-                                            notifier.setMessage(e.errors);
-                                          } catch (e) {
-                                            Snackbar.showError(
-                                                context, e.toString());
-                                          } finally {
-                                            notifier.setLoading(false);
-                                          }
+                                        try {
+                                          await notifier
+                                              .sendResetPassword(email);
+                                          Future.delayed(Duration.zero, () {
+                                            Snackbar.showSuccess(context,
+                                                'Sent Reset Password Link');
+                                            Navigator.pop(context);
+                                          });
+                                          emailController.clear();
+                                        } on ApiException catch (e) {
+                                          notifier.setMessage(e.errors);
+                                        } catch (e) {
+                                          Snackbar.showError(
+                                              context, e.toString());
+                                        } finally {
+                                          notifier.setLoading(false);
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
