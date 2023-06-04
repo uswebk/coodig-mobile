@@ -29,6 +29,8 @@ class LoginPage extends ConsumerWidget {
       }
     });
 
+    final passwordResetEmail = TextEditingController();
+
     return Stack(children: [
       Scaffold(
         appBar: AppBar(
@@ -77,7 +79,9 @@ class LoginPage extends ConsumerWidget {
                           ),
                           isScrollControlled: true,
                           context: context,
-                          builder: (context) => const ForgetPasswordSheet(),
+                          builder: (context) => ForgetPasswordSheet(
+                            emailController: passwordResetEmail,
+                          ),
                         );
                       },
                     ),
