@@ -17,7 +17,7 @@ class ForgetPasswordSheet extends ConsumerWidget {
 
     final notifier = ref.read(forgetPasswordStateNotifierProvider.notifier);
 
-    return SizedBox(
+    return Container(
       height: 500,
       child: Stack(
         children: [
@@ -33,7 +33,7 @@ class ForgetPasswordSheet extends ConsumerWidget {
                       children: [
                         const SizedBox(height: 30),
                         const Text(
-                          'Enter your email address and we\'ll send you a link to reset your password.',
+                          'Enter your email address',
                           style: TextStyle(
                             color: Colors.black38,
                             fontSize: 16,
@@ -69,6 +69,7 @@ class ForgetPasswordSheet extends ConsumerWidget {
                                             Future.delayed(Duration.zero, () {
                                               Snackbar.showSuccess(context,
                                                   'Sent Reset Password Link');
+                                              Navigator.pop(context);
                                             });
                                             emailController.clear();
                                           } on ApiException catch (e) {
