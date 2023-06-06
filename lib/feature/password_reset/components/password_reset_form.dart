@@ -1,6 +1,7 @@
 import 'package:coodig_mobile/components/form/password_confirm_text_field.dart';
 import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/login/login_page.dart';
 import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
@@ -70,7 +71,7 @@ class PasswordResetForm extends ConsumerWidget {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.orangeAccent,
+                      backgroundColor: CoodigColors.buttonPrimary,
                     ),
                     child: const Text('Change Password')),
               ),
