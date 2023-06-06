@@ -1,7 +1,6 @@
 import 'package:coodig_mobile/components/greeting_box.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/password_reset/components/password_reset_form.dart';
-import 'package:coodig_mobile/feature/password_reset/forget_password_page.dart';
 import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:flutter/material.dart';
@@ -80,7 +79,7 @@ class PasswordResetPage extends ConsumerWidget {
                                   TextButton(
                                     child: const Text('Resend link'),
                                     onPressed: () {
-                                      Get.to(const ForgetPasswordPage());
+                                      // Todo: show bottom sheet
                                     },
                                   ),
                                 ],
