@@ -2,13 +2,13 @@ import 'package:coodig_mobile/components/form/email_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
-import 'package:coodig_mobile/feature/password_reset/forget_password_notifier.dart';
+import 'package:coodig_mobile/feature/login/forget_password_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class ForgetPasswordSheet extends ConsumerWidget {
-  final emailController;
+  final TextEditingController emailController;
 
   const ForgetPasswordSheet({
     Key? key,
@@ -18,8 +18,8 @@ class ForgetPasswordSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(forgetPasswordStateNotifierProvider.notifier);
-
     double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+
     return SizedBox(
       height: keyboardHeight + 300,
       child: Stack(
