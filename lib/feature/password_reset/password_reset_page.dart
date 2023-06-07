@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/components/greeting_box.dart';
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/password_reset/components/password_reset_form.dart';
 import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
@@ -22,86 +23,99 @@ class PasswordResetPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.grey,
+          ),
           onPressed: () {
             Get.to(const LaunchPage());
           },
         ),
-        backgroundColor: Colors.orangeAccent,
-        title: const Text('Password Reset'),
+        backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Stack(
-        children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                alignment: Alignment.center,
-                child: Column(
-                  children: [
-                    DeeplinkService().verifySignedUri(link)
-                        ? Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Center(
-                              child: Consumer(
-                                builder: (BuildContext context, WidgetRef ref,
-                                    Widget? child) {
-                                  final errors = ref
-                                      .watch(passwordResetStateNotifierProvider)
-                                      .errors;
-                                  return Column(
-                                    children: [
-                                      SizedBox(
-                                          width: double.infinity,
-                                          child: (errors['message'] != null)
-                                              ? GreetingBox(
-                                                  message: errors['message']
-                                                      .toString())
-                                              : null),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      const PasswordResetForm(),
-                                    ],
-                                  );
-                                },
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Column(
+              children: [
+                Container(
+                  alignment: AlignmentDirectional.centerStart,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                  child: const Text(
+                    'Reset Password',
+                    style: TextStyle(
+                      color: CoodigColors.grey,
+                      fontSize: 30,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: Column(
+                    children: [
+                      DeeplinkService().verifySignedUri(link)
+                          ? Container(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: Center(
+                                child: Consumer(
+                                  builder: (BuildContext context, WidgetRef ref,
+                                      Widget? child) {
+                                    final errors = ref
+                                        .watch(
+                                            passwordResetStateNotifierProvider)
+                                        .errors;
+                                    return Column(
+                                      children: [
+                                        SizedBox(
+                                            width: double.infinity,
+                                            child: (errors['message'] != null)
+                                                ? GreetingBox(
+                                                    message: errors['message']
+                                                        .toString())
+                                                : null),
+                                        const SizedBox(height: 15),
+                                        const PasswordResetForm(),
+                                      ],
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          )
-                        : Container(
-                            alignment: Alignment.center,
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Center(
+                            )
+                          : Container(
+                              alignment: Alignment.center,
                               child: Column(
-                                children: [
-                                  const Text('Token is Valid or Expired'),
-                                  TextButton(
-                                    child: const Text('Resend link'),
-                                    onPressed: () {
-                                      // Todo: show bottom sheet
-                                    },
+                                children: const [
+                                  Text(
+                                    'Token is Valid or Expired',
+                                    style: TextStyle(
+                                      color: CoodigColors.primary,
+                                      fontSize: 18,
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-          Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              bool isLoading =
-                  ref.watch(passwordResetStateNotifierProvider).isLoading;
-              return ModalProgressHUD(
-                inAsyncCall: isLoading,
-                child: Container(),
-              );
-            },
-          )
-        ],
+              ],
+            ),
+            Consumer(
+              builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                bool isLoading =
+                    ref.watch(passwordResetStateNotifierProvider).isLoading;
+                return ModalProgressHUD(
+                  inAsyncCall: isLoading,
+                  child: Container(),
+                );
+              },
+            )
+          ],
+        ),
       ),
     );
   }
