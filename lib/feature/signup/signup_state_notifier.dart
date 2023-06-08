@@ -12,7 +12,7 @@ class SignupStateNotifier extends StateNotifier<SignupState> {
   void setMessage(Map<String, dynamic> apiErrors) {
     Map<String, String> errors = {};
     apiErrors.forEach((String key, dynamic value) {
-      errors[key] = value[0];
+      errors[key] = value[0].toString();
     });
 
     state = state.copyWith(errors: errors, isLoading: false);

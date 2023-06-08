@@ -7,10 +7,10 @@ class Otp {
     required this.expirationAt,
   });
 
-  factory Otp.fromJson(Map<String, dynamic> json) {
+  factory Otp.fromJson(Map<String, String> json) {
     return Otp(
       code: json['code'] ?? '',
-      expirationAt: DateTime.parse(json['expiration_at']),
+      expirationAt: DateTime.parse(json['expiration_at'].toString()),
     );
   }
 }

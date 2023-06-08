@@ -32,7 +32,7 @@ class ResetPasswordStateNotifier extends StateNotifier<ResetPasswordState> {
   void setMessage(Map<String, dynamic> errors) {
     Map<String, String> errorMessages = {};
     errors.forEach((String key, dynamic value) {
-      errorMessages[key] = value[0];
+      errorMessages[key] = value[0].toString();
     });
 
     state =

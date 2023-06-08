@@ -6,8 +6,7 @@ import 'package:coodig_mobile/model/token.dart';
 import 'package:coodig_mobile/repository/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final authServiceProvider = Provider(
-    (ref) => AuthService(ref.watch(authRepositoryProvider), LocalStorage()));
+final authServiceProvider = Provider((ref) => AuthService(ref.watch(authRepositoryProvider), LocalStorage()));
 
 class AuthService {
   AuthService(this._authRepository, this._localStorage);
@@ -19,34 +18,30 @@ class AuthService {
     final response = await _authRepository.login(email, password);
 
     if (response.statusCode == 200) {
-      Token token = Token.fromJson(json.decode(response.body)['token']);
+      Token token = Token.fromJson(json.decode(response.body)['token'] as Map<String, dynamic>);
       await _localStorage.addToken(token);
       return;
     }
 
     if ([400, 404].contains(response.statusCode)) {
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body));
+      Map<String, dynamic> errors = json.decode(response.body) as Map<String, dynamic>;
       throw ApiException(errors);
     }
 
     throw Exception('Server Error');
   }
 
-  Future<void> signup(String name, String email, String password,
-      String confirmPassword) async {
-    final response =
-        await _authRepository.signup(name, email, password, confirmPassword);
+  Future<void> signup(String name, String email, String password, String confirmPassword) async {
+    final response = await _authRepository.signup(name, email, password, confirmPassword);
 
     if (response.statusCode == 201) {
-      Token token = Token.fromJson(json.decode(response.body)['token']);
+      Token token = Token.fromJson(json.decode(response.body)['token'] as Map<String, dynamic>);
       await _localStorage.addToken(token);
       return;
     }
 
     if (response.statusCode == 400) {
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body));
+      Map<String, dynamic> errors = json.decode(response.body) as Map<String, dynamic>;
       throw ApiException(errors);
     }
 
@@ -58,7 +53,7 @@ class AuthService {
     final response = await _authRepository.refresh(refreshToken);
 
     if (response.statusCode == 200) {
-      Map<String, dynamic> body = json.decode(response.body);
+      Map<String, dynamic> body = json.decode(response.body) as Map<String, dynamic>;
       body['refresh'] = refreshToken;
       Token token = Token.fromJson(body);
       await _localStorage.addToken(token);
@@ -84,8 +79,7 @@ class AuthService {
         return true;
       }
 
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(retryResponse.body));
+      Map<String, dynamic> errors = json.decode(retryResponse.body) as Map<String, dynamic>;
       if (retryResponse.statusCode == 401) {
         throw Exception(errors['messages'][0]['message'].toString());
       }
@@ -95,8 +89,7 @@ class AuthService {
     }
 
     if (response.statusCode >= 400) {
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body));
+      Map<String, dynamic> errors = json.decode(response.body) as Map<String, dynamic>;
       throw Exception(errors['messages'].toString());
     }
 
@@ -129,26 +122,22 @@ class AuthService {
     }
 
     if (response.statusCode == 400) {
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body));
+      Map<String, dynamic> errors = json.decode(response.body) as Map<String, dynamic>;
       throw ApiException(errors);
     }
 
     throw Exception('Server Error');
   }
 
-  Future<void> resetPassword(
-      String uid, String token, String password, String passwordConfirm) async {
-    final response = await _authRepository.resetPassword(
-        uid, token, password, passwordConfirm);
+  Future<void> resetPassword(String uid, String token, String password, String passwordConfirm) async {
+    final response = await _authRepository.resetPassword(uid, token, password, passwordConfirm);
 
     if (response.statusCode == 200) {
       return;
     }
 
     if (response.statusCode == 400) {
-      Map<String, dynamic> errors =
-          Map<String, dynamic>.from(json.decode(response.body));
+      Map<String, dynamic> errors = json.decode(response.body) as Map<String, dynamic>;
       throw ApiException(errors);
     }
 

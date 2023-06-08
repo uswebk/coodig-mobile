@@ -3,22 +3,21 @@ import 'package:coodig_mobile/core/local_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-final authRepositoryProvider = Provider((ref) => AuthRepository(HttpClient()));
+final authRepositoryProvider =
+    Provider((ref) => AuthRepository(HttpClient(), LocalStorage()));
 
 class AuthRepository {
-  AuthRepository(this._httpClient);
+  AuthRepository(this._httpClient, this._localStorage);
 
   final HttpClient _httpClient;
-  final _localStorage = LocalStorage();
+  final LocalStorage _localStorage;
 
   Future<http.Response> login(String email, String password) async {
     return await _httpClient.post(
         '/api/v1/accounts/login/',
         {
-          // 'email': email,
-          // 'password': password,
-          'email': 'usweb@example.com',
-          'password': 'test1111',
+          'email': email,
+          'password': password,
         },
         '');
   }
@@ -28,14 +27,10 @@ class AuthRepository {
     return await _httpClient.post(
         '/api/v1/accounts/register/',
         {
-          // 'name': name,
-          // 'email': email,
-          // 'password': password,
-          // 'password2': confirmPassword,
-          'name': 'usweb',
-          'email': 'abc@example.com',
-          'password': 'test1111',
-          'password2': 'test1111',
+          'name': name,
+          'email': email,
+          'password': password,
+          'password2': confirmPassword,
         },
         '');
   }

@@ -9,14 +9,10 @@ class User {
     required this.emailVerifiedAt,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    DateTime? emailVerifiedAt = json['email_verified_at'] != null
-        ? DateTime.parse(json['email_verified_at'])
-        : null;
+  factory User.fromJson(Map<String, Map<String, String>> json) {
+    DateTime? emailVerifiedAt =
+        json['email_verified_at'] != null ? DateTime.parse(json['email_verified_at'].toString()) : null;
 
-    return User(
-        name: json['name'] ?? '',
-        email: json['email'] ?? '',
-        emailVerifiedAt: emailVerifiedAt);
+    return User(name: json['name'].toString(), email: json['email'].toString(), emailVerifiedAt: emailVerifiedAt);
   }
 }

@@ -38,13 +38,10 @@ class OtpField extends ConsumerWidget {
                       borderSide: BorderSide(color: Colors.grey),
                     ),
                   ),
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                   keyboardType: TextInputType.number,
                   textAlign: TextAlign.center,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(1),
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
+                  inputFormatters: [LengthLimitingTextInputFormatter(1), FilteringTextInputFormatter.digitsOnly],
                 ),
               ),
             ),

@@ -5,6 +5,6 @@ class Token {
   Token({required this.accessToken, required this.refreshToken});
 
   factory Token.fromJson(Map<String, dynamic> json) {
-    return Token(accessToken: json['access'], refreshToken: json['refresh']);
+    return Token(accessToken: json['access'].toString(), refreshToken: json['refresh'].toString());
   }
 }
