@@ -1,12 +1,11 @@
 name: Flutter Analyze
 
-on:
-  push:
+on: push
 
 jobs:
   analyze:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
+    timeout-minutes: 10
     steps:
       - name: Checkout
         uses: actions/checkout@v3
