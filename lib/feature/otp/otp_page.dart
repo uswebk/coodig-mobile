@@ -24,7 +24,7 @@ class OtpPage extends ConsumerWidget {
       await ref.read(otpTimerStateNotifierProvider.notifier).startTimer();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
-        Get.off(const DashboardPage());
+        Get.off<dynamic>(const DashboardPage());
       }
     });
 
@@ -37,7 +37,7 @@ class OtpPage extends ConsumerWidget {
               color: Colors.black45,
             ),
             onPressed: () {
-              Get.to(const LaunchPage());
+              Get.to<dynamic>(const LaunchPage());
             },
           ),
           backgroundColor: Colors.white,

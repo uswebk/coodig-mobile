@@ -30,7 +30,7 @@ class MyApp extends ConsumerWidget {
       },
       onGenerateInitialRoutes: (initialRoute) {
         return [
-          MaterialPageRoute(
+          MaterialPageRoute<dynamic>(
             builder: (context) {
               DeeplinkService().initDeeplink(ref);
               return const SplashScreen();

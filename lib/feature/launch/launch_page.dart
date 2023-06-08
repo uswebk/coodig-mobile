@@ -55,12 +55,11 @@ class LaunchPage extends ConsumerWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               if (userStatus == UserStatus.authenticated) {
-                                Get.off(const DashboardPage());
-                              } else if (userStatus ==
-                                  UserStatus.emailNotVerified) {
-                                Get.to(const OtpPage());
+                                Get.off<dynamic>(const DashboardPage());
+                              } else if (userStatus == UserStatus.emailNotVerified) {
+                                Get.to<dynamic>(const OtpPage());
                               } else {
-                                Get.to(const SignupPage());
+                                Get.to<dynamic>(const SignupPage());
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -76,9 +75,9 @@ class LaunchPage extends ConsumerWidget {
                           child: TextButton(
                             onPressed: () {
                               if (userStatus == UserStatus.authenticated) {
-                                Get.off(const DashboardPage());
+                                Get.off<dynamic>(const DashboardPage());
                               } else {
-                                Get.to(const LoginPage());
+                                Get.to<dynamic>(const LoginPage());
                               }
                             },
                             style: ElevatedButton.styleFrom(

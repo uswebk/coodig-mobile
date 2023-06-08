@@ -21,9 +21,9 @@ class SignupPage extends HookConsumerWidget {
       ref.read(signupStateNotifierProvider.notifier).reset();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
-        Get.off(const DashboardPage());
+        Get.off<dynamic>(const DashboardPage());
       } else if (userStatus == UserStatus.emailNotVerified) {
-        Get.off(const OtpPage());
+        Get.off<dynamic>(const OtpPage());
       }
     });
 
@@ -35,7 +35,7 @@ class SignupPage extends HookConsumerWidget {
                 Icons.arrow_back_ios,
                 color: Colors.grey,
               ),
-              onPressed: () => Get.offAll(const LaunchPage())),
+              onPressed: () => Get.offAll<dynamic>(const LaunchPage())),
           backgroundColor: Colors.transparent,
           elevation: 0,
         ),
@@ -44,14 +44,10 @@ class SignupPage extends HookConsumerWidget {
             children: [
               Container(
                 alignment: AlignmentDirectional.centerStart,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
                 child: const Text(
                   'Sign Up',
-                  style: TextStyle(
-                      color: CoodigColors.grey,
-                      fontSize: 30,
-                      fontWeight: FontWeight.w800),
+                  style: TextStyle(color: CoodigColors.grey, fontSize: 30, fontWeight: FontWeight.w800),
                 ),
               ),
               Container(

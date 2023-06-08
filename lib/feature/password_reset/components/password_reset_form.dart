@@ -16,8 +16,7 @@ class PasswordResetForm extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
     final TextEditingController passwordController = TextEditingController();
-    final TextEditingController confirmPasswordController =
-        TextEditingController();
+    final TextEditingController confirmPasswordController = TextEditingController();
 
     final notifier = ref.read(passwordResetStateNotifierProvider.notifier);
     String link = ref.watch(resetPasswordLinkProvider);
@@ -31,14 +30,9 @@ class PasswordResetForm extends ConsumerWidget {
             children: [
               PasswordTextField(passwordController, state.errors['password']),
               const SizedBox(height: 10),
-              PasswordConfirmTextField(
-                  confirmPasswordController, state.errors['non_field_errors']),
-              const SizedBox(
-                height: 10,
-              ),
-              const SizedBox(
-                height: 10,
-              ),
+              PasswordConfirmTextField(confirmPasswordController, state.errors['non_field_errors']),
+              const SizedBox(height: 10),
+              const SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,
                 height: 48,
@@ -52,15 +46,13 @@ class PasswordResetForm extends ConsumerWidget {
 
                         notifier.setLoading(true);
                         try {
-                          await notifier.resetPassword(
-                              link, password, confirmPassword);
+                          await notifier.resetPassword(link, password, confirmPassword);
 
                           Future.delayed(Duration.zero, () {
-                            Snackbar.showSuccess(
-                                context, 'change password success');
+                            Snackbar.showSuccess(context, 'change password success');
                           });
 
-                          Get.to(const LoginPage());
+                          Get.to<dynamic>(const LoginPage());
                         } on ApiException catch (e) {
                           notifier.setMessage(e.errors);
                         } catch (e) {

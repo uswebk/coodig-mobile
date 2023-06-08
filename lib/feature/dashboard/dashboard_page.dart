@@ -28,7 +28,7 @@ class DashboardPage extends ConsumerWidget {
                 child: ElevatedButton(
                   onPressed: () async {
                     notifier.logout();
-                    Get.off(const SplashScreen());
+                    Get.off<dynamic>(const SplashScreen());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.grey,

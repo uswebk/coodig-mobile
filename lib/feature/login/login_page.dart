@@ -23,9 +23,9 @@ class LoginPage extends ConsumerWidget {
       ref.read(loginStateNotifierProvider.notifier).reset();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
-        Get.off(const DashboardPage());
+        Get.off<dynamic>(const DashboardPage());
       } else if (userStatus == UserStatus.emailNotVerified) {
-        Get.off(const OtpPage());
+        Get.off<dynamic>(const OtpPage());
       }
     });
 
@@ -40,7 +40,7 @@ class LoginPage extends ConsumerWidget {
               color: Colors.grey,
             ),
             onPressed: () {
-              Get.offAll(const LaunchPage());
+              Get.offAll<dynamic>(const LaunchPage());
             },
           ),
           backgroundColor: Colors.transparent,
@@ -51,8 +51,7 @@ class LoginPage extends ConsumerWidget {
             children: [
               Container(
                 alignment: AlignmentDirectional.centerStart,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
                 child: const Text(
                   'Login',
                   style: TextStyle(
@@ -71,7 +70,7 @@ class LoginPage extends ConsumerWidget {
                     TextButton(
                       child: const Text('Forget Password?'),
                       onPressed: () {
-                        showModalBottomSheet(
+                        showModalBottomSheet<dynamic>(
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(30.0),
@@ -96,7 +95,7 @@ class LoginPage extends ConsumerWidget {
                         TextButton(
                           child: const Text('Sign Up'),
                           onPressed: () {
-                            Get.off(const SignupPage());
+                            Get.off<dynamic>(const SignupPage());
                           },
                         ),
                       ],

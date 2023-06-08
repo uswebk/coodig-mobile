@@ -14,7 +14,7 @@ class ReregistrationButton extends ConsumerWidget {
       onPressed: () async {
         await ref.read(authStateProvider.notifier).logout();
         ref.read(otpStateNotifierProvider.notifier).reset();
-        Get.off(const LaunchPage());
+        Get.off<dynamic>(const LaunchPage());
       },
       child: Row(
         mainAxisSize: MainAxisSize.min,

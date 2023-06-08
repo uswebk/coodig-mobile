@@ -23,12 +23,9 @@ class PasswordResetPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios,
-            color: Colors.grey,
-          ),
+          icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
           onPressed: () {
-            Get.to(const LaunchPage());
+            Get.to<dynamic>(const LaunchPage());
           },
         ),
         backgroundColor: Colors.transparent,
@@ -41,8 +38,7 @@ class PasswordResetPage extends ConsumerWidget {
               children: [
                 Container(
                   alignment: AlignmentDirectional.centerStart,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
                   child: const Text(
                     'Reset Password',
                     style: TextStyle(
@@ -58,24 +54,17 @@ class PasswordResetPage extends ConsumerWidget {
                     children: [
                       DeeplinkService().verifySignedUri(link)
                           ? Container(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 20),
+                              padding: const EdgeInsets.symmetric(horizontal: 20),
                               child: Center(
                                 child: Consumer(
-                                  builder: (BuildContext context, WidgetRef ref,
-                                      Widget? child) {
-                                    final errors = ref
-                                        .watch(
-                                            passwordResetStateNotifierProvider)
-                                        .errors;
+                                  builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                                    final errors = ref.watch(passwordResetStateNotifierProvider).errors;
                                     return Column(
                                       children: [
                                         SizedBox(
                                             width: double.infinity,
                                             child: (errors['message'] != null)
-                                                ? GreetingBox(
-                                                    message: errors['message']
-                                                        .toString())
+                                                ? GreetingBox(message: errors['message'].toString())
                                                 : null),
                                         const SizedBox(height: 15),
                                         const PasswordResetForm(),
@@ -106,8 +95,7 @@ class PasswordResetPage extends ConsumerWidget {
             ),
             Consumer(
               builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                bool isLoading =
-                    ref.watch(passwordResetStateNotifierProvider).isLoading;
+                bool isLoading = ref.watch(passwordResetStateNotifierProvider).isLoading;
                 return ModalProgressHUD(
                   inAsyncCall: isLoading,
                   child: Container(),

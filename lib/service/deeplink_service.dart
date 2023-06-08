@@ -16,9 +16,9 @@ class DeeplinkService {
       if (link != null && link.isNotEmpty) {
         setDeeplink(ref, link);
         Widget screen = getScreen(link);
-        Get.offAll(screen);
+        Get.offAll<dynamic>(screen);
       }
-    }, onError: (err) {
+    }, onError: (dynamic err) {
       debugPrint("Error listening to links: $err");
     });
   }
@@ -59,8 +59,7 @@ class DeeplinkService {
     String link = '${segment[0]}:${segment[1]}';
     String signedUrl = '$link:$expireTime';
 
-    Hmac hmacSha256 =
-        Hmac(sha256, utf8.encode(dotenv.env['URI_SECRET_KEY'].toString()));
+    Hmac hmacSha256 = Hmac(sha256, utf8.encode(dotenv.env['URI_SECRET_KEY'].toString()));
     Digest digest = hmacSha256.convert(utf8.encode(signedUrl));
 
     return digest.toString() == segment[3].toString();
