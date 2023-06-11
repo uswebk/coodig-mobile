@@ -7,9 +7,9 @@ class Otp {
     required this.expirationAt,
   });
 
-  factory Otp.fromJson(Map<String, String> json) {
+  factory Otp.fromJson(Map<String, dynamic> json) {
     return Otp(
-      code: json['code'] ?? '',
+      code: json['code'].toString(),
       expirationAt: DateTime.parse(json['expiration_at'].toString()),
     );
   }

@@ -5,8 +5,8 @@ import 'package:coodig_mobile/repository/user_repository.dart';
 import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final userServiceProvider =
-    Provider((ref) => UserService(ref.watch(authServiceProvider), ref.watch(userRepositoryProvider)));
+final userServiceProvider = Provider((ref) => UserService(
+    ref.watch(authServiceProvider), ref.watch(userRepositoryProvider)));
 
 class UserService {
   UserService(this._authService, this._userRepository);
@@ -18,7 +18,7 @@ class UserService {
     final response = await _userRepository.fetchMe();
 
     if (response.statusCode == 200) {
-      return User.fromJson(jsonDecode(response.body) as Map<String, Map<String, String>>);
+      return User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
     }
 
     if (response.statusCode == 401) {
@@ -27,7 +27,7 @@ class UserService {
       final retryResponse = await _userRepository.fetchMe();
 
       if (retryResponse.statusCode == 200) {
-        return User.fromJson(jsonDecode(response.body) as Map<String, Map<String, String>>);
+        return User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
       }
     }
 

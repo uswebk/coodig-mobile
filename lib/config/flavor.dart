@@ -25,21 +25,21 @@ extension FlavorExtension on Flavor {
   }
 }
 
-final Map<String, FlavorConfig> flavors = {
+final Map<String, FlavorConfig> flavors = <String, FlavorConfig>{
   Flavor.development.name: FlavorConfig(
-    variables: {
+    variables: <String, String>{
       'apiEndpoint': 'http://127.0.0.1:9999',
-    } as Map<String, FlavorConfig>,
+    },
   ),
   Flavor.developmentIos.name: FlavorConfig(
-    variables: {
+    variables: <String, String>{
       'apiEndpoint': 'http://127.0.0.1:9999',
-    } as Map<String, FlavorConfig>,
+    },
   ),
   Flavor.developmentAndroid.name: FlavorConfig(
-    variables: {
+    variables: <String, String>{
       'apiEndpoint': 'http://10.0.2.2:9999',
-    } as Map<String, FlavorConfig>,
+    },
   ),
 };
 
@@ -51,7 +51,7 @@ class FlavorConfig {
   static FlavorConfig? _instance;
 
   static FlavorConfig get instance {
-    assert(_instance != null, 'Not Found Instance');
+    assert(_instance != null, 'Already Exists Instance');
     return _instance!;
   }
 
