@@ -31,8 +31,7 @@ class PasswordResetForm extends ConsumerWidget {
               PasswordTextField(passwordController, state.errors['password']),
               const SizedBox(height: 10),
               PasswordConfirmTextField(confirmPasswordController, state.errors['non_field_errors']),
-              const SizedBox(height: 10),
-              const SizedBox(height: 10),
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
                 height: 48,
