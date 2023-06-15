@@ -4,10 +4,11 @@ import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/login/forget_password_state_notifier.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-class ForgetPasswordSheet extends ConsumerWidget {
+class ForgetPasswordSheet extends HookConsumerWidget {
   final TextEditingController emailController;
 
   const ForgetPasswordSheet({
@@ -18,6 +19,8 @@ class ForgetPasswordSheet extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(forgetPasswordStateNotifierProvider.notifier);
+    final loading = useState(false);
+
     double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
     return SizedBox(
@@ -45,14 +48,11 @@ class ForgetPasswordSheet extends ConsumerWidget {
                         const SizedBox(height: 30),
                         Form(
                           child: Consumer(
-                            builder: (BuildContext context, WidgetRef ref,
-                                Widget? child) {
-                              final state = ref
-                                  .watch(forgetPasswordStateNotifierProvider);
+                            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+                              final state = ref.watch(forgetPasswordStateNotifierProvider);
                               return Column(
                                 children: [
-                                  EmailTextField(
-                                      emailController, state.errors['email']),
+                                  EmailTextField(emailController, state.errors['email']),
                                   const SizedBox(height: 20),
                                   SizedBox(
                                     width: double.infinity,
@@ -61,29 +61,24 @@ class ForgetPasswordSheet extends ConsumerWidget {
                                       onPressed: () async {
                                         String email = emailController.text;
 
-                                        notifier.setLoading(true);
-
+                                        loading.value = true;
                                         try {
-                                          await notifier
-                                              .sendResetPassword(email);
+                                          await notifier.sendResetPassword(email);
                                           Future.delayed(Duration.zero, () {
-                                            Snackbar.showSuccess(context,
-                                                'Sent Reset Password Link');
+                                            Snackbar.showSuccess(context, 'Sent Reset Password Link');
                                             Navigator.pop(context);
                                           });
                                           emailController.clear();
                                         } on ApiException catch (e) {
                                           notifier.setMessage(e.errors);
                                         } catch (e) {
-                                          Snackbar.showError(
-                                              context, e.toString());
+                                          Snackbar.showError(context, e.toString());
                                         } finally {
-                                          notifier.setLoading(false);
+                                          loading.value = false;
                                         }
                                       },
                                       style: ElevatedButton.styleFrom(
-                                        backgroundColor:
-                                            CoodigColors.buttonPrimary,
+                                        backgroundColor: CoodigColors.buttonPrimary,
                                       ),
                                       child: const Text('Send Email'),
                                     ),
@@ -100,15 +95,9 @@ class ForgetPasswordSheet extends ConsumerWidget {
               ],
             ),
           ),
-          Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              bool isLoading =
-                  ref.watch(forgetPasswordStateNotifierProvider).isLoading;
-              return ModalProgressHUD(
-                inAsyncCall: isLoading,
-                child: Container(),
-              );
-            },
+          ModalProgressHUD(
+            inAsyncCall: loading.value,
+            child: Container(),
           ),
         ],
       ),
