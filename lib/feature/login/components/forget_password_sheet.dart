@@ -19,9 +19,10 @@ class ForgetPasswordSheet extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.read(forgetPasswordStateNotifierProvider.notifier);
-    final loading = useState(false);
-
     double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+
+    final loading = useState(false);
+    final isMounted = useIsMounted();
 
     return SizedBox(
       height: keyboardHeight + 300,
@@ -73,9 +74,9 @@ class ForgetPasswordSheet extends HookConsumerWidget {
                                           notifier.setMessage(e.errors);
                                         } catch (e) {
                                           Snackbar.showError(context, e.toString());
-                                        } finally {
-                                          loading.value = false;
-                                        }
+                                        } finally {}
+                                        if (isMounted()) loading.value = false;
+                                        // print(loading.value);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: CoodigColors.buttonPrimary,
