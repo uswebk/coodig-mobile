@@ -12,9 +12,9 @@ class ForgetPasswordSheet extends HookConsumerWidget {
   final TextEditingController emailController;
 
   const ForgetPasswordSheet({
-    super.key,
+    Key? key,
     required this.emailController,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -76,7 +76,6 @@ class ForgetPasswordSheet extends HookConsumerWidget {
                                           Snackbar.showError(context, e.toString());
                                         } finally {}
                                         if (isMounted()) loading.value = false;
-                                        // print(loading.value);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: CoodigColors.buttonPrimary,
