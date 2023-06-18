@@ -62,7 +62,7 @@ class PasswordResetPage extends ConsumerWidget {
                   alignment: Alignment.center,
                   child: Column(
                     children: [
-                      DeeplinkService().verifySignedUri(link)
+                      DeeplinkService.verifySignedUri(link)
                           ? Container(
                               padding: const EdgeInsets.symmetric(horizontal: 20),
                               child: Center(

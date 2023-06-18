@@ -17,7 +17,7 @@ class DeeplinkService {
         Get.offAll<dynamic>(screen);
       }
     }, onError: (dynamic err) {
-      debugPrint("Error listening to links: $err");
+      debugPrint('Error listening to links: $err');
     });
   }
 
@@ -32,7 +32,7 @@ class DeeplinkService {
     }
   }
 
-  bool verifySignedUri(String uri) {
+  static bool verifySignedUri(String uri) {
     final segment = uri.split(':');
     final expireTime = double.parse(segment[2]);
     final now = DateTime.now().millisecondsSinceEpoch / 1000;
