@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/components/greeting_box.dart';
+import 'package:coodig_mobile/components/modal/forget_password_sheet.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/password_reset/components/password_reset_form.dart';
@@ -14,11 +15,12 @@ class PasswordResetPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final passwordResetEmail = TextEditingController();
+    String link = ref.watch(resetPasswordLinkProvider);
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(passwordResetStateNotifierProvider.notifier).reset();
     });
-
-    String link = ref.watch(resetPasswordLinkProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -77,13 +79,28 @@ class PasswordResetPage extends ConsumerWidget {
                           : Container(
                               alignment: Alignment.center,
                               child: Column(
-                                children: const [
-                                  Text(
-                                    'Token is Valid or Expired',
+                                children: [
+                                  const SizedBox(height: 20),
+                                  const Text(
+                                    'Token is valid or expired',
                                     style: TextStyle(
                                       color: CoodigColors.primary,
-                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 22,
+                                      decoration: TextDecoration.underline,
                                     ),
+                                  ),
+                                  const SizedBox(height: 30),
+                                  TextButton(
+                                    child: const Text(
+                                      'Resend link',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      showResetPasswordModalBottomSheet(context, ref, passwordResetEmail);
+                                    },
                                   ),
                                 ],
                               ),
