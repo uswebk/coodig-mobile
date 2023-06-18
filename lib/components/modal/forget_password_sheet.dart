@@ -21,7 +21,7 @@ class ForgetPasswordSheet extends HookConsumerWidget {
     final notifier = ref.read(forgetPasswordStateNotifierProvider.notifier);
     double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
-    final loading = useState(false);
+    final isLoading = useState(false);
     final isMounted = useIsMounted();
 
     return SizedBox(
@@ -62,7 +62,7 @@ class ForgetPasswordSheet extends HookConsumerWidget {
                                       onPressed: () async {
                                         String email = emailController.text;
 
-                                        loading.value = true;
+                                        isLoading.value = true;
                                         try {
                                           await notifier.sendResetPassword(email);
                                           Future.delayed(Duration.zero, () {
@@ -75,7 +75,7 @@ class ForgetPasswordSheet extends HookConsumerWidget {
                                         } catch (e) {
                                           Snackbar.showError(context, e.toString());
                                         } finally {}
-                                        if (isMounted()) loading.value = false;
+                                        if (isMounted()) isLoading.value = false;
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: CoodigColors.buttonPrimary,
@@ -96,7 +96,7 @@ class ForgetPasswordSheet extends HookConsumerWidget {
             ),
           ),
           ModalProgressHUD(
-            inAsyncCall: loading.value,
+            inAsyncCall: isLoading.value,
             child: Container(),
           ),
         ],
