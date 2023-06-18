@@ -4,18 +4,27 @@ import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/login/forget_password_state_notifier.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-void showResetPasswordModalBottomSheet(BuildContext context, WidgetRef ref, TextEditingController emailController) {
-  final notifier = ref.read(forgetPasswordStateNotifierProvider.notifier);
-  double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+class ForgetPasswordSheet extends HookConsumerWidget {
+  final TextEditingController emailController;
 
-  showModalBottomSheet<dynamic>(
-    shape: const RoundedRectangleBorder(borderRadius: BorderRadius.vertical(top: Radius.circular(30.0))),
-    isScrollControlled: true,
-    context: context,
-    builder: (context) => SizedBox(
+  const ForgetPasswordSheet({
+    super.key,
+    required this.emailController,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.read(forgetPasswordStateNotifierProvider.notifier);
+    double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
+
+    final loading = useState(false);
+    final isMounted = useIsMounted();
+
+    return SizedBox(
       height: keyboardHeight + 300,
       child: Stack(
         children: [
@@ -52,7 +61,8 @@ void showResetPasswordModalBottomSheet(BuildContext context, WidgetRef ref, Text
                                     child: ElevatedButton(
                                       onPressed: () async {
                                         String email = emailController.text;
-                                        notifier.setLoading(true);
+
+                                        loading.value = true;
                                         try {
                                           await notifier.sendResetPassword(email);
                                           Future.delayed(Duration.zero, () {
@@ -64,9 +74,9 @@ void showResetPasswordModalBottomSheet(BuildContext context, WidgetRef ref, Text
                                           notifier.setMessage(e.errors);
                                         } catch (e) {
                                           Snackbar.showError(context, e.toString());
-                                        } finally {
-                                          notifier.setLoading(false);
-                                        }
+                                        } finally {}
+                                        if (isMounted()) loading.value = false;
+                                        // print(loading.value);
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: CoodigColors.buttonPrimary,
@@ -86,17 +96,12 @@ void showResetPasswordModalBottomSheet(BuildContext context, WidgetRef ref, Text
               ],
             ),
           ),
-          Consumer(
-            builder: (BuildContext context, WidgetRef ref, Widget? child) {
-              bool isLoading = ref.watch(forgetPasswordStateNotifierProvider).isLoading;
-              return ModalProgressHUD(
-                inAsyncCall: isLoading,
-                child: Container(),
-              );
-            },
+          ModalProgressHUD(
+            inAsyncCall: loading.value,
+            child: Container(),
           ),
         ],
       ),
-    ),
-  );
+    );
+  }
 }
