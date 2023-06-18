@@ -1,7 +1,7 @@
+import 'package:coodig_mobile/components/modal/forget_password_sheet.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
-import 'package:coodig_mobile/feature/login/components/forget_password_sheet.dart';
 import 'package:coodig_mobile/feature/login/components/login_form.dart';
 import 'package:coodig_mobile/feature/login/login_state_notifier.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
@@ -69,8 +69,8 @@ class LoginPage extends ConsumerWidget {
                     const SizedBox(height: 5),
                     TextButton(
                       child: const Text('Forget Password?'),
-                      onPressed: () {
-                        showModalBottomSheet<dynamic>(
+                      onPressed: () async {
+                        await showModalBottomSheet<dynamic>(
                           shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                               top: Radius.circular(30.0),

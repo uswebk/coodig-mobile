@@ -98,8 +98,19 @@ class PasswordResetPage extends ConsumerWidget {
                                         fontSize: 16,
                                       ),
                                     ),
-                                    onPressed: () {
-                                      showResetPasswordModalBottomSheet(context, ref, passwordResetEmail);
+                                    onPressed: () async {
+                                      await showModalBottomSheet<dynamic>(
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(30.0),
+                                          ),
+                                        ),
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder: (context) => ForgetPasswordSheet(
+                                          emailController: passwordResetEmail,
+                                        ),
+                                      );
                                     },
                                   ),
                                 ],
