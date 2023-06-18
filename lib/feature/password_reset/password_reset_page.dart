@@ -4,22 +4,30 @@ import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/password_reset/components/password_reset_form.dart';
 import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
+import 'package:coodig_mobile/provider/deeplink_provider.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class PasswordResetPage extends ConsumerWidget {
-  const PasswordResetPage({super.key});
+  final String link;
+
+  const PasswordResetPage({
+    super.key,
+    required this.link,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final passwordResetEmail = TextEditingController();
-    String link = ref.watch(resetPasswordLinkProvider);
+    final notifier = ref.read(passwordResetStateNotifierProvider.notifier);
+    final deeplinkNotifier = ref.read(deepLinkStateNotifierProvider.notifier);
 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ref.read(passwordResetStateNotifierProvider.notifier).reset();
+      notifier.reset();
+      deeplinkNotifier.setLink(link);
     });
 
     return Scaffold(

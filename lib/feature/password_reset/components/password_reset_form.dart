@@ -5,6 +5,7 @@ import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/login/login_page.dart';
 import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
+import 'package:coodig_mobile/provider/deeplink_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -19,7 +20,7 @@ class PasswordResetForm extends ConsumerWidget {
     final TextEditingController confirmPasswordController = TextEditingController();
 
     final notifier = ref.read(passwordResetStateNotifierProvider.notifier);
-    String link = ref.watch(resetPasswordLinkProvider);
+    String link = ref.watch(deepLinkStateNotifierProvider);
 
     return Form(
       key: formKey,

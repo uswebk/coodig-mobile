@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:coodig_mobile/feature/password_reset/password_reset_page.dart';
-import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
 import 'package:coodig_mobile/feature/splash/splash_screen.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +13,6 @@ class DeeplinkService {
   void initDeeplink(WidgetRef ref) {
     linkStream.listen((String? link) {
       if (link != null && link.isNotEmpty) {
-        setDeeplink(ref, link);
         Widget screen = getScreen(link);
         Get.offAll<dynamic>(screen);
       }
@@ -23,27 +21,14 @@ class DeeplinkService {
     });
   }
 
-  Widget getScreen(String link) {
+  static Widget getScreen(String link) {
     Uri uri = Uri.parse(link);
 
     switch (uri.host) {
       case 'reset-password':
-        return const PasswordResetPage();
+        return PasswordResetPage(link: link);
       default:
         return const SplashScreen();
-    }
-  }
-
-  void setDeeplink(WidgetRef ref, String link) {
-    Uri uri = Uri.parse(link);
-
-    switch (uri.host) {
-      case 'reset-password':
-        ref.read(resetPasswordLinkProvider.notifier).state = link;
-        return;
-
-      default:
-        return;
     }
   }
 
