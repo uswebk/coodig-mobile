@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/splash/splash_screen.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:coodig_mobile/service/environment_service.dart';
@@ -19,7 +20,7 @@ class MyApp extends ConsumerWidget {
       // debugShowCheckedModeBanner: false,
       title: 'Coodig',
       theme: ThemeData(
-        primaryColor: Colors.orangeAccent,
+        primaryColor: CoodigColors.primary,
         textTheme: const TextTheme(),
         colorScheme: ColorScheme.fromSwatch(
           primarySwatch: Colors.blue,
@@ -32,7 +33,7 @@ class MyApp extends ConsumerWidget {
         return [
           MaterialPageRoute<dynamic>(
             builder: (context) {
-              DeeplinkService().initDeeplink(ref);
+              DeeplinkService.initDeeplink(ref);
               return const SplashScreen();
             },
           ),

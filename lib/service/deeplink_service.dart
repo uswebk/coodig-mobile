@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:uni_links/uni_links.dart';
 
 class DeeplinkService {
-  void initDeeplink(WidgetRef ref) {
+  static void initDeeplink(WidgetRef ref) {
     linkStream.listen((String? link) {
       if (link != null && link.isNotEmpty) {
         Widget screen = getScreen(link);
