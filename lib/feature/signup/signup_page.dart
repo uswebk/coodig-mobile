@@ -18,7 +18,6 @@ class SignupPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ref.read(signupStateNotifierProvider.notifier).reset();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
         Get.off<dynamic>(const DashboardPage());
