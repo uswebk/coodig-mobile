@@ -1,5 +1,6 @@
 import 'package:coodig_mobile/components/modal/forget_password_sheet.dart';
 import 'package:coodig_mobile/config/color.dart';
+import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/login/components/login_form.dart';
@@ -12,22 +13,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-import '../../enum/user_status.dart';
-
 class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      ref.read(loginStateNotifierProvider.notifier).reset();
-      final UserStatus userStatus = ref.watch(userStatusProvider);
-      if (userStatus == UserStatus.authenticated) {
-        Get.off<dynamic>(const DashboardPage());
-      } else if (userStatus == UserStatus.emailNotVerified) {
-        Get.off<dynamic>(const OtpPage());
-      }
-    });
+    final UserStatus userStatus = ref.watch(userStatusProvider);
+    if (userStatus == UserStatus.authenticated) {
+      Get.off<dynamic>(const DashboardPage());
+    } else if (userStatus == UserStatus.emailNotVerified) {
+      Get.off<dynamic>(const OtpPage());
+    }
 
     final passwordResetEmail = TextEditingController();
 

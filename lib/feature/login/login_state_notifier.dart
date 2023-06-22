@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final loginStateNotifierProvider =
-    StateNotifierProvider<LoginStateNotifier, LoginState>((ref) {
+final loginStateNotifierProvider = StateNotifierProvider.autoDispose<LoginStateNotifier, LoginState>((ref) {
   return LoginStateNotifier();
 });
 
@@ -22,10 +21,6 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
     });
 
     state = LoginState(errors: errorMessages, isLoading: state.isLoading);
-  }
-
-  void reset() {
-    state = LoginState();
   }
 
   void setLoading(bool isLoading) async {

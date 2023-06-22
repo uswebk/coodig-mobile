@@ -56,12 +56,9 @@ class LoginForm extends ConsumerWidget {
                               String email = emailController.text;
                               String password = passwordController.text;
 
-                              notifier.reset();
                               notifier.setLoading(true);
                               try {
-                                await ref
-                                    .read(authStateProvider.notifier)
-                                    .login(email, password);
+                                await ref.read(authStateProvider.notifier).login(email, password);
                               } on ApiException catch (e) {
                                 notifier.setMessage(e.errors);
                               } catch (e) {
