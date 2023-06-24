@@ -1,18 +1,12 @@
+import 'package:coodig_mobile/feature/login/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final loginStateNotifierProvider = StateNotifierProvider.autoDispose<LoginStateNotifier, LoginState>((ref) {
   return LoginStateNotifier();
 });
 
-class LoginState {
-  Map<String, String> errors;
-  bool isLoading;
-
-  LoginState({this.errors = const {}, this.isLoading = false});
-}
-
 class LoginStateNotifier extends StateNotifier<LoginState> {
-  LoginStateNotifier() : super(LoginState());
+  LoginStateNotifier() : super(const LoginState(errors: {}, isLoading: false));
 
   void setMessage(Map<String, dynamic> errors) {
     Map<String, String> errorMessages = {};
@@ -20,10 +14,10 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
       errorMessages[key] = value[0].toString();
     });
 
-    state = LoginState(errors: errorMessages, isLoading: state.isLoading);
+    state = state.copyWith(errors: errorMessages, isLoading: false);
   }
 
   void setLoading(bool isLoading) async {
-    state = LoginState(errors: state.errors, isLoading: isLoading);
+    state = state.copyWith(isLoading: isLoading);
   }
 }
