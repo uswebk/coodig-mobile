@@ -3,8 +3,8 @@ import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
-import 'package:coodig_mobile/feature/login/components/login_form.dart';
-import 'package:coodig_mobile/feature/login/login_state_notifier.dart';
+import 'package:coodig_mobile/feature/login/state/login_state_notifier.dart';
+import 'package:coodig_mobile/feature/login/widgets/login_form.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
@@ -103,14 +103,9 @@ class LoginPage extends ConsumerWidget {
           ),
         ),
       ),
-      Consumer(
-        builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          final isLoading = ref.watch(loginStateNotifierProvider).isLoading;
-          return ModalProgressHUD(
-            inAsyncCall: isLoading,
-            child: Container(),
-          );
-        },
+      ModalProgressHUD(
+        inAsyncCall: ref.watch(loginStateNotifierProvider).isLoading,
+        child: Container(),
       ),
     ]);
   }

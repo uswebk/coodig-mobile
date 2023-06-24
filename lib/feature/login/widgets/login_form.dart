@@ -4,7 +4,7 @@ import 'package:coodig_mobile/components/greeting_box.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
-import 'package:coodig_mobile/feature/login/login_state_notifier.dart';
+import 'package:coodig_mobile/feature/login/state/login_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

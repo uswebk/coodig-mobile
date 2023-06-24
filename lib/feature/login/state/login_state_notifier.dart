@@ -1,4 +1,4 @@
-import 'package:coodig_mobile/feature/login/login_state.dart';
+import 'package:coodig_mobile/feature/login/state/login_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final loginStateNotifierProvider = StateNotifierProvider.autoDispose<LoginStateNotifier, LoginState>((ref) {
