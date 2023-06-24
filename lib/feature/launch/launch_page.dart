@@ -80,9 +80,7 @@ class LaunchPage extends ConsumerWidget {
                                 Get.to<dynamic>(const LoginPage());
                               }
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.white70,
-                            ),
+                            style: ElevatedButton.styleFrom(backgroundColor: Colors.white70),
                             child: const Text(
                               'Sign In',
                               style: TextStyle(
