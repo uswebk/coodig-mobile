@@ -1,8 +1,10 @@
 import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final forgetPasswordStateNotifierProvider = StateNotifierProvider<ResetPasswordNotifier, ForgetPasswordState>(
-    (ref) => ResetPasswordNotifier(ref.watch(authServiceProvider)));
+final forgetPasswordStateNotifierProvider =
+    StateNotifierProvider.autoDispose<ResetPasswordNotifier, ForgetPasswordState>((ref) {
+  return ResetPasswordNotifier(ref.watch(authServiceProvider));
+});
 
 class ForgetPasswordState {
   Map<String, String> errors;
