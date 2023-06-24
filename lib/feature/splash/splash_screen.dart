@@ -34,9 +34,7 @@ class SplashScreen extends ConsumerWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
-              height: 40,
-            ),
+            SizedBox(height: 40),
             SizedBox(
               width: 180,
               height: 2,
