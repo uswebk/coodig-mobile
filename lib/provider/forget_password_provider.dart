@@ -1,15 +1,13 @@
 import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final forgetPasswordStateNotifierProvider =
-    StateNotifierProvider<ResetPasswordNotifier, ForgetPasswordState>(
-        (ref) => ResetPasswordNotifier(ref.watch(authServiceProvider)));
+final forgetPasswordStateNotifierProvider = StateNotifierProvider<ResetPasswordNotifier, ForgetPasswordState>(
+    (ref) => ResetPasswordNotifier(ref.watch(authServiceProvider)));
 
 class ForgetPasswordState {
   Map<String, String> errors;
-  bool isLoading;
 
-  ForgetPasswordState({this.errors = const {}, this.isLoading = false});
+  ForgetPasswordState({this.errors = const {}});
 }
 
 class ResetPasswordNotifier extends StateNotifier<ForgetPasswordState> {
@@ -18,7 +16,7 @@ class ResetPasswordNotifier extends StateNotifier<ForgetPasswordState> {
   final AuthService _authService;
 
   Future<void> sendResetPassword(String email) async {
-    state = ForgetPasswordState(errors: {}, isLoading: state.isLoading);
+    state = ForgetPasswordState(errors: {});
     await _authService.sendResetPassword(email);
   }
 
@@ -28,11 +26,6 @@ class ResetPasswordNotifier extends StateNotifier<ForgetPasswordState> {
       errorMessages[key] = value[0].toString();
     });
 
-    state =
-        ForgetPasswordState(errors: errorMessages, isLoading: state.isLoading);
-  }
-
-  void setLoading(bool isLoading) async {
-    state = ForgetPasswordState(errors: state.errors, isLoading: isLoading);
+    state = ForgetPasswordState(errors: errorMessages);
   }
 }

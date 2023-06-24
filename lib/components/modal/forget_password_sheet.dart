@@ -2,7 +2,7 @@ import 'package:coodig_mobile/components/form/email_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
-import 'package:coodig_mobile/feature/login/forget_password_state_notifier.dart';
+import 'package:coodig_mobile/provider/forget_password_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
