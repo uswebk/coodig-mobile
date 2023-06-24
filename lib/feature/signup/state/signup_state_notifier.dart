@@ -1,4 +1,4 @@
-import 'package:coodig_mobile/feature/signup/signup_state.dart';
+import 'package:coodig_mobile/feature/signup/state/signup_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final signupStateNotifierProvider =

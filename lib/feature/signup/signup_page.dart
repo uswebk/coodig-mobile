@@ -3,9 +3,9 @@ import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
-import 'package:coodig_mobile/feature/signup/components/already_have_account_row.dart';
-import 'package:coodig_mobile/feature/signup/components/signup_form.dart';
-import 'package:coodig_mobile/feature/signup/signup_state_notifier.dart';
+import 'package:coodig_mobile/feature/signup/state/signup_state_notifier.dart';
+import 'package:coodig_mobile/feature/signup/widgets/already_have_account_row.dart';
+import 'package:coodig_mobile/feature/signup/widgets/signup_form.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -68,14 +68,9 @@ class SignupPage extends HookConsumerWidget {
           ),
         ),
       ),
-      Consumer(
-        builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          final state = ref.watch(signupStateNotifierProvider);
-          return ModalProgressHUD(
-            inAsyncCall: state.isLoading,
-            child: Container(),
-          );
-        },
+      ModalProgressHUD(
+        inAsyncCall: ref.watch(signupStateNotifierProvider).isLoading,
+        child: Container(),
       ),
     ]);
   }
