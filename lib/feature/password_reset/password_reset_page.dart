@@ -2,8 +2,8 @@ import 'package:coodig_mobile/components/greeting_box.dart';
 import 'package:coodig_mobile/components/modal/forget_password_sheet.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
-import 'package:coodig_mobile/feature/password_reset/components/password_reset_form.dart';
 import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
+import 'package:coodig_mobile/feature/password_reset/widgets/password_reset_form.dart';
 import 'package:coodig_mobile/provider/deeplink_provider.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:flutter/material.dart';
@@ -129,15 +129,10 @@ class PasswordResetPage extends ConsumerWidget {
                 ),
               ],
             ),
-            Consumer(
-              builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                bool isLoading = ref.watch(passwordResetStateNotifierProvider).isLoading;
-                return ModalProgressHUD(
-                  inAsyncCall: isLoading,
-                  child: Container(),
-                );
-              },
-            )
+            ModalProgressHUD(
+              inAsyncCall: ref.watch(passwordResetStateNotifierProvider).isLoading,
+              child: Container(),
+            ),
           ],
         ),
       ),
