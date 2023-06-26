@@ -4,7 +4,7 @@ import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/login/login_page.dart';
-import 'package:coodig_mobile/feature/password_reset/password_reset_state_notifier.dart';
+import 'package:coodig_mobile/feature/password_reset/state/password_reset_state_notifier.dart';
 import 'package:coodig_mobile/provider/deeplink_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
