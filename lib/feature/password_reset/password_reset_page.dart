@@ -21,14 +21,11 @@ class PasswordResetPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final passwordResetEmail = TextEditingController();
-    final notifier = ref.read(passwordResetStateNotifierProvider.notifier);
-    final deeplinkNotifier = ref.read(deepLinkStateNotifierProvider.notifier);
-
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      notifier.reset();
-      deeplinkNotifier.setLink(link);
+      ref.read(deepLinkStateNotifierProvider.notifier).setLink(link);
     });
+
+    final passwordResetEmail = TextEditingController();
 
     return Scaffold(
       appBar: AppBar(

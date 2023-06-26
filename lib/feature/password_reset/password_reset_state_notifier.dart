@@ -2,8 +2,9 @@ import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final passwordResetStateNotifierProvider =
-    StateNotifierProvider<ResetPasswordStateNotifier, ResetPasswordState>(
-        (ref) => ResetPasswordStateNotifier(ref.watch(authServiceProvider)));
+    StateNotifierProvider.autoDispose<ResetPasswordStateNotifier, ResetPasswordState>((ref) {
+  return ResetPasswordStateNotifier(ref.watch(authServiceProvider));
+});
 
 class ResetPasswordState {
   Map<String, String> errors;
@@ -17,8 +18,7 @@ class ResetPasswordStateNotifier extends StateNotifier<ResetPasswordState> {
 
   final AuthService _authService;
 
-  Future<void> resetPassword(
-      String link, String password, String confirmPassword) async {
+  Future<void> resetPassword(String link, String password, String confirmPassword) async {
     state = ResetPasswordState();
 
     Uri uri = Uri.parse(link);
@@ -35,12 +35,7 @@ class ResetPasswordStateNotifier extends StateNotifier<ResetPasswordState> {
       errorMessages[key] = value[0].toString();
     });
 
-    state =
-        ResetPasswordState(errors: errorMessages, isLoading: state.isLoading);
-  }
-
-  void reset() {
-    state = ResetPasswordState();
+    state = ResetPasswordState(errors: errorMessages, isLoading: state.isLoading);
   }
 
   void setLoading(bool isLoading) async {
