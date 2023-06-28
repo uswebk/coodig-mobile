@@ -4,8 +4,7 @@ import 'package:coodig_mobile/model/otp.dart';
 import 'package:coodig_mobile/service/otp_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final otpTimerStateNotifierProvider =
-    StateNotifierProvider<OtpTimerNotifier, TimerState>((ref) {
+final otpTimerStateNotifierProvider = StateNotifierProvider<OtpTimerNotifier, TimerState>((ref) {
   return OtpTimerNotifier(ref.watch(otpServiceProvider));
 });
 
@@ -16,8 +15,7 @@ class TimerState {
 }
 
 class OtpTimerNotifier extends StateNotifier<TimerState> {
-  OtpTimerNotifier(this._otpService)
-      : super(TimerState(minutes: 0, seconds: 0));
+  OtpTimerNotifier(this._otpService) : super(TimerState(minutes: 0, seconds: 0));
 
   final OtpService _otpService;
   Timer? _timer;
@@ -36,12 +34,9 @@ class OtpTimerNotifier extends StateNotifier<TimerState> {
     int seconds = 0;
 
     if (otp != null) {
-      DateTime now = DateTime.parse(DateTime.now()
-          .toString()
-          .substring(0, DateTime.now().toString().length - 7));
-      DateTime expirationAt = DateTime.parse(otp.expirationAt
-          .toString()
-          .substring(0, otp.expirationAt.toString().length - 5));
+      DateTime now = DateTime.parse(DateTime.now().toString().substring(0, DateTime.now().toString().length - 7));
+      DateTime expirationAt =
+          DateTime.parse(otp.expirationAt.toString().substring(0, otp.expirationAt.toString().length - 5));
       Duration difference = expirationAt.difference(now);
 
       if (!difference.isNegative) {
