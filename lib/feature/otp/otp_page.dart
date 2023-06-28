@@ -1,7 +1,7 @@
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
-import 'package:coodig_mobile/feature/otp/components/explanation.dart';
 import 'package:coodig_mobile/feature/otp/components/otp_field.dart';
 import 'package:coodig_mobile/feature/otp/components/reregistration_button.dart';
 import 'package:coodig_mobile/feature/otp/components/resend_button.dart';
@@ -34,45 +34,42 @@ class OtpPage extends ConsumerWidget {
           leading: IconButton(
             icon: const Icon(
               Icons.arrow_back_ios,
-              color: Colors.black45,
+              color: Colors.grey,
             ),
             onPressed: () {
               Get.to<dynamic>(const LaunchPage());
             },
           ),
-          backgroundColor: Colors.white,
-          title: const Text(
-            'Otp Verify',
-            style: TextStyle(color: Colors.black45),
-          ),
-          elevation: 1,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
         ),
         body: SingleChildScrollView(
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    const Explanation(),
-                    Column(
-                      children: const [
-                        Timer(),
-                        ResendButton(),
-                      ],
-                    ),
-                  ],
+                Container(
+                  alignment: AlignmentDirectional.centerStart,
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                  child: const Text(
+                    'Otp Verification',
+                    style: TextStyle(color: CoodigColors.grey, fontSize: 30, fontWeight: FontWeight.w800),
+                  ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 6.0),
                   child: SingleChildScrollView(
                     child: Column(
-                      children: const [
+                      children: [
+                        Timer(),
+                        ResendButton(),
                         Divider(),
                         SizedBox(height: 10),
                         OtpField(),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10),
+                        SizedBox(height: 10),
                         VerifyButton(),
+                        SizedBox(height: 10),
                         ReregistrationButton(),
                       ],
                     ),

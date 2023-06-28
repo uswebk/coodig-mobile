@@ -1,5 +1,4 @@
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
-import 'package:coodig_mobile/feature/otp/otp_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +12,6 @@ class ReregistrationButton extends ConsumerWidget {
     return TextButton(
       onPressed: () async {
         await ref.read(authStateProvider.notifier).logout();
-        ref.read(otpStateNotifierProvider.notifier).reset();
         Get.off<dynamic>(const LaunchPage());
       },
       child: Row(
