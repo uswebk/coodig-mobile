@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/feature/password_reset/state/password_reset_state.dart';
 import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,21 +7,12 @@ final passwordResetStateNotifierProvider =
   return ResetPasswordStateNotifier(ref.watch(authServiceProvider));
 });
 
-class ResetPasswordState {
-  Map<String, String> errors;
-  bool isLoading;
-
-  ResetPasswordState({this.errors = const {}, this.isLoading = false});
-}
-
 class ResetPasswordStateNotifier extends StateNotifier<ResetPasswordState> {
-  ResetPasswordStateNotifier(this._authService) : super(ResetPasswordState());
+  ResetPasswordStateNotifier(this._authService) : super(const ResetPasswordState(errors: {}, isLoading: false));
 
   final AuthService _authService;
 
   Future<void> resetPassword(String link, String password, String confirmPassword) async {
-    state = ResetPasswordState();
-
     Uri uri = Uri.parse(link);
     List<String> pathSegments = uri.pathSegments;
     String uid = pathSegments[0];
@@ -35,12 +27,10 @@ class ResetPasswordStateNotifier extends StateNotifier<ResetPasswordState> {
       errorMessages[key] = value[0].toString();
     });
 
-    state = ResetPasswordState(errors: errorMessages, isLoading: state.isLoading);
+    state = state.copyWith(errors: errorMessages);
   }
 
   void setLoading(bool isLoading) async {
-    state = ResetPasswordState(errors: state.errors, isLoading: isLoading);
+    state = state.copyWith(isLoading: isLoading);
   }
 }
-
-final resetPasswordLinkProvider = StateProvider<String>((ref) => '');
