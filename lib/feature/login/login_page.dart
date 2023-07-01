@@ -5,7 +5,6 @@ import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/login/state/login_state_notifier.dart';
 import 'package:coodig_mobile/feature/login/widgets/login_form.dart';
-import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +20,6 @@ class LoginPage extends ConsumerWidget {
     final UserStatus userStatus = ref.watch(userStatusProvider);
     if (userStatus == UserStatus.authenticated) {
       Get.off<dynamic>(const DashboardPage());
-    } else if (userStatus == UserStatus.emailNotVerified) {
-      Get.off<dynamic>(const OtpPage());
     }
 
     final passwordResetEmail = TextEditingController();
