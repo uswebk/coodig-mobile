@@ -1,5 +1,5 @@
 import 'package:coodig_mobile/components/snackbar.dart';
-import 'package:coodig_mobile/feature/otp/otp_state_notifier.dart';
+import 'package:coodig_mobile/feature/otp/state/otp_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

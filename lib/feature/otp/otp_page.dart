@@ -2,7 +2,7 @@ import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
-import 'package:coodig_mobile/feature/otp/otp_state_notifier.dart';
+import 'package:coodig_mobile/feature/otp/state/otp_state_notifier.dart';
 import 'package:coodig_mobile/feature/otp/widgets/otp_field.dart';
 import 'package:coodig_mobile/feature/otp/widgets/reregistration_button.dart';
 import 'package:coodig_mobile/feature/otp/widgets/resend_button.dart';
