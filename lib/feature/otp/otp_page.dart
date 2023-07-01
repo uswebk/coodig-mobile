@@ -60,13 +60,13 @@ class OtpPage extends ConsumerWidget {
                   padding: const EdgeInsets.symmetric(horizontal: 6.0),
                   child: SingleChildScrollView(
                     child: Column(
-                      children: [
+                      children: const [
+                        SizedBox(height: 10),
+                        OtpField(),
+                        Divider(),
                         Timer(),
                         ResendButton(),
                         Divider(),
-                        SizedBox(height: 10),
-                        OtpField(),
-                        SizedBox(height: 10),
                         SizedBox(height: 10),
                         VerifyButton(),
                         SizedBox(height: 10),
