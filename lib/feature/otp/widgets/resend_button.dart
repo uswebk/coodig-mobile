@@ -10,7 +10,6 @@ class ResendButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final isOtpTimeOut = ref.watch(isOtpTimeOutProvider);
     final isProcessing = useState(false);
     final isMounted = useIsMounted();
 
