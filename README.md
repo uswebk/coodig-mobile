@@ -1,4 +1,5 @@
 # coodig
+[![Flutter Analyze](https://github.com/uswebk/coodig-mobile/actions/workflows/analyze.yml/badge.svg)](https://github.com/uswebk/coodig-mobile/actions/workflows/analyze.yml)
 
 Mobile App of quiz application for engineers🧑‍💻
 
