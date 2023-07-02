@@ -62,3 +62,9 @@ class OtpTimerNotifier extends StateNotifier<TimerState> {
     });
   }
 }
+
+final isOtpTimeOutProvider = Provider((ref) {
+  TimerState time = ref.watch(otpTimerStateNotifierProvider);
+
+  return time.minutes == 0 && time.seconds == 0;
+});

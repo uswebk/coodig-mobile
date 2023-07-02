@@ -31,7 +31,7 @@ class Timer extends ConsumerWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: (minutes == 0 && seconds == 0) ? Colors.grey : Colors.blueGrey,
+                  color: (minutes == 0 && seconds == 0) ? Colors.grey : Colors.green,
                 ),
               ),
             ],
