@@ -67,7 +67,6 @@ class OtpPage extends ConsumerWidget {
                         Timer(),
                         ResendButton(),
                         Divider(),
-                        SizedBox(height: 10),
                         VerifyButton(),
                         SizedBox(height: 10),
                         ReregistrationButton(),

@@ -15,9 +15,7 @@ class ResendButton extends ConsumerWidget {
         children: const [
           Text(
             'Resend Otp ',
-            style: TextStyle(
-              fontSize: 14,
-            ),
+            style: TextStyle(fontSize: 14),
           ),
           Icon(
             Icons.send,

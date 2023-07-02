@@ -8,7 +8,8 @@ class OtpField extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final controllers = ref.watch(otpStateNotifierProvider).controllers;
+    final state = ref.watch(otpStateNotifierProvider);
+    final controllers = state.controllers;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -25,7 +26,7 @@ class OtpField extends ConsumerWidget {
                   autofocus: true,
                   onChanged: (value) {
                     ref.read(otpStateNotifierProvider.notifier).update();
-                    if (index != controllers.length) {
+                    if (index != controllers.length && value != '') {
                       FocusScope.of(context).nextFocus();
                     }
                   },
