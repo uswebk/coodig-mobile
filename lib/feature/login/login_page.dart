@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/components/hud.dart';
 import 'package:coodig_mobile/components/modal/forget_password_sheet.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
@@ -11,7 +12,6 @@ import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
@@ -29,8 +29,9 @@ class LoginPage extends HookConsumerWidget {
 
     final passwordResetEmail = TextEditingController();
 
-    return Stack(children: [
-      Scaffold(
+    return Hud(
+      isLoading: ref.watch(loginStateNotifierProvider).isLoading,
+      child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(
@@ -106,10 +107,6 @@ class LoginPage extends HookConsumerWidget {
           ),
         ),
       ),
-      ModalProgressHUD(
-        inAsyncCall: ref.watch(loginStateNotifierProvider).isLoading,
-        child: Container(),
-      ),
-    ]);
+    );
   }
 }

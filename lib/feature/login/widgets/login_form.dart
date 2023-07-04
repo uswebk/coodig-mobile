@@ -29,14 +29,9 @@ class LoginForm extends ConsumerWidget {
             return Column(
               children: [
                 Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: (errors['non_field_errors'] != null)
-                      ? GreetingBox(
-                          message: errors['non_field_errors'].toString(),
-                        )
-                      : Container(),
-                ),
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: GreetingBox(message: errors['non_field_errors'])),
                 const SizedBox(height: 15),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -57,8 +52,11 @@ class LoginForm extends ConsumerWidget {
                               String password = passwordController.text;
 
                               notifier.setLoading(true);
+
                               try {
-                                await ref.read(authStateProvider.notifier).login(email, password);
+                                await ref
+                                    .read(authStateProvider.notifier)
+                                    .login(email, password);
                               } on ApiException catch (e) {
                                 notifier.setMessage(e.errors);
                               } catch (e) {

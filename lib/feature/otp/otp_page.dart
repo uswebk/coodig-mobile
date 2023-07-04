@@ -2,7 +2,6 @@ import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
-import 'package:coodig_mobile/feature/otp/state/otp_state_notifier.dart';
 import 'package:coodig_mobile/feature/otp/widgets/otp_field.dart';
 import 'package:coodig_mobile/feature/otp/widgets/reregistration_button.dart';
 import 'package:coodig_mobile/feature/otp/widgets/resend_button.dart';
@@ -13,7 +12,6 @@ import 'package:coodig_mobile/provider/otp_timer_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class OtpPage extends ConsumerWidget {
   const OtpPage({super.key});
@@ -50,10 +48,14 @@ class OtpPage extends ConsumerWidget {
               children: [
                 Container(
                   alignment: AlignmentDirectional.centerStart,
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
                   child: const Text(
                     'Otp Verification',
-                    style: TextStyle(color: CoodigColors.grey, fontSize: 30, fontWeight: FontWeight.w800),
+                    style: TextStyle(
+                        color: CoodigColors.grey,
+                        fontSize: 30,
+                        fontWeight: FontWeight.w800),
                   ),
                 ),
                 Padding(
@@ -78,15 +80,6 @@ class OtpPage extends ConsumerWidget {
             ),
           ),
         ),
-      ),
-      Consumer(
-        builder: (BuildContext context, WidgetRef ref, Widget? child) {
-          bool isLoading = ref.watch(otpStateNotifierProvider).isLoading;
-          return ModalProgressHUD(
-            inAsyncCall: isLoading,
-            child: Container(),
-          );
-        },
       ),
     ]);
   }
