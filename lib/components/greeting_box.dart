@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class GreetingBox extends StatelessWidget {
-  final String message;
+  final String? message;
   final EdgeInsets padding;
   final Color backgroundColor;
   final Color borderColor;
@@ -25,17 +25,19 @@ class GreetingBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: padding,
-      decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: BorderRadius.circular(borderRadius),
-        border: Border.all(color: borderColor),
-      ),
-      child: Text(
-        message,
-        style: textStyle,
-      ),
-    );
+    return (message != null)
+        ? Container(
+            padding: padding,
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.circular(borderRadius),
+              border: Border.all(color: borderColor),
+            ),
+            child: Text(
+              message.toString(),
+              style: textStyle,
+            ),
+          )
+        : Container();
   }
 }
