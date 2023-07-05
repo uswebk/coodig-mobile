@@ -1,10 +1,7 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
+import 'package:coodig_mobile/components/indicator/loading_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 
-class Hud extends HookWidget {
+class Hud extends StatelessWidget {
   final bool isLoading;
   final Widget child;
 
@@ -20,17 +17,10 @@ class Hud extends HookWidget {
       child,
       if (isLoading)
         const Opacity(
-          opacity: 0.7,
-          child: ModalBarrier(dismissible: false, color: Colors.black),
+          opacity: 0.8,
+          child: ModalBarrier(dismissible: false, color: Colors.black87),
         ),
-      if (isLoading)
-        Center(
-          child: (Platform.isIOS)
-              ? const CupertinoActivityIndicator(
-                  color: Colors.blue,
-                )
-              : const CircularProgressIndicator(),
-        ),
+      if (isLoading) const Center(child: LoadingIndicator())
     ]);
   }
 }
