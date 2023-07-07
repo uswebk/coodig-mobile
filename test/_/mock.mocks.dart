@@ -7,6 +7,7 @@ import 'dart:async' as _i4;
 
 import 'package:coodig_mobile/enum/user_status.dart' as _i7;
 import 'package:coodig_mobile/service/deeplink_service.dart' as _i3;
+import 'package:coodig_mobile/service/environment_service.dart' as _i8;
 import 'package:coodig_mobile/service/splash_service.dart' as _i6;
 import 'package:flutter/material.dart' as _i2;
 import 'package:flutter_riverpod/flutter_riverpod.dart' as _i5;
@@ -116,4 +117,38 @@ class MockSplashService extends _i1.Mock implements _i6.SplashService {
           ),
         )),
       ) as _i4.Future<_i2.Widget>);
+}
+
+/// A class which mocks [EnvironmentService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockEnvironmentService extends _i1.Mock
+    implements _i8.EnvironmentService {
+  @override
+  _i4.Future<void> setting() => (super.noSuchMethod(
+        Invocation.method(
+          #setting,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  _i4.Future<void> setEnv() => (super.noSuchMethod(
+        Invocation.method(
+          #setEnv,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  _i4.Future<void> setFlavor() => (super.noSuchMethod(
+        Invocation.method(
+          #setFlavor,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }
