@@ -16,7 +16,7 @@ class SplashScreen extends ConsumerWidget {
     Future<dynamic>.delayed(const Duration(seconds: 2)).then((dynamic value) async {
       await ref.read(authStateProvider.notifier).fetchMe();
       final UserStatus userStatus = ref.watch(userStatusProvider);
-      Widget screen = await SplashService.getScreen(userStatus);
+      Widget screen = await ref.watch(splashServiceProvider).getScreen(userStatus);
       Get.off<dynamic>(screen);
     });
 

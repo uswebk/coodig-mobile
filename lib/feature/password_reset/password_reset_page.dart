@@ -21,6 +21,7 @@ class PasswordResetPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final deeplinkService = ref.watch(deeplinkServiceProvider);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       ref.read(deepLinkStateNotifierProvider.notifier).setLink(link);
     });
@@ -59,7 +60,7 @@ class PasswordResetPage extends ConsumerWidget {
                   alignment: Alignment.center,
                   child: Column(
                     children: [
-                      DeeplinkService.verifySignedUri(link)
+                      deeplinkService.verifySignedUri(link)
                           ? Container(
                               padding: const EdgeInsets.symmetric(horizontal: 20),
                               child: Center(

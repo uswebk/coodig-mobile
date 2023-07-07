@@ -16,6 +16,8 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final deeplinkService = ref.watch(deeplinkServiceProvider);
+
     return GetMaterialApp(
       // debugShowCheckedModeBanner: false,
       title: 'Coodig',
@@ -33,7 +35,7 @@ class MyApp extends ConsumerWidget {
         return [
           MaterialPageRoute<dynamic>(
             builder: (context) {
-              DeeplinkService.initDeeplink(ref);
+              deeplinkService.initDeeplink(ref);
               return const SplashScreen();
             },
           ),

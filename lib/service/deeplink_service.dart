@@ -9,8 +9,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:uni_links/uni_links.dart';
 
+final deeplinkServiceProvider = Provider<DeeplinkService>((ref) => DeeplinkService());
+
 class DeeplinkService {
-  static void initDeeplink(WidgetRef ref) {
+  Future<String?> getLink() async {
+    return await getInitialLink();
+  }
+
+  void initDeeplink(WidgetRef ref) {
     linkStream.listen((String? link) {
       if (link != null && link.isNotEmpty) {
         Widget screen = getScreen(link);
@@ -21,7 +27,7 @@ class DeeplinkService {
     });
   }
 
-  static Widget getScreen(String link) {
+  Widget getScreen(String link) {
     Uri uri = Uri.parse(link);
 
     switch (uri.host) {
@@ -32,7 +38,7 @@ class DeeplinkService {
     }
   }
 
-  static bool verifySignedUri(String uri) {
+  bool verifySignedUri(String uri) {
     final segment = uri.split(':');
     final expireTime = double.parse(segment[2]);
     final now = DateTime.now().millisecondsSinceEpoch / 1000;
