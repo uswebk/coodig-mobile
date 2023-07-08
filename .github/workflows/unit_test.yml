@@ -1,0 +1,24 @@
+name: Flutter Unit Test
+
+on: push
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+          flutter-version: 3.7.12
+
+      - name: Run flutter pub get
+        run: flutter pub get
+
+      - name: Run flutter test
+        run: flutter analyze
