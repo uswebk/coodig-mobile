@@ -5,12 +5,12 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
 
-import 'package:coodig_mobile/enum/user_status.dart' as _i7;
+import 'package:coodig_mobile/enum/user_status.dart' as _i6;
+import 'package:coodig_mobile/provider/datetime_provider.dart' as _i8;
 import 'package:coodig_mobile/service/deeplink_service.dart' as _i3;
-import 'package:coodig_mobile/service/environment_service.dart' as _i8;
-import 'package:coodig_mobile/service/splash_service.dart' as _i6;
+import 'package:coodig_mobile/service/environment_service.dart' as _i7;
+import 'package:coodig_mobile/service/splash_service.dart' as _i5;
 import 'package:flutter/material.dart' as _i2;
-import 'package:flutter_riverpod/flutter_riverpod.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -38,6 +38,16 @@ class _FakeWidget_0 extends _i1.SmartFake implements _i2.Widget {
       super.toString();
 }
 
+class _FakeDateTime_1 extends _i1.SmartFake implements DateTime {
+  _FakeDateTime_1(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
 /// A class which mocks [DeeplinkService].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -52,10 +62,10 @@ class MockDeeplinkService extends _i1.Mock implements _i3.DeeplinkService {
         returnValueForMissingStub: _i4.Future<String?>.value(),
       ) as _i4.Future<String?>);
   @override
-  void initDeeplink(_i5.WidgetRef? ref) => super.noSuchMethod(
+  void initDeeplink() => super.noSuchMethod(
         Invocation.method(
           #initDeeplink,
-          [ref],
+          [],
         ),
         returnValueForMissingStub: null,
       );
@@ -94,9 +104,9 @@ class MockDeeplinkService extends _i1.Mock implements _i3.DeeplinkService {
 /// A class which mocks [SplashService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSplashService extends _i1.Mock implements _i6.SplashService {
+class MockSplashService extends _i1.Mock implements _i5.SplashService {
   @override
-  _i4.Future<_i2.Widget> getScreen(_i7.UserStatus? userStatus) =>
+  _i4.Future<_i2.Widget> getScreen(_i6.UserStatus? userStatus) =>
       (super.noSuchMethod(
         Invocation.method(
           #getScreen,
@@ -123,7 +133,7 @@ class MockSplashService extends _i1.Mock implements _i6.SplashService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockEnvironmentService extends _i1.Mock
-    implements _i8.EnvironmentService {
+    implements _i7.EnvironmentService {
   @override
   _i4.Future<void> setting() => (super.noSuchMethod(
         Invocation.method(
@@ -143,6 +153,15 @@ class MockEnvironmentService extends _i1.Mock
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
+  String getByKey(String? key) => (super.noSuchMethod(
+        Invocation.method(
+          #getByKey,
+          [key],
+        ),
+        returnValue: '',
+        returnValueForMissingStub: '',
+      ) as String);
+  @override
   _i4.Future<void> setFlavor() => (super.noSuchMethod(
         Invocation.method(
           #setFlavor,
@@ -151,4 +170,31 @@ class MockEnvironmentService extends _i1.Mock
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+}
+
+/// A class which mocks [DateTimeService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDateTimeService extends _i1.Mock implements _i8.DateTimeService {
+  @override
+  DateTime now() => (super.noSuchMethod(
+        Invocation.method(
+          #now,
+          [],
+        ),
+        returnValue: _FakeDateTime_1(
+          this,
+          Invocation.method(
+            #now,
+            [],
+          ),
+        ),
+        returnValueForMissingStub: _FakeDateTime_1(
+          this,
+          Invocation.method(
+            #now,
+            [],
+          ),
+        ),
+      ) as DateTime);
 }
