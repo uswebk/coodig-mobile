@@ -8,18 +8,19 @@ import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/signup/state/signup_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SignupForm extends ConsumerWidget {
+class SignupForm extends HookConsumerWidget {
   const SignupForm({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = GlobalKey<FormState>();
-    final TextEditingController nameController = TextEditingController();
-    final TextEditingController emailController = TextEditingController();
-    final TextEditingController passwordController = TextEditingController();
-    final TextEditingController confirmPasswordController = TextEditingController();
+    final TextEditingController nameController = useTextEditingController();
+    final TextEditingController emailController = useTextEditingController();
+    final TextEditingController passwordController = useTextEditingController();
+    final TextEditingController confirmPasswordController = useTextEditingController();
 
     final notifier = ref.read(signupStateNotifierProvider.notifier);
 

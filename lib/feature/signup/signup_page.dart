@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/components/hud.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
@@ -10,7 +11,6 @@ import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class SignupPage extends HookConsumerWidget {
   const SignupPage({super.key});
@@ -26,8 +26,9 @@ class SignupPage extends HookConsumerWidget {
       }
     });
 
-    return Stack(children: [
-      Scaffold(
+    return Hud(
+      isLoading: ref.watch(signupStateNotifierProvider).isLoading,
+      child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
               icon: const Icon(
@@ -68,10 +69,6 @@ class SignupPage extends HookConsumerWidget {
           ),
         ),
       ),
-      ModalProgressHUD(
-        inAsyncCall: ref.watch(signupStateNotifierProvider).isLoading,
-        child: Container(),
-      ),
-    ]);
+    );
   }
 }
