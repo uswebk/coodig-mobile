@@ -25,18 +25,10 @@ class SplashScreen extends ConsumerWidget {
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
-            Text(
-              'Co-odig',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 42,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 40),
-            SizedBox(
-              width: 180,
+          children: [
+            Center(child: SizedBox(width: 250, child: Image.asset('images/icon.png'))),
+            const SizedBox(
+              width: 150,
               height: 2,
               child: LinearProgressIndicator(
                 color: Colors.white,
