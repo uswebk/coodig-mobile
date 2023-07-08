@@ -35,7 +35,7 @@ class MyApp extends ConsumerWidget {
         return [
           MaterialPageRoute<dynamic>(
             builder: (context) {
-              deeplinkService.initDeeplink(ref);
+              deeplinkService.initDeeplink();
               return const SplashScreen();
             },
           ),

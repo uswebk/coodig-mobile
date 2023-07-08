@@ -23,7 +23,7 @@ class DeeplinkService {
     return await getInitialLink();
   }
 
-  void initDeeplink(WidgetRef ref) {
+  void initDeeplink() {
     linkStream.listen((String? link) {
       if (link != null && link.isNotEmpty) {
         Widget screen = getScreen(link);
