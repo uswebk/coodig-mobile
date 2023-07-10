@@ -1,4 +1,4 @@
-import 'package:coodig_mobile/config/color.dart';
+import 'package:coodig_mobile/config/app_theme.dart';
 import 'package:coodig_mobile/feature/splash/splash_screen.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:coodig_mobile/service/environment_service.dart';
@@ -21,13 +21,7 @@ class MyApp extends ConsumerWidget {
     return GetMaterialApp(
       // debugShowCheckedModeBanner: false,
       title: 'Coodig',
-      theme: ThemeData(
-        primaryColor: CoodigColors.primary,
-        textTheme: const TextTheme(),
-        colorScheme: ColorScheme.fromSwatch(
-          primarySwatch: Colors.blue,
-        ),
-      ),
+      theme: appTheme(),
       onGenerateRoute: (settings) {
         return null;
       },
