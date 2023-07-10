@@ -1,4 +1,8 @@
+<div align="center">
+  
 # coodig
+
+</div> 
 
 <div align="center"> 
 <img width="250" alt="coodig-icon" src="https://github.com/uswebk/coodig-mobile/assets/50518919/4f473d5e-a722-41ac-a018-b080f05a10e3">
