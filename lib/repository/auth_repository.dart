@@ -3,8 +3,7 @@ import 'package:coodig_mobile/core/local_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-final authRepositoryProvider =
-    Provider((ref) => AuthRepository(HttpClient(), LocalStorage()));
+final authRepositoryProvider = Provider((ref) => AuthRepository(ref.watch(httpClientProvider), ref.watch(localStorageProvider)));
 
 class AuthRepository {
   AuthRepository(this._httpClient, this._localStorage);
@@ -22,8 +21,7 @@ class AuthRepository {
         '');
   }
 
-  Future<http.Response> signup(String name, String email, String password,
-      String confirmPassword) async {
+  Future<http.Response> signup(String name, String email, String password, String confirmPassword) async {
     return await _httpClient.post(
         '/api/v1/accounts/register/',
         {
@@ -46,19 +44,16 @@ class AuthRepository {
 
   Future<http.Response> verify(String otp) async {
     String accessToken = await _localStorage.getAccessToken() ?? '';
-    return await _httpClient.post(
-        '/api/v1/accounts/otp/verify/', {'otp': otp}, accessToken);
+    return await _httpClient.post('/api/v1/accounts/otp/verify/', {'otp': otp}, accessToken);
   }
 
   Future<http.Response> sendOtp() async {
     String accessToken = await _localStorage.getAccessToken() ?? '';
-    return await _httpClient.post(
-        '/api/v1/accounts/otp/send/', {}, accessToken);
+    return await _httpClient.post('/api/v1/accounts/otp/send/', {}, accessToken);
   }
 
   Future<http.Response> sendResetPassword(String email) async {
-    return await _httpClient.post(
-        '/api/v1/accounts/reset-password/send/', {'email': email}, '');
+    return await _httpClient.post('/api/v1/accounts/reset-password/send/', {'email': email}, '');
   }
 
   Future<http.Response> resetPassword(
@@ -67,14 +62,7 @@ class AuthRepository {
     String password,
     String confirmPassword,
   ) async {
-    return await _httpClient.post(
-        '/api/v1/accounts/reset-password/',
-        {
-          'uid': uid,
-          'token': token,
-          'password': password,
-          'password2': confirmPassword
-        },
-        '');
+    return await _httpClient.post('/api/v1/accounts/reset-password/',
+        {'uid': uid, 'token': token, 'password': password, 'password2': confirmPassword}, '');
   }
 }

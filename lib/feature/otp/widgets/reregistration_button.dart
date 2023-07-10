@@ -11,7 +11,7 @@ class ReregistrationButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return TextButton(
       onPressed: () async {
-        await ref.read(authStateProvider.notifier).logout();
+        await ref.read(authStateNotifierProvider.notifier).logout();
         Get.off<dynamic>(const LaunchPage());
       },
       child: Row(

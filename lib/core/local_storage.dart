@@ -1,6 +1,8 @@
+import 'package:coodig_mobile/model/token.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../model/token.dart';
+final localStorageProvider = Provider((ref) => LocalStorage());
 
 class LocalStorage {
   final _storage = const FlutterSecureStorage();

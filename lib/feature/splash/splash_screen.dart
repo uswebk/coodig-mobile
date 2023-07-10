@@ -14,14 +14,14 @@ class SplashScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     Future<dynamic>.delayed(const Duration(seconds: 2)).then((dynamic value) async {
-      await ref.read(authStateProvider.notifier).fetchMe();
+      await ref.read(authStateNotifierProvider.notifier).fetchMe();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       Widget screen = await ref.watch(splashServiceProvider).getScreen(userStatus);
       Get.off<dynamic>(screen);
     });
 
     return Scaffold(
-      backgroundColor: CoodigColors.secondary,
+      backgroundColor: CoodigColors.primary,
       body: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,

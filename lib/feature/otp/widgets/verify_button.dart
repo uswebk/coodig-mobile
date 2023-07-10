@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/components/snackbar.dart';
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/otp/state/otp_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +20,7 @@ class VerifyButton extends HookConsumerWidget {
       height: 42,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: CoodigColors.buttonPrimary,
         ),
         onPressed: state.isButtonEnabled && isProcessing.value == false
             ? () async {
@@ -31,7 +32,7 @@ class VerifyButton extends HookConsumerWidget {
                 await Future<dynamic>.delayed(const Duration(seconds: 1));
                 try {
                   await ref.read(otpStateNotifierProvider.notifier).verify();
-                  await ref.read(authStateProvider.notifier).fetchMe();
+                  await ref.read(authStateNotifierProvider.notifier).fetchMe();
                 } catch (e) {
                   Future.delayed(Duration.zero, () {
                     Snackbar.showError(context, e.toString());

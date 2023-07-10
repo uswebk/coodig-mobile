@@ -4,9 +4,8 @@ import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:coodig_mobile/service/user_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final authStateProvider = StateNotifierProvider<AuthNotifier, User?>((ref) {
-  return AuthNotifier(
-      ref.watch(authServiceProvider), ref.watch(userServiceProvider));
+final authStateNotifierProvider = StateNotifierProvider<AuthNotifier, User?>((ref) {
+  return AuthNotifier(ref.watch(authServiceProvider), ref.watch(userServiceProvider));
 });
 
 class AuthNotifier extends StateNotifier<User?> {
@@ -28,8 +27,7 @@ class AuthNotifier extends StateNotifier<User?> {
     await fetchMe();
   }
 
-  Future<void> signup(String name, String email, String password,
-      String confirmPassword) async {
+  Future<void> signup(String name, String email, String password, String confirmPassword) async {
     await _authService.signup(name, email, password, confirmPassword);
     await fetchMe();
   }
@@ -41,7 +39,7 @@ class AuthNotifier extends StateNotifier<User?> {
 }
 
 final userStatusProvider = Provider<UserStatus>((ref) {
-  final User? user = ref.watch(authStateProvider);
+  final User? user = ref.watch(authStateNotifierProvider);
   if (user == null) {
     return UserStatus.unauthenticated;
   }

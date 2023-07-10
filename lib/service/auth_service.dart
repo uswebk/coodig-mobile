@@ -6,7 +6,7 @@ import 'package:coodig_mobile/model/token.dart';
 import 'package:coodig_mobile/repository/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final authServiceProvider = Provider((ref) => AuthService(ref.watch(authRepositoryProvider), LocalStorage()));
+final authServiceProvider = Provider((ref) => AuthService(ref.watch(authRepositoryProvider), ref.watch(localStorageProvider)));
 
 class AuthService {
   AuthService(this._authRepository, this._localStorage);

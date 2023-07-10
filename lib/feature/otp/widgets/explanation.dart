@@ -19,7 +19,7 @@ class Explanation extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 12.0),
               child: Consumer(
                 builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                  final email = ref.watch(authStateProvider)?.email ?? '';
+                  final email = ref.watch(authStateNotifierProvider)?.email ?? '';
                   return Column(
                     children: [
                       RichText(
@@ -40,18 +40,14 @@ class Explanation extends ConsumerWidget {
                               style: TextStyle(
                                 fontSize: 11,
                                 decoration: TextDecoration.underline,
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .color,
+                                color: Theme.of(context).textTheme.bodyMedium!.color,
                               ),
                             ),
                             const WidgetSpan(
                               child: SizedBox(height: 15),
                             ),
                             const TextSpan(
-                              text:
-                                  '️✅Please check the code in the email and enter it.\n'
+                              text: '️✅Please check the code in the email and enter it.\n'
                                   '⏱️The validity period is 10 minutes after the email is sent.',
                               style: TextStyle(
                                 fontSize: 11,

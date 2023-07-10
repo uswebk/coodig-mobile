@@ -48,14 +48,10 @@ class OtpPage extends ConsumerWidget {
               children: [
                 Container(
                   alignment: AlignmentDirectional.centerStart,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
                   child: const Text(
                     'Otp Verification',
-                    style: TextStyle(
-                        color: CoodigColors.grey,
-                        fontSize: 30,
-                        fontWeight: FontWeight.w800),
+                    style: TextStyle(color: CoodigColors.grey, fontSize: 30, fontWeight: FontWeight.w800),
                   ),
                 ),
                 Padding(

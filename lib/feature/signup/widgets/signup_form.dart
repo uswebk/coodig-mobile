@@ -53,7 +53,7 @@ class SignupForm extends HookConsumerWidget {
                           String confirmPassword = confirmPasswordController.text;
                           notifier.setLoading(true);
                           try {
-                            await ref.read(authStateProvider.notifier).signup(name, email, password, confirmPassword);
+                            await ref.read(authStateNotifierProvider.notifier).signup(name, email, password, confirmPassword);
                             Future.delayed(Duration.zero, () {
                               Snackbar.showSuccess(context, 'Otp sent to your email address');
                             });

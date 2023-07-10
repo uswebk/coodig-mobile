@@ -3,7 +3,7 @@ import 'package:coodig_mobile/core/local_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-final userRepositoryProvider = Provider((ref) => UserRepository(HttpClient()));
+final userRepositoryProvider = Provider((ref) => UserRepository(ref.watch(httpClientProvider)));
 
 class UserRepository {
   UserRepository(this._httpClient);

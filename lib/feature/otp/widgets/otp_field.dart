@@ -26,7 +26,8 @@ class OtpField extends ConsumerWidget {
                   autofocus: true,
                   onChanged: (value) {
                     ref.read(otpStateNotifierProvider.notifier).update();
-                    if (index != controllers.length && value != '') {
+
+                    if (index < controllers.length - 1 && value != '') {
                       FocusScope.of(context).nextFocus();
                     }
                   },

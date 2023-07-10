@@ -2,12 +2,14 @@ import 'package:coodig_mobile/components/form/email_text_field.dart';
 import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/greeting_box.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
-import 'package:coodig_mobile/config/color.dart';
+import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/login/state/login_state_notifier.dart';
+import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 class LoginForm extends ConsumerWidget {
   const LoginForm({super.key});
@@ -54,9 +56,11 @@ class LoginForm extends ConsumerWidget {
                               notifier.setLoading(true);
 
                               try {
-                                await ref
-                                    .read(authStateProvider.notifier)
-                                    .login(email, password);
+                                await ref.read(authStateNotifierProvider.notifier).login(email, password);
+                                final UserStatus userStatus = ref.read(userStatusProvider);
+                                if (userStatus == UserStatus.emailNotVerified) {
+                                  Get.off<dynamic>(const OtpPage());
+                                }
                               } on ApiException catch (e) {
                                 notifier.setMessage(e.errors);
                               } catch (e) {
@@ -66,9 +70,6 @@ class LoginForm extends ConsumerWidget {
                               }
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: CoodigColors.buttonPrimary,
-                          ),
                           child: const Text('Login'),
                         ),
                       ),

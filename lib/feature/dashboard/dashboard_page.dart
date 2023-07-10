@@ -9,8 +9,8 @@ class DashboardPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authStateProvider);
-    final notifier = ref.read(authStateProvider.notifier);
+    final state = ref.watch(authStateNotifierProvider);
+    final notifier = ref.read(authStateNotifierProvider.notifier);
     return Scaffold(
       body: Container(
         padding: const EdgeInsets.all(30),

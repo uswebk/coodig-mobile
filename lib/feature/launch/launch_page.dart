@@ -17,7 +17,7 @@ class LaunchPage extends ConsumerWidget {
     final UserStatus userStatus = ref.watch(userStatusProvider);
 
     return Scaffold(
-      backgroundColor: CoodigColors.secondary,
+      backgroundColor: CoodigColors.primary,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -63,7 +63,7 @@ class LaunchPage extends ConsumerWidget {
                               }
                             },
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blueAccent,
+                              backgroundColor: CoodigColors.buttonSecondary,
                             ),
                             child: const Text('Sign Up'),
                           ),
