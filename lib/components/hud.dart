@@ -15,12 +15,13 @@ class Hud extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: [
       child,
-      if (isLoading)
+      if (isLoading) ...[
         const Opacity(
           opacity: 0.8,
           child: ModalBarrier(dismissible: false, color: Colors.black87),
         ),
-      if (isLoading) const Center(child: LoadingIndicator())
+        const Center(child: LoadingIndicator())
+      ]
     ]);
   }
 }
