@@ -135,24 +135,6 @@ class MockSplashService extends _i1.Mock implements _i5.SplashService {
 class MockEnvironmentService extends _i1.Mock
     implements _i7.EnvironmentService {
   @override
-  _i4.Future<void> setting() => (super.noSuchMethod(
-        Invocation.method(
-          #setting,
-          [],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-  @override
-  _i4.Future<void> setEnv() => (super.noSuchMethod(
-        Invocation.method(
-          #setEnv,
-          [],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
-  @override
   String getByKey(String? key) => (super.noSuchMethod(
         Invocation.method(
           #getByKey,
@@ -161,15 +143,6 @@ class MockEnvironmentService extends _i1.Mock
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-  @override
-  _i4.Future<void> setFlavor() => (super.noSuchMethod(
-        Invocation.method(
-          #setFlavor,
-          [],
-        ),
-        returnValue: _i4.Future<void>.value(),
-        returnValueForMissingStub: _i4.Future<void>.value(),
-      ) as _i4.Future<void>);
 }
 
 /// A class which mocks [DateTimeService].
