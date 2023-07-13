@@ -6,7 +6,7 @@ import 'package:coodig_mobile/service/splash_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../_/mock.mocks.dart';
+import '../mock.mocks.dart';
 
 void main() {
   test('If authenticated, the dashboard widget is returned', () async {

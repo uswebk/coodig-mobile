@@ -4,7 +4,7 @@ import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 
-import '../_/mock.mocks.dart';
+import '../mock.mocks.dart';
 
 void main() {
   test('get password reset screen by link when reset-password', () async {
