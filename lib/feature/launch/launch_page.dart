@@ -39,9 +39,9 @@ class LaunchPage extends ConsumerWidget {
                       ),
                       SizedBox(height: 10),
                       Text(
-                        '- Quiz Application For Engineers -',
+                        'Quiz Application For Engineers',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Colors.white70,
                           fontSize: 16,
                         ),
                       ),
@@ -62,9 +62,7 @@ class LaunchPage extends ConsumerWidget {
                                 Get.to<dynamic>(const SignupPage());
                               }
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: CoodigColors.buttonSecondary,
-                            ),
+                            style: ElevatedButton.styleFrom(backgroundColor: CoodigColors.buttonSecondary),
                             child: const Text('Sign Up'),
                           ),
                         ),

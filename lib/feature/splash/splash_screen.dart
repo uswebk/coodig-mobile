@@ -5,8 +5,8 @@ import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/service/splash_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
