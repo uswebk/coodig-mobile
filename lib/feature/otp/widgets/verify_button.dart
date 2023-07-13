@@ -1,5 +1,4 @@
 import 'package:coodig_mobile/components/snackbar.dart';
-import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/otp/state/otp_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +18,6 @@ class VerifyButton extends HookConsumerWidget {
       width: double.infinity,
       height: 42,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: CoodigColors.buttonPrimary,
-        ),
         onPressed: state.isButtonEnabled && isProcessing.value == false
             ? () async {
                 if (isProcessing.value) {

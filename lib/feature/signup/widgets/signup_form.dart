@@ -3,7 +3,6 @@ import 'package:coodig_mobile/components/form/name_text_field.dart';
 import 'package:coodig_mobile/components/form/password_confirm_text_field.dart';
 import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
-import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/signup/state/signup_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
@@ -66,9 +65,6 @@ class SignupForm extends HookConsumerWidget {
                           }
                         }
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: CoodigColors.buttonPrimary,
-                      ),
                       child: const Text('Sign up')),
                 ),
               ],

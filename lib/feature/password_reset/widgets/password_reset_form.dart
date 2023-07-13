@@ -1,7 +1,6 @@
 import 'package:coodig_mobile/components/form/password_confirm_text_field.dart';
 import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
-import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_exception.dart';
 import 'package:coodig_mobile/feature/login/login_page.dart';
 import 'package:coodig_mobile/feature/password_reset/state/password_reset_state_notifier.dart';
@@ -47,11 +46,9 @@ class PasswordResetForm extends ConsumerWidget {
                         notifier.setLoading(true);
                         try {
                           await notifier.resetPassword(link, password, confirmPassword);
-
                           Future.delayed(Duration.zero, () {
                             Snackbar.showSuccess(context, 'change password success');
                           });
-
                           Get.to<dynamic>(const LoginPage());
                         } on ApiException catch (e) {
                           notifier.setMessage(e.errors);
@@ -62,9 +59,6 @@ class PasswordResetForm extends ConsumerWidget {
                         }
                       }
                     },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: CoodigColors.buttonPrimary,
-                    ),
                     child: const Text('Change Password')),
               ),
             ],
