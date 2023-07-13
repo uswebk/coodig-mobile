@@ -5,14 +5,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 final environmentServiceProvider = Provider<EnvironmentService>((ref) => EnvironmentService());
 
 class EnvironmentService {
-  Future<void> setting() async {
-    await setEnv();
-    await setFlavor();
+  static Future<void> setting() async {
+    settingEnv();
+    settingFlavor();
   }
 
-  Future<void> setEnv() async {
+  static Future<void> settingEnv() async {
     await dotenv.load(fileName: '.env');
-
     if (dotenv.env['PRODUCTION'] != null && bool.fromEnvironment(dotenv.env['PRODUCTION'].toString())) {
       await dotenv.load(fileName: '.env.pro');
     } else {
@@ -20,13 +19,12 @@ class EnvironmentService {
     }
   }
 
-  String getByKey(String key) {
-    return dotenv.env[key] ?? '';
+  static void settingFlavor() {
+    const flavor = String.fromEnvironment('FLAVOR');
+    FlavorConfig.initialize(flavor);
   }
 
-  Future<void> setFlavor() async {
-    const flavor = String.fromEnvironment('FLAVOR');
-
-    FlavorConfig.initialize(flavor);
+  String getByKey(String key) {
+    return dotenv.env[key] ?? '';
   }
 }

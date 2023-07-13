@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 void main() async {
-  await EnvironmentService().setting();
+  await EnvironmentService.setting();
   runApp(const ProviderScope(child: MyApp()));
 }
 

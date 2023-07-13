@@ -54,7 +54,6 @@ class LoginForm extends ConsumerWidget {
                               String password = passwordController.text;
 
                               notifier.setLoading(true);
-
                               try {
                                 await ref.read(authStateNotifierProvider.notifier).login(email, password);
                                 final UserStatus userStatus = ref.read(userStatusProvider);
