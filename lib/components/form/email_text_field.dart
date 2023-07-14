@@ -12,13 +12,8 @@ class EmailTextField extends StatelessWidget {
       controller: _controller,
       decoration: InputDecoration(
         labelText: 'Email',
-        labelStyle: const TextStyle(
-          fontSize: 16,
-        ),
-        prefixIcon: const Icon(
-          Icons.email,
-          size: 22,
-        ),
+        labelStyle: const TextStyle(fontSize: 14),
+        prefixIcon: const Icon(Icons.email, size: 22),
         filled: true,
         fillColor: Colors.grey.withOpacity(0.1),
         border: const OutlineInputBorder(),

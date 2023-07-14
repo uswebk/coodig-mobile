@@ -51,15 +51,20 @@ class SignupForm extends HookConsumerWidget {
                           String password = passwordController.text;
                           String confirmPassword = confirmPasswordController.text;
                           notifier.setLoading(true);
+                          await Future<dynamic>.delayed(const Duration(seconds: 1));
                           try {
-                            await ref.read(authStateNotifierProvider.notifier).signup(name, email, password, confirmPassword);
+                            await ref
+                                .read(authStateNotifierProvider.notifier)
+                                .signup(name, email, password, confirmPassword);
                             Future.delayed(Duration.zero, () {
                               Snackbar.showSuccess(context, 'Otp sent to your email address');
                             });
                           } on ApiException catch (e) {
                             notifier.setMessage(e.errors);
                           } catch (e) {
-                            Snackbar.showError(context, e.toString());
+                            Future.delayed(Duration.zero, () {
+                              Snackbar.showError(context, e.toString());
+                            });
                           } finally {
                             notifier.setLoading(false);
                           }

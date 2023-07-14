@@ -8,6 +8,7 @@ class Timer extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(otpTimerStateNotifierProvider);
+    final isOtpTimeOut = ref.watch(isOtpTimeOutProvider);
     int minutes = state.minutes;
     int seconds = state.seconds;
 
@@ -31,7 +32,7 @@ class Timer extends ConsumerWidget {
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
-                  color: (minutes == 0 && seconds == 0) ? Colors.grey : Colors.green,
+                  color: (isOtpTimeOut) ? Colors.grey : Colors.green,
                 ),
               ),
             ],

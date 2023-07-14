@@ -36,18 +36,21 @@ class SignupPage extends HookConsumerWidget {
                 color: Colors.grey,
               ),
               onPressed: () => Get.offAll<dynamic>(const LaunchPage())),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
         ),
         body: SingleChildScrollView(
           child: Column(
             children: [
               Container(
                 alignment: AlignmentDirectional.centerStart,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
                 child: const Text(
                   'Sign Up',
-                  style: TextStyle(color: CoodigColors.grey, fontSize: 30, fontWeight: FontWeight.w800),
+                  style: TextStyle(
+                    color: CoodigColors.grey,
+                    fontSize: 30,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               Container(
