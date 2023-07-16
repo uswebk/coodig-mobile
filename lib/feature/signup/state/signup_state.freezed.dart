@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SignupState {
-  Map<String, String> get errors => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +29,7 @@ abstract class $SignupStateCopyWith<$Res> {
           SignupState value, $Res Function(SignupState) then) =
       _$SignupStateCopyWithImpl<$Res, SignupState>;
   @useResult
-  $Res call({Map<String, String> errors, bool isLoading});
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -46,14 +45,9 @@ class _$SignupStateCopyWithImpl<$Res, $Val extends SignupState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errors = null,
     Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
-      errors: null == errors
-          ? _value.errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -70,7 +64,7 @@ abstract class _$$_SignupStateCopyWith<$Res>
       __$$_SignupStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, String> errors, bool isLoading});
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -84,14 +78,9 @@ class __$$_SignupStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errors = null,
     Object? isLoading = null,
   }) {
     return _then(_$_SignupState(
-      errors: null == errors
-          ? _value._errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -103,24 +92,14 @@ class __$$_SignupStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_SignupState implements _SignupState {
-  const _$_SignupState(
-      {required final Map<String, String> errors, required this.isLoading})
-      : _errors = errors;
-
-  final Map<String, String> _errors;
-  @override
-  Map<String, String> get errors {
-    if (_errors is EqualUnmodifiableMapView) return _errors;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_errors);
-  }
+  const _$_SignupState({required this.isLoading});
 
   @override
   final bool isLoading;
 
   @override
   String toString() {
-    return 'SignupState(errors: $errors, isLoading: $isLoading)';
+    return 'SignupState(isLoading: $isLoading)';
   }
 
   @override
@@ -128,14 +107,12 @@ class _$_SignupState implements _SignupState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SignupState &&
-            const DeepCollectionEquality().equals(other._errors, _errors) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_errors), isLoading);
+  int get hashCode => Object.hash(runtimeType, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -145,12 +122,8 @@ class _$_SignupState implements _SignupState {
 }
 
 abstract class _SignupState implements SignupState {
-  const factory _SignupState(
-      {required final Map<String, String> errors,
-      required final bool isLoading}) = _$_SignupState;
+  const factory _SignupState({required final bool isLoading}) = _$_SignupState;
 
-  @override
-  Map<String, String> get errors;
   @override
   bool get isLoading;
   @override
