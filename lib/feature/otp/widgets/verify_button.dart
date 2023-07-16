@@ -10,7 +10,7 @@ class VerifyButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(otpStateNotifierProvider);
+    final isButtonEnabled = ref.watch(isButtonEnabledProvider);
     final isProcessing = useState(false);
     final isMounted = useIsMounted();
 
@@ -18,7 +18,7 @@ class VerifyButton extends HookConsumerWidget {
       width: double.infinity,
       height: 42,
       child: ElevatedButton(
-        onPressed: state.isButtonEnabled && isProcessing.value == false
+        onPressed: isButtonEnabled && isProcessing.value == false
             ? () async {
                 if (isProcessing.value) {
                   return;

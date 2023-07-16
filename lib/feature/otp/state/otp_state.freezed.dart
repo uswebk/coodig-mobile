@@ -19,7 +19,6 @@ mixin _$OtpState {
   List<TextEditingController> get controllers =>
       throw _privateConstructorUsedError;
   String get otp => throw _privateConstructorUsedError;
-  bool get isButtonEnabled => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $OtpStateCopyWith<OtpState> get copyWith =>
@@ -31,10 +30,7 @@ abstract class $OtpStateCopyWith<$Res> {
   factory $OtpStateCopyWith(OtpState value, $Res Function(OtpState) then) =
       _$OtpStateCopyWithImpl<$Res, OtpState>;
   @useResult
-  $Res call(
-      {List<TextEditingController> controllers,
-      String otp,
-      bool isButtonEnabled});
+  $Res call({List<TextEditingController> controllers, String otp});
 }
 
 /// @nodoc
@@ -52,7 +48,6 @@ class _$OtpStateCopyWithImpl<$Res, $Val extends OtpState>
   $Res call({
     Object? controllers = null,
     Object? otp = null,
-    Object? isButtonEnabled = null,
   }) {
     return _then(_value.copyWith(
       controllers: null == controllers
@@ -63,10 +58,6 @@ class _$OtpStateCopyWithImpl<$Res, $Val extends OtpState>
           ? _value.otp
           : otp // ignore: cast_nullable_to_non_nullable
               as String,
-      isButtonEnabled: null == isButtonEnabled
-          ? _value.isButtonEnabled
-          : isButtonEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
     ) as $Val);
   }
 }
@@ -78,10 +69,7 @@ abstract class _$$_OtpStateCopyWith<$Res> implements $OtpStateCopyWith<$Res> {
       __$$_OtpStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {List<TextEditingController> controllers,
-      String otp,
-      bool isButtonEnabled});
+  $Res call({List<TextEditingController> controllers, String otp});
 }
 
 /// @nodoc
@@ -97,7 +85,6 @@ class __$$_OtpStateCopyWithImpl<$Res>
   $Res call({
     Object? controllers = null,
     Object? otp = null,
-    Object? isButtonEnabled = null,
   }) {
     return _then(_$_OtpState(
       controllers: null == controllers
@@ -108,10 +95,6 @@ class __$$_OtpStateCopyWithImpl<$Res>
           ? _value.otp
           : otp // ignore: cast_nullable_to_non_nullable
               as String,
-      isButtonEnabled: null == isButtonEnabled
-          ? _value.isButtonEnabled
-          : isButtonEnabled // ignore: cast_nullable_to_non_nullable
-              as bool,
     ));
   }
 }
@@ -121,8 +104,7 @@ class __$$_OtpStateCopyWithImpl<$Res>
 class _$_OtpState implements _OtpState {
   const _$_OtpState(
       {required final List<TextEditingController> controllers,
-      required this.otp,
-      required this.isButtonEnabled})
+      required this.otp})
       : _controllers = controllers;
 
   final List<TextEditingController> _controllers;
@@ -135,12 +117,10 @@ class _$_OtpState implements _OtpState {
 
   @override
   final String otp;
-  @override
-  final bool isButtonEnabled;
 
   @override
   String toString() {
-    return 'OtpState(controllers: $controllers, otp: $otp, isButtonEnabled: $isButtonEnabled)';
+    return 'OtpState(controllers: $controllers, otp: $otp)';
   }
 
   @override
@@ -150,14 +130,12 @@ class _$_OtpState implements _OtpState {
             other is _$_OtpState &&
             const DeepCollectionEquality()
                 .equals(other._controllers, _controllers) &&
-            (identical(other.otp, otp) || other.otp == otp) &&
-            (identical(other.isButtonEnabled, isButtonEnabled) ||
-                other.isButtonEnabled == isButtonEnabled));
+            (identical(other.otp, otp) || other.otp == otp));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_controllers), otp, isButtonEnabled);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_controllers), otp);
 
   @JsonKey(ignore: true)
   @override
@@ -169,15 +147,12 @@ class _$_OtpState implements _OtpState {
 abstract class _OtpState implements OtpState {
   const factory _OtpState(
       {required final List<TextEditingController> controllers,
-      required final String otp,
-      required final bool isButtonEnabled}) = _$_OtpState;
+      required final String otp}) = _$_OtpState;
 
   @override
   List<TextEditingController> get controllers;
   @override
   String get otp;
-  @override
-  bool get isButtonEnabled;
   @override
   @JsonKey(ignore: true)
   _$$_OtpStateCopyWith<_$_OtpState> get copyWith =>

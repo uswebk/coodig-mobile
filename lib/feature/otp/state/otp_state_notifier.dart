@@ -5,18 +5,9 @@ import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final otpStateNotifierProvider =
-    StateNotifierProvider<OtpStateNotifier, OtpState>((ref) {
-  final controllers = List.generate(
-      6, (index) => TextEditingController(text: ''),
-      growable: false);
-  return OtpStateNotifier(
-      OtpState(
-        controllers: controllers,
-        otp: '',
-        isButtonEnabled: false,
-      ),
-      ref.watch(authServiceProvider));
+final otpStateNotifierProvider = StateNotifierProvider<OtpStateNotifier, OtpState>((ref) {
+  final controllers = List.generate(6, (index) => TextEditingController(text: ''), growable: false);
+  return OtpStateNotifier(OtpState(controllers: controllers, otp: ''), ref.watch(authServiceProvider));
 });
 
 class OtpStateNotifier extends StateNotifier<OtpState> {
@@ -26,15 +17,11 @@ class OtpStateNotifier extends StateNotifier<OtpState> {
 
   void update() {
     String otp = state.controllers.map((controller) => controller.text).join();
-    bool isButtonEnabled =
-        state.controllers.every((controller) => controller.text.isNotEmpty);
-    state = state.copyWith(otp: otp, isButtonEnabled: isButtonEnabled);
+    state = state.copyWith(otp: otp);
   }
 
   void reset() {
-    final controllers = List.generate(
-        6, (index) => TextEditingController(text: ''),
-        growable: false);
+    final controllers = List.generate(6, (index) => TextEditingController(text: ''), growable: false);
     state = state.copyWith(controllers: controllers);
   }
 
@@ -47,3 +34,9 @@ class OtpStateNotifier extends StateNotifier<OtpState> {
     await _authService.resendOtp();
   }
 }
+
+final isButtonEnabledProvider = Provider((ref) {
+  List<TextEditingController> controllers = ref.watch(otpStateNotifierProvider).controllers;
+
+  return controllers.every((controller) => controller.text.isNotEmpty);
+});
