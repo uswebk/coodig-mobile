@@ -22,59 +22,55 @@ class SignupForm extends HookConsumerWidget {
     final TextEditingController confirmPasswordController = useTextEditingController();
 
     final notifier = ref.read(signupStateNotifierProvider.notifier);
+    final errors = useState<Map<String, String>?>(null);
 
     return Form(
       key: formKey,
       child: Center(
-        child: Consumer(
-          builder: (BuildContext context, WidgetRef ref, Widget? child) {
-            final state = ref.watch(signupStateNotifierProvider);
-            return Column(
-              children: [
-                NameTextField(nameController, state.errors['name']),
-                const SizedBox(height: 10),
-                EmailTextField(emailController, state.errors['email']),
-                const SizedBox(height: 10),
-                PasswordTextField(passwordController, state.errors['password']),
-                const SizedBox(height: 10),
-                PasswordConfirmTextField(confirmPasswordController, state.errors['non_field_errors']),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  height: 48,
-                  child: ElevatedButton(
-                      onPressed: () async {
-                        if (formKey.currentState!.validate()) {
-                          formKey.currentState!.save();
-                          String name = nameController.text;
-                          String email = emailController.text;
-                          String password = passwordController.text;
-                          String confirmPassword = confirmPasswordController.text;
-                          notifier.setLoading(true);
-                          await Future<dynamic>.delayed(const Duration(seconds: 1));
-                          try {
-                            await ref
-                                .read(authStateNotifierProvider.notifier)
-                                .signup(name, email, password, confirmPassword);
-                            Future.delayed(Duration.zero, () {
-                              Snackbar.showSuccess(context, 'Otp sent to your email address');
-                            });
-                          } on ApiException catch (e) {
-                            notifier.setMessage(e.errors);
-                          } catch (e) {
-                            Future.delayed(Duration.zero, () {
-                              Snackbar.showError(context, e.toString());
-                            });
-                          } finally {
-                            notifier.setLoading(false);
-                          }
-                        }
-                      },
-                      child: const Text('Sign up')),
-                ),
-              ],
-            );
-          },
+        child: Column(
+          children: [
+            NameTextField(nameController, errors.value?['name']),
+            const SizedBox(height: 10),
+            EmailTextField(emailController, errors.value?['email']),
+            const SizedBox(height: 10),
+            PasswordTextField(passwordController, errors.value?['password']),
+            const SizedBox(height: 10),
+            PasswordConfirmTextField(confirmPasswordController, errors.value?['non_field_errors']),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      String name = nameController.text;
+                      String email = emailController.text;
+                      String password = passwordController.text;
+                      String confirmPassword = confirmPasswordController.text;
+                      notifier.setLoading(true);
+                      await Future<dynamic>.delayed(const Duration(seconds: 1));
+                      try {
+                        await ref
+                            .read(authStateNotifierProvider.notifier)
+                            .signup(name, email, password, confirmPassword);
+                        Future.delayed(Duration.zero, () {
+                          Snackbar.showSuccess(context, 'Otp sent to your email address');
+                        });
+                      } on ApiException catch (e) {
+                        errors.value = e.toMap();
+                      } catch (e) {
+                        Future.delayed(Duration.zero, () {
+                          Snackbar.showError(context, e.toString());
+                        });
+                      } finally {
+                        notifier.setLoading(false);
+                      }
+                    }
+                  },
+                  child: const Text('Sign up')),
+            ),
+          ],
         ),
       ),
     );
