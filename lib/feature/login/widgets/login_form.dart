@@ -3,7 +3,7 @@ import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/greeting_box.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
-import 'package:coodig_mobile/exception/api_exception.dart';
+import 'package:coodig_mobile/exception/api_validation_exception.dart';
 import 'package:coodig_mobile/feature/login/state/login_state_notifier.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
@@ -60,7 +60,7 @@ class LoginForm extends ConsumerWidget {
                                 if (userStatus == UserStatus.emailNotVerified) {
                                   Get.off<dynamic>(const OtpPage());
                                 }
-                              } on ApiException catch (e) {
+                              } on ApiValidationException catch (e) {
                                 notifier.setMessage(e.errors);
                               } catch (e) {
                                 Snackbar.showError(context, e.toString());

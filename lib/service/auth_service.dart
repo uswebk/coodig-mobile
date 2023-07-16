@@ -1,12 +1,13 @@
 import 'dart:convert';
 
 import 'package:coodig_mobile/core/local_storage.dart';
-import 'package:coodig_mobile/exception/api_exception.dart';
+import 'package:coodig_mobile/exception/api_validation_exception.dart';
 import 'package:coodig_mobile/model/token.dart';
 import 'package:coodig_mobile/repository/auth_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final authServiceProvider = Provider((ref) => AuthService(ref.watch(authRepositoryProvider), ref.watch(localStorageProvider)));
+final authServiceProvider =
+    Provider((ref) => AuthService(ref.watch(authRepositoryProvider), ref.watch(localStorageProvider)));
 
 class AuthService {
   AuthService(this._authRepository, this._localStorage);
@@ -25,7 +26,7 @@ class AuthService {
 
     if ([400, 404].contains(response.statusCode)) {
       Map<String, dynamic> errors = json.decode(response.body) as Map<String, dynamic>;
-      throw ApiException(errors);
+      throw ApiValidationException(errors, response.statusCode);
     }
 
     throw Exception('Server Error');
@@ -42,7 +43,7 @@ class AuthService {
 
     if (response.statusCode == 400) {
       Map<String, dynamic> errors = json.decode(response.body) as Map<String, dynamic>;
-      throw ApiException(errors);
+      throw ApiValidationException(errors, response.statusCode);
     }
 
     throw Exception('Server Error');
@@ -123,7 +124,7 @@ class AuthService {
 
     if (response.statusCode == 400) {
       Map<String, dynamic> errors = json.decode(response.body) as Map<String, dynamic>;
-      throw ApiException(errors);
+      throw ApiValidationException(errors, response.statusCode);
     }
 
     throw Exception('Server Error');
@@ -138,7 +139,7 @@ class AuthService {
 
     if (response.statusCode == 400) {
       Map<String, dynamic> errors = json.decode(response.body) as Map<String, dynamic>;
-      throw ApiException(errors);
+      throw ApiValidationException(errors, response.statusCode);
     }
 
     throw Exception('Server Error');

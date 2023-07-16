@@ -1,7 +1,7 @@
 import 'package:coodig_mobile/components/form/email_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/config/color.dart';
-import 'package:coodig_mobile/exception/api_exception.dart';
+import 'package:coodig_mobile/exception/api_validation_exception.dart';
 import 'package:coodig_mobile/provider/forget_password_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -70,7 +70,7 @@ class ForgetPasswordSheet extends HookConsumerWidget {
                                             Navigator.pop(context);
                                           });
                                           emailController.clear();
-                                        } on ApiException catch (e) {
+                                        } on ApiValidationException catch (e) {
                                           notifier.setMessage(e.errors);
                                         } catch (e) {
                                           Snackbar.showError(context, e.toString());

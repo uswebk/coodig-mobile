@@ -1,7 +1,7 @@
 import 'package:coodig_mobile/components/form/password_confirm_text_field.dart';
 import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
-import 'package:coodig_mobile/exception/api_exception.dart';
+import 'package:coodig_mobile/exception/api_validation_exception.dart';
 import 'package:coodig_mobile/feature/login/login_page.dart';
 import 'package:coodig_mobile/feature/password_reset/state/password_reset_state_notifier.dart';
 import 'package:coodig_mobile/provider/deeplink_provider.dart';
@@ -50,7 +50,7 @@ class PasswordResetForm extends ConsumerWidget {
                             Snackbar.showSuccess(context, 'change password success');
                           });
                           Get.to<dynamic>(const LoginPage());
-                        } on ApiException catch (e) {
+                        } on ApiValidationException catch (e) {
                           notifier.setMessage(e.errors);
                         } catch (e) {
                           Snackbar.showError(context, e.toString());

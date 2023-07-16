@@ -1,7 +1,8 @@
-class ApiException implements Exception {
+class ApiValidationException implements Exception {
   final Map<String, dynamic> errors;
+  final int statusCode;
 
-  ApiException(this.errors);
+  ApiValidationException(this.errors, this.statusCode);
 
   Map<String, String> toMap() {
     Map<String, String> errors = {};

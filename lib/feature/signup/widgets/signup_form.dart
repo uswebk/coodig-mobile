@@ -3,7 +3,7 @@ import 'package:coodig_mobile/components/form/name_text_field.dart';
 import 'package:coodig_mobile/components/form/password_confirm_text_field.dart';
 import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
-import 'package:coodig_mobile/exception/api_exception.dart';
+import 'package:coodig_mobile/exception/api_validation_exception.dart';
 import 'package:coodig_mobile/feature/signup/state/signup_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -15,14 +15,14 @@ class SignupForm extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final errors = useState<Map<String, String>?>(null);
+    final notifier = ref.read(signupStateNotifierProvider.notifier);
+
     final formKey = GlobalKey<FormState>();
     final TextEditingController nameController = useTextEditingController();
     final TextEditingController emailController = useTextEditingController();
     final TextEditingController passwordController = useTextEditingController();
     final TextEditingController confirmPasswordController = useTextEditingController();
-
-    final notifier = ref.read(signupStateNotifierProvider.notifier);
-    final errors = useState<Map<String, String>?>(null);
 
     return Form(
       key: formKey,
@@ -57,7 +57,7 @@ class SignupForm extends HookConsumerWidget {
                         Future.delayed(Duration.zero, () {
                           Snackbar.showSuccess(context, 'Otp sent to your email address');
                         });
-                      } on ApiException catch (e) {
+                      } on ApiValidationException catch (e) {
                         errors.value = e.toMap();
                       } catch (e) {
                         Future.delayed(Duration.zero, () {
