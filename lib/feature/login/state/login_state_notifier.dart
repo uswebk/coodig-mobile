@@ -6,16 +6,7 @@ final loginStateNotifierProvider = StateNotifierProvider.autoDispose<LoginStateN
 });
 
 class LoginStateNotifier extends StateNotifier<LoginState> {
-  LoginStateNotifier() : super(const LoginState(errors: {}, isLoading: false));
-
-  void setMessage(Map<String, dynamic> errors) {
-    Map<String, String> errorMessages = {};
-    errors.forEach((String key, dynamic value) {
-      errorMessages[key] = value[0].toString();
-    });
-
-    state = state.copyWith(errors: errorMessages, isLoading: false);
-  }
+  LoginStateNotifier() : super(const LoginState(isLoading: false));
 
   void setLoading(bool isLoading) async {
     state = state.copyWith(isLoading: isLoading);

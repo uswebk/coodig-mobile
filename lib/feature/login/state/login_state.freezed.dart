@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$LoginState {
-  Map<String, String> get errors => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +29,7 @@ abstract class $LoginStateCopyWith<$Res> {
           LoginState value, $Res Function(LoginState) then) =
       _$LoginStateCopyWithImpl<$Res, LoginState>;
   @useResult
-  $Res call({Map<String, String> errors, bool isLoading});
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -46,14 +45,9 @@ class _$LoginStateCopyWithImpl<$Res, $Val extends LoginState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errors = null,
     Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
-      errors: null == errors
-          ? _value.errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -70,7 +64,7 @@ abstract class _$$_LoginStateCopyWith<$Res>
       __$$_LoginStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, String> errors, bool isLoading});
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -84,14 +78,9 @@ class __$$_LoginStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errors = null,
     Object? isLoading = null,
   }) {
     return _then(_$_LoginState(
-      errors: null == errors
-          ? _value._errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -103,24 +92,14 @@ class __$$_LoginStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_LoginState implements _LoginState {
-  const _$_LoginState(
-      {required final Map<String, String> errors, required this.isLoading})
-      : _errors = errors;
-
-  final Map<String, String> _errors;
-  @override
-  Map<String, String> get errors {
-    if (_errors is EqualUnmodifiableMapView) return _errors;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_errors);
-  }
+  const _$_LoginState({required this.isLoading});
 
   @override
   final bool isLoading;
 
   @override
   String toString() {
-    return 'LoginState(errors: $errors, isLoading: $isLoading)';
+    return 'LoginState(isLoading: $isLoading)';
   }
 
   @override
@@ -128,14 +107,12 @@ class _$_LoginState implements _LoginState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_LoginState &&
-            const DeepCollectionEquality().equals(other._errors, _errors) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_errors), isLoading);
+  int get hashCode => Object.hash(runtimeType, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -145,12 +122,8 @@ class _$_LoginState implements _LoginState {
 }
 
 abstract class _LoginState implements LoginState {
-  const factory _LoginState(
-      {required final Map<String, String> errors,
-      required final bool isLoading}) = _$_LoginState;
+  const factory _LoginState({required final bool isLoading}) = _$_LoginState;
 
-  @override
-  Map<String, String> get errors;
   @override
   bool get isLoading;
   @override
