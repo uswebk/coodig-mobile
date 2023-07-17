@@ -13,9 +13,6 @@ jobs:
       - name: Create .env file
         run: cp -pr .env.example .env
 
-      - name: Build runner
-        run: flutter pub pub run build_runner build --delete-conflicting-outputs
-
       - name: Install Flutter
         uses: subosito/flutter-action@v2
         with:
@@ -25,6 +22,9 @@ jobs:
 
       - name: Run flutter pub get
         run: flutter pub get
+
+      - name: Build runner
+        run: flutter pub pub run build_runner build --delete-conflicting-outputs
 
       - name: Run flutter test
         run: flutter test
