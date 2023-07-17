@@ -7,10 +7,11 @@ import 'package:coodig_mobile/feature/password_reset/widgets/password_reset_form
 import 'package:coodig_mobile/provider/deeplink_provider.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class PasswordResetPage extends ConsumerWidget {
+class PasswordResetPage extends HookConsumerWidget {
   final String link;
 
   const PasswordResetPage({
@@ -25,7 +26,7 @@ class PasswordResetPage extends ConsumerWidget {
       ref.read(deepLinkStateNotifierProvider.notifier).setLink(link);
     });
 
-    final passwordResetEmail = TextEditingController();
+    final passwordResetEmail = useTextEditingController();
 
     return Hud(
       isLoading: ref.watch(passwordResetStateNotifierProvider).isLoading,

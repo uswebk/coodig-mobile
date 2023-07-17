@@ -8,7 +8,7 @@ final passwordResetStateNotifierProvider =
 });
 
 class ResetPasswordStateNotifier extends StateNotifier<ResetPasswordState> {
-  ResetPasswordStateNotifier(this._authService) : super(const ResetPasswordState(errors: {}, isLoading: false));
+  ResetPasswordStateNotifier(this._authService) : super(const ResetPasswordState(isLoading: false));
 
   final AuthService _authService;
 
@@ -19,15 +19,6 @@ class ResetPasswordStateNotifier extends StateNotifier<ResetPasswordState> {
     String token = pathSegments[1].split(':')[0];
 
     await _authService.resetPassword(uid, token, password, confirmPassword);
-  }
-
-  void setMessage(Map<String, dynamic> errors) {
-    Map<String, String> errorMessages = {};
-    errors.forEach((String key, dynamic value) {
-      errorMessages[key] = value[0].toString();
-    });
-
-    state = state.copyWith(errors: errorMessages);
   }
 
   void setLoading(bool isLoading) async {

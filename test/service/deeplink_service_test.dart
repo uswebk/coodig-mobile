@@ -24,7 +24,7 @@ void main() {
     final mockDateTimeService = MockDateTimeService();
 
     when(mockDateTimeService.now()).thenAnswer((_) => DateTime(2023, 01, 01, 12, 0, 0));
-    when(mockEnvironmentService.getByKey('URI_SECRET_KEY')).thenAnswer((_) => 'XXX');
+    when(mockEnvironmentService.getUriSecretKey()).thenAnswer((_) => 'XXX');
 
     final sut = DeeplinkService(mockEnvironmentService, mockDateTimeService);
 
@@ -40,7 +40,7 @@ void main() {
     final mockDateTimeService = MockDateTimeService();
 
     when(mockDateTimeService.now()).thenAnswer((_) => DateTime(2023, 01, 01, 12, 0, 0));
-    when(mockEnvironmentService.getByKey('URI_SECRET_KEY')).thenAnswer((_) => 'XXX');
+    when(mockEnvironmentService.getUriSecretKey()).thenAnswer((_) => 'XXX');
 
     final sut = DeeplinkService(mockEnvironmentService, mockDateTimeService);
 
@@ -56,7 +56,7 @@ void main() {
     final mockDateTimeService = MockDateTimeService();
 
     when(mockDateTimeService.now()).thenAnswer((_) => DateTime(2024, 01, 01, 12, 0, 0));
-    when(mockEnvironmentService.getByKey('URI_SECRET_KEY')).thenAnswer((_) => 'XXX');
+    when(mockEnvironmentService.getUriSecretKey()).thenAnswer((_) => 'XXX');
 
     final sut = DeeplinkService(mockEnvironmentService, mockDateTimeService);
 

@@ -135,10 +135,10 @@ class MockSplashService extends _i1.Mock implements _i5.SplashService {
 class MockEnvironmentService extends _i1.Mock
     implements _i7.EnvironmentService {
   @override
-  String getByKey(String? key) => (super.noSuchMethod(
+  String getUriSecretKey() => (super.noSuchMethod(
         Invocation.method(
-          #getByKey,
-          [key],
+          #getUriSecretKey,
+          [],
         ),
         returnValue: '',
         returnValueForMissingStub: '',

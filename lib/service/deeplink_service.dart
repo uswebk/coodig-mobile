@@ -56,7 +56,7 @@ class DeeplinkService {
 
     String link = '${segment[0]}:${segment[1]}';
     String signedUrl = '$link:$expireTime';
-    Hmac hmacSha256 = Hmac(sha256, utf8.encode(_environmentService.getByKey('URI_SECRET_KEY')));
+    Hmac hmacSha256 = Hmac(sha256, utf8.encode(_environmentService.getUriSecretKey()));
     Digest digest = hmacSha256.convert(utf8.encode(signedUrl));
 
     return digest.toString() == segment[3].toString();

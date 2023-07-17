@@ -7,7 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 
 void main() async {
-  await EnvironmentService.setting();
+  EnvironmentService.setFlavor();
   runApp(const ProviderScope(child: MyApp()));
 }
 

@@ -16,7 +16,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$ResetPasswordState {
-  Map<String, String> get errors => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
@@ -30,7 +29,7 @@ abstract class $ResetPasswordStateCopyWith<$Res> {
           ResetPasswordState value, $Res Function(ResetPasswordState) then) =
       _$ResetPasswordStateCopyWithImpl<$Res, ResetPasswordState>;
   @useResult
-  $Res call({Map<String, String> errors, bool isLoading});
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -46,14 +45,9 @@ class _$ResetPasswordStateCopyWithImpl<$Res, $Val extends ResetPasswordState>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errors = null,
     Object? isLoading = null,
   }) {
     return _then(_value.copyWith(
-      errors: null == errors
-          ? _value.errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -70,7 +64,7 @@ abstract class _$$_ResetPasswordStateCopyWith<$Res>
       __$$_ResetPasswordStateCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Map<String, String> errors, bool isLoading});
+  $Res call({bool isLoading});
 }
 
 /// @nodoc
@@ -84,14 +78,9 @@ class __$$_ResetPasswordStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? errors = null,
     Object? isLoading = null,
   }) {
     return _then(_$_ResetPasswordState(
-      errors: null == errors
-          ? _value._errors
-          : errors // ignore: cast_nullable_to_non_nullable
-              as Map<String, String>,
       isLoading: null == isLoading
           ? _value.isLoading
           : isLoading // ignore: cast_nullable_to_non_nullable
@@ -103,24 +92,14 @@ class __$$_ResetPasswordStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_ResetPasswordState implements _ResetPasswordState {
-  const _$_ResetPasswordState(
-      {required final Map<String, String> errors, required this.isLoading})
-      : _errors = errors;
-
-  final Map<String, String> _errors;
-  @override
-  Map<String, String> get errors {
-    if (_errors is EqualUnmodifiableMapView) return _errors;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableMapView(_errors);
-  }
+  const _$_ResetPasswordState({required this.isLoading});
 
   @override
   final bool isLoading;
 
   @override
   String toString() {
-    return 'ResetPasswordState(errors: $errors, isLoading: $isLoading)';
+    return 'ResetPasswordState(isLoading: $isLoading)';
   }
 
   @override
@@ -128,14 +107,12 @@ class _$_ResetPasswordState implements _ResetPasswordState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ResetPasswordState &&
-            const DeepCollectionEquality().equals(other._errors, _errors) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_errors), isLoading);
+  int get hashCode => Object.hash(runtimeType, isLoading);
 
   @JsonKey(ignore: true)
   @override
@@ -146,12 +123,9 @@ class _$_ResetPasswordState implements _ResetPasswordState {
 }
 
 abstract class _ResetPasswordState implements ResetPasswordState {
-  const factory _ResetPasswordState(
-      {required final Map<String, String> errors,
-      required final bool isLoading}) = _$_ResetPasswordState;
+  const factory _ResetPasswordState({required final bool isLoading}) =
+      _$_ResetPasswordState;
 
-  @override
-  Map<String, String> get errors;
   @override
   bool get isLoading;
   @override
