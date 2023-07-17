@@ -1,6 +1,6 @@
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
-import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
+import 'package:coodig_mobile/feature/home/home_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/otp/widgets/otp_field.dart';
 import 'package:coodig_mobile/feature/otp/widgets/reregistration_button.dart';
@@ -22,7 +22,7 @@ class OtpPage extends ConsumerWidget {
       await ref.read(otpTimerStateNotifierProvider.notifier).startTimer();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
-        Get.off<dynamic>(const DashboardPage());
+        Get.off<dynamic>(const HomePage());
       }
     });
 

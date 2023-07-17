@@ -2,7 +2,7 @@ import 'package:coodig_mobile/components/hud.dart';
 import 'package:coodig_mobile/components/modal/forget_password_sheet.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
-import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
+import 'package:coodig_mobile/feature/home/home_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/login/state/login_state_notifier.dart';
 import 'package:coodig_mobile/feature/login/widgets/login_form.dart';
@@ -21,7 +21,7 @@ class LoginPage extends HookConsumerWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
-        Get.off<dynamic>(const DashboardPage());
+        Get.off<dynamic>(const HomePage());
       }
     });
 

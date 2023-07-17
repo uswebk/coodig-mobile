@@ -1,5 +1,5 @@
 import 'package:coodig_mobile/enum/user_status.dart';
-import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
+import 'package:coodig_mobile/feature/home/home_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
@@ -26,7 +26,7 @@ class SplashService {
       case UserStatus.emailNotVerified:
         return const OtpPage();
       case UserStatus.authenticated:
-        return const DashboardPage();
+        return const HomePage();
       default:
         return Container();
     }

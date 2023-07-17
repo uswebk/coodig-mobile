@@ -1,5 +1,5 @@
 import 'package:coodig_mobile/enum/user_status.dart';
-import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
+import 'package:coodig_mobile/feature/home/home_page.dart';
 import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/service/splash_service.dart';
@@ -9,13 +9,13 @@ import 'package:mockito/mockito.dart';
 import '../mock.mocks.dart';
 
 void main() {
-  test('If authenticated, the dashboard widget is returned', () async {
+  test('If authenticated, the home page widget is returned', () async {
     final mock = MockDeeplinkService();
     when(mock.getLink()).thenAnswer((_) async => Future.value(null));
 
     final sut = SplashService(mock);
     final result = await sut.getScreen(UserStatus.authenticated);
-    expect(result, isA<DashboardPage>());
+    expect(result, isA<HomePage>());
   });
 
   test('If account registered with unauthorized, the otp widget is returned', () async {

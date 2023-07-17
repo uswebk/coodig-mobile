@@ -1,6 +1,6 @@
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
-import 'package:coodig_mobile/feature/dashboard/dashboard_page.dart';
+import 'package:coodig_mobile/feature/home/home_page.dart';
 import 'package:coodig_mobile/feature/login/login_page.dart';
 import 'package:coodig_mobile/feature/otp/otp_page.dart';
 import 'package:coodig_mobile/feature/signup/signup_page.dart';
@@ -55,7 +55,7 @@ class LaunchPage extends ConsumerWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               if (userStatus == UserStatus.authenticated) {
-                                Get.off<dynamic>(const DashboardPage());
+                                Get.off<dynamic>(const HomePage());
                               } else if (userStatus == UserStatus.emailNotVerified) {
                                 Get.to<dynamic>(const OtpPage());
                               } else {
@@ -73,7 +73,7 @@ class LaunchPage extends ConsumerWidget {
                           child: TextButton(
                             onPressed: () {
                               if (userStatus == UserStatus.authenticated) {
-                                Get.off<dynamic>(const DashboardPage());
+                                Get.off<dynamic>(const HomePage());
                               } else {
                                 Get.to<dynamic>(const LoginPage());
                               }
