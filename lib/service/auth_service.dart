@@ -50,7 +50,7 @@ class AuthService {
   }
 
   Future<void> refresh() async {
-    String refreshToken = await _localStorageService.getRefreshToken() ?? '';
+    String refreshToken = await _localStorageService.getRefreshToken();
     final response = await _authRepository.refresh(refreshToken);
 
     if (response.statusCode == 200) {

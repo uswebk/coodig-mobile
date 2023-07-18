@@ -10,9 +10,9 @@ import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class PasswordResetForm extends HookConsumerWidget {
-  String? link;
+  final String? link;
 
-  PasswordResetForm(this.link, {super.key});
+  const PasswordResetForm(this.link, {super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
