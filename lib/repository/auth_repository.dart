@@ -1,15 +1,13 @@
 import 'package:coodig_mobile/core/http_client.dart';
-import 'package:coodig_mobile/core/local_storage.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-final authRepositoryProvider = Provider((ref) => AuthRepository(ref.watch(httpClientProvider), ref.watch(localStorageProvider)));
+final authRepositoryProvider = Provider((ref) => AuthRepository(ref.watch(httpClientProvider)));
 
 class AuthRepository {
-  AuthRepository(this._httpClient, this._localStorage);
+  AuthRepository(this._httpClient);
 
   final HttpClient _httpClient;
-  final LocalStorage _localStorage;
 
   Future<http.Response> login(String email, String password) async {
     return await _httpClient.post(
@@ -42,13 +40,11 @@ class AuthRepository {
         '');
   }
 
-  Future<http.Response> verify(String otp) async {
-    String accessToken = await _localStorage.getAccessToken() ?? '';
+  Future<http.Response> verify(String otp, String accessToken) async {
     return await _httpClient.post('/api/v1/accounts/otp/verify/', {'otp': otp}, accessToken);
   }
 
-  Future<http.Response> sendOtp() async {
-    String accessToken = await _localStorage.getAccessToken() ?? '';
+  Future<http.Response> sendOtp(String accessToken) async {
     return await _httpClient.post('/api/v1/accounts/otp/send/', {}, accessToken);
   }
 

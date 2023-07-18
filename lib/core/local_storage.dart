@@ -12,20 +12,15 @@ class LocalStorage {
     await _storage.write(key: 'refreshToken', value: token.refreshToken);
   }
 
-  Future<Map<String, String>> readAll() async {
-    return await _storage.readAll();
+  Future<void> write(String key, String value) async {
+    await _storage.write(key: key, value: value);
   }
 
-  Future<String?> getAccessToken() async {
-    return await _storage.read(key: 'accessToken');
+  Future<String?> read(String key) async {
+    return await _storage.read(key: key);
   }
 
-  Future<String?> getRefreshToken() async {
-    return await _storage.read(key: 'refreshToken');
-  }
-
-  Future<void> removeToken() async {
-    await _storage.delete(key: 'accessToken');
-    await _storage.delete(key: 'refreshToken');
+  Future<void> delete(String key) async {
+    await _storage.delete(key: key);
   }
 }
