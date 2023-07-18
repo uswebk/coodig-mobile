@@ -20,28 +20,31 @@ class SettingPage extends HookConsumerWidget {
       child: Scaffold(
         appBar: AppBar(),
         body: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('${state?.name} (${state?.email})'),
-                const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      isLoading.value = true;
-                      await notifier.logout();
-                      isLoading.value = false;
-                      Get.off<dynamic>(const SplashScreen());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.grey,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('${state?.name} (${state?.email})'),
+                  const SizedBox(height: 20),
+                  SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () async {
+                        isLoading.value = true;
+                        await notifier.logout();
+                        isLoading.value = false;
+                        Get.off<dynamic>(const SplashScreen());
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.grey,
+                      ),
+                      child: const Text('Logout'),
                     ),
-                    child: const Text('Logout'),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

@@ -7,6 +7,35 @@ class DashboardPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Hud(isLoading: false, child: Container());
+    return Hud(
+        isLoading: false,
+        child: Scaffold(
+          appBar: AppBar(),
+          body: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 50,
+                  width: 250,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Text(
+                          'Start Learning',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                        ),
+                        SizedBox(width: 10),
+                        Icon(Icons.rocket_launch, size: 20),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ));
   }
 }

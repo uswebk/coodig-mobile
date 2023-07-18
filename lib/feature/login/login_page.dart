@@ -32,14 +32,8 @@ class LoginPage extends HookConsumerWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.grey,
-            ),
-            onPressed: () {
-              Get.offAll<dynamic>(const LaunchPage());
-            },
-          ),
+              icon: const Icon(Icons.arrow_back_ios, color: Colors.grey),
+              onPressed: () => Get.offAll<dynamic>(const LaunchPage())),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -83,16 +77,8 @@ class LoginPage extends HookConsumerWidget {
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Text(
-                          'Don’t have an account? ',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                        TextButton(
-                          child: const Text('Sign Up'),
-                          onPressed: () {
-                            Get.off<dynamic>(const SignupPage());
-                          },
-                        ),
+                        const Text('Don’t have an account? ', style: TextStyle(color: Colors.grey)),
+                        TextButton(child: const Text('Sign Up'), onPressed: () => Get.off<dynamic>(const SignupPage())),
                       ],
                     ),
                   ],

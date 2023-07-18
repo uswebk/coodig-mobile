@@ -17,12 +17,7 @@ class HttpClient {
     }
 
     try {
-      return await http
-          .get(
-        Uri.parse(host + path).replace(queryParameters: query),
-        headers: headers,
-      )
-          .timeout(
+      return await http.get(Uri.parse(host + path).replace(queryParameters: query), headers: headers).timeout(
         const Duration(seconds: 10),
         onTimeout: () {
           return http.Response(
