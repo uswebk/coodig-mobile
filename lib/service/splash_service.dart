@@ -31,11 +31,4 @@ class SplashService {
         return Container();
     }
   }
-  //
-  // Future<void> initStorage() async {
-  //   if (await _localStorageService.isFirstTime()) {
-  //     _localStorageService.deleteAll();
-  //     _localStorageService.setIsFirstTime(false);
-  //   }
-  // }
 }
