@@ -8,6 +8,7 @@ final localStorageServiceProvider =
 class LocalStorageService {
   final String _accessTokenKey = 'accessToken';
   final String _refreshTokenKey = 'refreshToken';
+  final String _refreshTokenForBiometricsKey = 'refreshTokenForBiometrics';
 
   final LocalStorage _localStorage;
 
@@ -16,6 +17,7 @@ class LocalStorageService {
   Future<void> addToken(Token token) async {
     await _localStorage.write(_accessTokenKey, token.accessToken.toString());
     await _localStorage.write(_refreshTokenKey, token.refreshToken.toString());
+    await _localStorage.write(_refreshTokenForBiometricsKey, token.refreshToken.toString());
   }
 
   Future<String> getAccessToken() async {
