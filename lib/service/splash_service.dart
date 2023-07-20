@@ -9,9 +9,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 final splashServiceProvider = Provider<SplashService>((ref) => SplashService(ref.watch(deeplinkServiceProvider)));
 
 class SplashService {
-  final DeeplinkService _deeplinkService;
-
   SplashService(this._deeplinkService);
+
+  final DeeplinkService _deeplinkService;
 
   Future<Widget> getScreen(UserStatus userStatus) async {
     String? link = await _deeplinkService.getLink();
@@ -31,4 +31,11 @@ class SplashService {
         return Container();
     }
   }
+  //
+  // Future<void> initStorage() async {
+  //   if (await _localStorageService.isFirstTime()) {
+  //     _localStorageService.deleteAll();
+  //     _localStorageService.setIsFirstTime(false);
+  //   }
+  // }
 }

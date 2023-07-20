@@ -14,10 +14,10 @@ final deeplinkServiceProvider = Provider<DeeplinkService>(
     (ref) => DeeplinkService(ref.watch(environmentServiceProvider), ref.watch(dateTimeServiceProvider)));
 
 class DeeplinkService {
+  DeeplinkService(this._environmentService, this._dateTimeService);
+
   final EnvironmentService _environmentService;
   final DateTimeService _dateTimeService;
-
-  DeeplinkService(this._environmentService, this._dateTimeService);
 
   Future<String?> getLink() async {
     return await getInitialLink();

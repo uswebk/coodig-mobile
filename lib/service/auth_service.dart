@@ -3,24 +3,24 @@ import 'dart:convert';
 import 'package:coodig_mobile/exception/api_validation_exception.dart';
 import 'package:coodig_mobile/model/token.dart';
 import 'package:coodig_mobile/repository/auth_repository.dart';
-import 'package:coodig_mobile/service/local_storage_service.dart';
+import 'package:coodig_mobile/service/secure_storage_service.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final authServiceProvider =
-    Provider((ref) => AuthService(ref.watch(authRepositoryProvider), ref.watch(localStorageServiceProvider)));
+    Provider((ref) => AuthService(ref.watch(authRepositoryProvider), ref.watch(secureStorageServiceProvider)));
 
 class AuthService {
-  AuthService(this._authRepository, this._localStorageService);
+  AuthService(this._authRepository, this._secureStorageService);
 
   final AuthRepository _authRepository;
-  final LocalStorageService _localStorageService;
+  final SecureStorageService _secureStorageService;
 
   Future<void> login(String email, String password) async {
     final response = await _authRepository.login(email, password);
 
     if (response.statusCode == 200) {
       Token token = Token.fromJson(json.decode(response.body)['token'] as Map<String, dynamic>);
-      await _localStorageService.addToken(token);
+      await _secureStorageService.setToken(token);
       return;
     }
 
@@ -37,7 +37,7 @@ class AuthService {
 
     if (response.statusCode == 201) {
       Token token = Token.fromJson(json.decode(response.body)['token'] as Map<String, dynamic>);
-      await _localStorageService.addToken(token);
+      await _secureStorageService.setToken(token);
       return;
     }
 
@@ -50,23 +50,23 @@ class AuthService {
   }
 
   Future<void> refresh() async {
-    String refreshToken = await _localStorageService.getRefreshToken();
+    String refreshToken = await _secureStorageService.getRefreshToken();
     final response = await _authRepository.refresh(refreshToken);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> body = json.decode(response.body) as Map<String, dynamic>;
       body['refresh'] = refreshToken;
       Token token = Token.fromJson(body);
-      await _localStorageService.addToken(token);
+      await _secureStorageService.setToken(token);
     }
   }
 
   Future<void> logout() async {
-    await _localStorageService.removeToken();
+    await _secureStorageService.deleteToken();
   }
 
   Future<bool> verify(String otp) async {
-    String accessToken = await _localStorageService.getAccessToken();
+    String accessToken = await _secureStorageService.getAccessToken();
     final response = await _authRepository.verify(otp, accessToken);
 
     if (response.statusCode == 200) {
@@ -75,7 +75,7 @@ class AuthService {
 
     if (response.statusCode == 401) {
       await refresh();
-      String accessToken = await _localStorageService.getAccessToken();
+      String accessToken = await _secureStorageService.getAccessToken();
       final retryResponse = await _authRepository.verify(otp, accessToken);
 
       if (retryResponse.statusCode == 200) {
@@ -100,7 +100,7 @@ class AuthService {
   }
 
   Future<void> resendOtp() async {
-    String accessToken = await _localStorageService.getAccessToken();
+    String accessToken = await _secureStorageService.getAccessToken();
     final response = await _authRepository.sendOtp(accessToken);
 
     if (response.statusCode == 200) {
@@ -109,7 +109,7 @@ class AuthService {
 
     if (response.statusCode == 401) {
       await refresh();
-      String accessToken = await _localStorageService.getAccessToken();
+      String accessToken = await _secureStorageService.getAccessToken();
       final retryResponse = await _authRepository.sendOtp(accessToken);
 
       if (retryResponse.statusCode == 200) {
