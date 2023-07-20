@@ -7,6 +7,8 @@ import 'dart:async' as _i4;
 
 import 'package:coodig_mobile/enum/user_status.dart' as _i6;
 import 'package:coodig_mobile/provider/datetime_provider.dart' as _i8;
+import 'package:coodig_mobile/repository/shared_preferences_repository.dart'
+    as _i9;
 import 'package:coodig_mobile/service/deeplink_service.dart' as _i3;
 import 'package:coodig_mobile/service/environment_service.dart' as _i7;
 import 'package:coodig_mobile/service/splash_service.dart' as _i5;
@@ -170,4 +172,35 @@ class MockDateTimeService extends _i1.Mock implements _i8.DateTimeService {
           ),
         ),
       ) as DateTime);
+}
+
+/// A class which mocks [SharedPreferencesRepository].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSharedPreferencesRepository extends _i1.Mock
+    implements _i9.SharedPreferencesRepository {
+  @override
+  _i4.Future<void> writeBool(
+    String? key,
+    bool? value,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #writeBool,
+          [
+            key,
+            value,
+          ],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+  @override
+  bool? readBool(String? key) => (super.noSuchMethod(
+        Invocation.method(
+          #readBool,
+          [key],
+        ),
+        returnValueForMissingStub: null,
+      ) as bool?);
 }
