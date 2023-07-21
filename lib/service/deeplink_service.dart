@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:coodig_mobile/core/datetime.dart';
 import 'package:coodig_mobile/feature/password_reset/password_reset_page.dart';
 import 'package:coodig_mobile/feature/splash/splash_screen.dart';
-import 'package:coodig_mobile/provider/datetime_provider.dart';
 import 'package:coodig_mobile/service/environment_service.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
@@ -11,13 +11,13 @@ import 'package:get/get.dart';
 import 'package:uni_links/uni_links.dart';
 
 final deeplinkServiceProvider = Provider<DeeplinkService>(
-    (ref) => DeeplinkService(ref.watch(environmentServiceProvider), ref.watch(dateTimeServiceProvider)));
+    (ref) => DeeplinkService(ref.watch(environmentServiceProvider), ref.watch(dateTimeProvider)));
 
 class DeeplinkService {
-  DeeplinkService(this._environmentService, this._dateTimeService);
+  DeeplinkService(this._environmentService, this._dateTime);
 
   final EnvironmentService _environmentService;
-  final DateTimeService _dateTimeService;
+  final DateTimeCore _dateTime;
 
   Future<String?> getLink() async {
     return await getInitialLink();
@@ -48,7 +48,7 @@ class DeeplinkService {
   bool verifySignedUri(String uri) {
     final segment = uri.split(':');
     final expireTime = double.parse(segment[2]);
-    final now = _dateTimeService.now().millisecondsSinceEpoch / 1000;
+    final now = _dateTime.now().millisecondsSinceEpoch / 1000;
 
     if (now > expireTime) {
       return false;
