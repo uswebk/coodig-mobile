@@ -25,10 +25,11 @@ extension FlavorExtension on Flavor {
   }
 }
 
+// Specify the IP address of the local PC when the real device: EX) http://192.168.0.28
 final Map<String, FlavorConfig> flavors = <String, FlavorConfig>{
   Flavor.development.name: FlavorConfig(
     variables: <String, String>{
-      'apiEndpoint': 'http://127.0.0.1:9999',
+      'apiEndpoint': 'http://192.168.0.28:9999',
     },
   ),
   Flavor.developmentIos.name: FlavorConfig(
