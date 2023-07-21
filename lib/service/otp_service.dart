@@ -31,7 +31,7 @@ class OtpService {
       final retryResponse = await _otpRepository.fetch(accessToken);
 
       if (retryResponse.statusCode == 200) {
-        return Otp.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+        return Otp.fromJson(jsonDecode(retryResponse.body) as Map<String, dynamic>);
       }
     }
 
