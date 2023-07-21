@@ -30,7 +30,7 @@ class UserService {
       final retryResponse = await _userRepository.fetchMe(accessToken);
 
       if (retryResponse.statusCode == 200) {
-        return User.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
+        return User.fromJson(jsonDecode(retryResponse.body) as Map<String, dynamic>);
       }
     }
 
