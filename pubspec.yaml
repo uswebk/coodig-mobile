@@ -30,6 +30,7 @@ dependencies:
   mockito: ^5.4.0
   envied: ^0.3.0+3
   shared_preferences: ^2.2.0
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
@@ -46,3 +47,9 @@ flutter:
   assets:
     - images/
     - .env
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/icon.png"
+  adaptive_icon_background: "#ffffff"
