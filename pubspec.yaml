@@ -31,6 +31,7 @@ dependencies:
   envied: ^0.3.0+3
   shared_preferences: ^2.2.0
   flutter_launcher_icons: ^0.13.1
+  local_auth: ^2.1.6
 
 dev_dependencies:
   flutter_test:
