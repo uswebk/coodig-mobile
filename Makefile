@@ -3,3 +3,6 @@ build_runner:
 
 clean:
 	flutter clean
+
+icon:
+	flutter pub run flutter_launcher_icons:main
