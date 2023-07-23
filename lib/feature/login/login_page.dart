@@ -12,12 +12,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:local_auth/local_auth.dart';
 
 class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final LocalAuthentication auth = LocalAuthentication();
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
@@ -80,6 +83,28 @@ class LoginPage extends HookConsumerWidget {
                         const Text('Don’t have an account? ', style: TextStyle(color: Colors.grey)),
                         TextButton(child: const Text('Sign Up'), onPressed: () => Get.off<dynamic>(const SignupPage())),
                       ],
+                    ),
+                    TextButton(
+                      child: const Text('Bio'),
+                      onPressed: () async {
+                        try {
+                          final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
+                          final bool canAuthenticate = canAuthenticateWithBiometrics || await auth.isDeviceSupported();
+
+                          if (canAuthenticate) {
+                            final bool didAuthenticate = await auth.authenticate(
+                              localizedReason: 'Please authenticate to show account balance',
+                              options: const AuthenticationOptions(
+                                  biometricOnly: true, useErrorDialogs: true, stickyAuth: true),
+                            );
+                            if (didAuthenticate) {
+                              await ref.watch(authStateNotifierProvider.notifier).loginByBiometrics();
+                            }
+                          }
+                        } catch (e) {
+                          debugPrint('error $e');
+                        }
+                      },
                     ),
                   ],
                 ),

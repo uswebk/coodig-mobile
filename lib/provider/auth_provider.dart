@@ -36,6 +36,11 @@ class AuthNotifier extends StateNotifier<User?> {
     await _authService.logout();
     reset();
   }
+
+  Future<void> loginByBiometrics() async {
+    await _authService.loginByBiometrics();
+    await fetchMe();
+  }
 }
 
 final userStatusProvider = Provider<UserStatus>((ref) {

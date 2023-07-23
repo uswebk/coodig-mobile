@@ -28,6 +28,10 @@ class SecureStorageService {
     return await _secureStorageRepository.read(_refreshTokenKey) ?? '';
   }
 
+  Future<String> getRefreshTokenForBiometrics() async {
+    return await _secureStorageRepository.read(_refreshTokenForBiometricsKey) ?? '';
+  }
+
   Future<void> deleteToken() async {
     await _secureStorageRepository.delete(_accessTokenKey);
     await _secureStorageRepository.delete(_refreshTokenKey);
