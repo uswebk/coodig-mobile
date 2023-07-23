@@ -61,6 +61,20 @@ class AuthService {
     }
   }
 
+  Future<void> loginByBiometrics() async {
+    String refreshToken = await _secureStorageService.getRefreshTokenForBiometrics();
+    final response = await _authRepository.refresh(refreshToken);
+
+    if (response.statusCode != 200) {
+      throw Exception('Fail biometrics verify');
+    }
+
+    Map<String, dynamic> body = json.decode(response.body) as Map<String, dynamic>;
+    body['refresh'] = refreshToken;
+    Token token = Token.fromJson(body);
+    await _secureStorageService.setToken(token);
+  }
+
   Future<void> logout() async {
     await _secureStorageService.deleteToken();
   }
