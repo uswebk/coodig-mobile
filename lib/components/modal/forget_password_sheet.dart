@@ -2,7 +2,7 @@ import 'package:coodig_mobile/components/form/email_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_validation_exception.dart';
-import 'package:coodig_mobile/provider/forget_password_provider.dart';
+import 'package:coodig_mobile/service/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -18,10 +18,11 @@ class ForgetPasswordSheet extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final notifier = ref.read(forgetPasswordStateNotifierProvider.notifier);
+    final authService = ref.read(authServiceProvider);
     double keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
 
     final isLoading = useState(false);
+    final errors = useState<Map<String, String>?>(null);
     final isMounted = useIsMounted();
 
     return SizedBox(
@@ -48,44 +49,39 @@ class ForgetPasswordSheet extends HookConsumerWidget {
                         ),
                         const SizedBox(height: 30),
                         Form(
-                          child: Consumer(
-                            builder: (BuildContext context, WidgetRef ref, Widget? child) {
-                              final state = ref.watch(forgetPasswordStateNotifierProvider);
-                              return Column(
-                                children: [
-                                  EmailTextField(emailController, state.errors['email']),
-                                  const SizedBox(height: 20),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    height: 48,
-                                    child: ElevatedButton(
-                                      onPressed: () async {
-                                        String email = emailController.text;
+                          child: Column(
+                            children: [
+                              EmailTextField(emailController, errors.value?['email']),
+                              const SizedBox(height: 20),
+                              SizedBox(
+                                width: double.infinity,
+                                height: 48,
+                                child: ElevatedButton(
+                                  onPressed: () async {
+                                    String email = emailController.text;
 
-                                        isLoading.value = true;
-                                        try {
-                                          await notifier.sendResetPassword(email);
-                                          Future.delayed(Duration.zero, () {
-                                            Snackbar.showSuccess(context, 'Sent Reset Password Link');
-                                            Navigator.pop(context);
-                                          });
-                                          emailController.clear();
-                                        } on ApiValidationException catch (e) {
-                                          notifier.setMessage(e.errors);
-                                        } catch (e) {
-                                          Snackbar.showError(context, e.toString());
-                                        } finally {}
-                                        if (isMounted()) isLoading.value = false;
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: CoodigColors.buttonPrimary,
-                                      ),
-                                      child: const Text('Send Email'),
-                                    ),
+                                    isLoading.value = true;
+                                    try {
+                                      await authService.sendResetPassword(email);
+                                      Future.delayed(Duration.zero, () {
+                                        Snackbar.showSuccess(context, 'Sent Reset Password Link');
+                                        Navigator.pop(context);
+                                      });
+                                      emailController.clear();
+                                    } on ApiValidationException catch (e) {
+                                      errors.value = e.toMap();
+                                    } catch (e) {
+                                      Snackbar.showError(context, e.toString());
+                                    } finally {}
+                                    if (isMounted()) isLoading.value = false;
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: CoodigColors.buttonPrimary,
                                   ),
-                                ],
-                              );
-                            },
+                                  child: const Text('Send Email'),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
