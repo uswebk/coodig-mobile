@@ -60,6 +60,37 @@ class LoginPage extends HookConsumerWidget {
                     const LoginForm(),
                     const SizedBox(height: 5),
                     TextButton(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.face_rounded, size: 20),
+                          Text('/'),
+                          Icon(Icons.fingerprint, size: 20),
+                          Text('Biometrics Auth'),
+                        ],
+                      ),
+                      onPressed: () async {
+                        try {
+                          final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
+                          final bool canAuthenticate = canAuthenticateWithBiometrics || await auth.isDeviceSupported();
+
+                          if (canAuthenticate) {
+                            final bool didAuthenticate = await auth.authenticate(
+                              localizedReason: 'Please authenticate to show account balance',
+                              options: const AuthenticationOptions(
+                                  biometricOnly: true, useErrorDialogs: true, stickyAuth: true),
+                            );
+                            if (didAuthenticate) {
+                              await ref.read(authStateNotifierProvider.notifier).loginByBiometrics();
+                            }
+                          }
+                        } catch (e) {
+                          debugPrint('error $e');
+                        }
+                      },
+                    ),
+                    const Divider(color: Colors.grey),
+                    TextButton(
                       child: const Text('Forget Password?'),
                       onPressed: () async {
                         await showModalBottomSheet<dynamic>(
@@ -76,35 +107,12 @@ class LoginPage extends HookConsumerWidget {
                         );
                       },
                     ),
-                    const Divider(color: Colors.grey),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         const Text('Don’t have an account? ', style: TextStyle(color: Colors.grey)),
                         TextButton(child: const Text('Sign Up'), onPressed: () => Get.off<dynamic>(const SignupPage())),
                       ],
-                    ),
-                    TextButton(
-                      child: const Text('Bio'),
-                      onPressed: () async {
-                        try {
-                          final bool canAuthenticateWithBiometrics = await auth.canCheckBiometrics;
-                          final bool canAuthenticate = canAuthenticateWithBiometrics || await auth.isDeviceSupported();
-
-                          if (canAuthenticate) {
-                            final bool didAuthenticate = await auth.authenticate(
-                              localizedReason: 'Please authenticate to show account balance',
-                              options: const AuthenticationOptions(
-                                  biometricOnly: true, useErrorDialogs: true, stickyAuth: true),
-                            );
-                            if (didAuthenticate) {
-                              await ref.watch(authStateNotifierProvider.notifier).loginByBiometrics();
-                            }
-                          }
-                        } catch (e) {
-                          debugPrint('error $e');
-                        }
-                      },
                     ),
                   ],
                 ),
