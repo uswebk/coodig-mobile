@@ -62,7 +62,13 @@ class LaunchPage extends ConsumerWidget {
                                 Get.to<dynamic>(const SignupPage());
                               }
                             },
-                            style: ElevatedButton.styleFrom(backgroundColor: CoodigColors.buttonSecondary),
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              backgroundColor: CoodigColors.buttonSecondary,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
                             child: const Text('Sign Up'),
                           ),
                         ),
@@ -78,7 +84,13 @@ class LaunchPage extends ConsumerWidget {
                                 Get.to<dynamic>(const LoginPage());
                               }
                             },
-                            style: ElevatedButton.styleFrom(backgroundColor: Colors.white70),
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              backgroundColor: Colors.white70,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                            ),
                             child: const Text(
                               'Sign In',
                               style: TextStyle(
