@@ -1,89 +1,46 @@
-class Quiz {
-  final List<Choices> choices;
-  final List<dynamic> tags;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final String createdBy;
+import 'package:coodig_mobile/model/user.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Quiz({
-    required this.choices,
-    required this.tags,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.createdBy,
-  });
+part 'quiz.freezed.dart';
+part 'quiz.g.dart';
 
-  factory Quiz.fromJson(Map<String, dynamic> json) {
-    final choiceList = json['choices'].cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
-    List<Choices> choices = choiceList.map((item) => Choices.fromJson(item)).toList();
+@freezed
+class Quiz with _$Quiz {
+  const factory Quiz({
+    @JsonKey(name: 'choices') required List<Choices> choices,
+    @JsonKey(name: 'tags') required List<Tag> tags,
+    @JsonKey(name: 'question') required String question,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'updated_at') required DateTime updatedAt,
+    @JsonKey(name: 'created_by') required User createdBy,
+  }) = _Quiz;
 
-    final tagList = json['tags'].cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
-    List<Tag> tags = tagList.map((item) => Tag.fromJson(item)).toList();
-
-    return Quiz(
-      choices: choices,
-      tags: tags,
-      createdAt: DateTime.parse(json['created_at'].toString()),
-      updatedAt: DateTime.parse(json['updated_at'].toString()),
-      createdBy: json['created_by'].toString(),
-    );
-  }
+  factory Quiz.fromJson(Map<String, dynamic> json) => _$QuizFromJson(json);
 }
 
-class Choices {
-  final int id;
-  final String sentence;
-  final bool isAnswer;
-  final int sort;
-  final DateTime createdAt;
-  final DateTime updatedAt;
-  final int quizId;
+@freezed
+class Choices with _$Choices {
+  const factory Choices({
+    @JsonKey(name: 'id') required int id,
+    @JsonKey(name: 'sentence') required String sentence,
+    @JsonKey(name: 'is_answer') required bool isAnswer,
+    @JsonKey(name: 'sort') required int sort,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'updated_at') required DateTime updatedAt,
+  }) = _Choices;
 
-  Choices({
-    required this.id,
-    required this.sentence,
-    required this.isAnswer,
-    required this.sort,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.quizId,
-  });
-
-  factory Choices.fromJson(Map<String, dynamic> json) {
-    return Choices(
-      id: json['id'] as int,
-      sentence: json['sentence'].toString(),
-      isAnswer: json['is_answer'] as bool,
-      sort: json['sort'] as int,
-      createdAt: DateTime.parse(json['created_at'].toString()),
-      updatedAt: DateTime.parse(json['updated_at'].toString()),
-      quizId: json['quiz_id'] as int,
-    );
-  }
+  factory Choices.fromJson(Map<String, dynamic> json) => _$ChoicesFromJson(json);
 }
 
-class Tag {
-  final int id;
-  final String name;
-  final String color;
-  final DateTime createdAt;
-  final DateTime updatedAt;
+@freezed
+class Tag with _$Tag {
+  const factory Tag({
+    @JsonKey(name: 'id') required int id,
+    @JsonKey(name: 'name') required String name,
+    @JsonKey(name: 'color') required String color,
+    @JsonKey(name: 'created_at') required DateTime createdAt,
+    @JsonKey(name: 'updated_at') required DateTime updatedAt,
+  }) = _Tag;
 
-  Tag({
-    required this.id,
-    required this.name,
-    required this.color,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  factory Tag.fromJson(Map<String, dynamic> json) {
-    return Tag(
-      id: json['id'] as int,
-      name: json['name'].toString(),
-      color: json['color'].toString(),
-      createdAt: DateTime.parse(json['created_at'].toString()),
-      updatedAt: DateTime.parse(json['updated_at'].toString()),
-    );
-  }
+  factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
 }

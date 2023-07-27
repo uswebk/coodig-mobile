@@ -1,16 +1,14 @@
-class Otp {
-  final String code;
-  final DateTime expirationAt;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Otp({
-    required this.code,
-    required this.expirationAt,
-  });
+part 'otp.freezed.dart';
+part 'otp.g.dart';
 
-  factory Otp.fromJson(Map<String, dynamic> json) {
-    return Otp(
-      code: json['code'].toString(),
-      expirationAt: DateTime.parse(json['expiration_at'].toString()),
-    );
-  }
+@freezed
+class Otp with _$Otp {
+  const factory Otp({
+    @JsonKey(name: 'code') required String code,
+    @JsonKey(name: 'expiration_at') required String expirationAt,
+  }) = _Otp;
+
+  factory Otp.fromJson(Map<String, dynamic> json) => _$OtpFromJson(json);
 }

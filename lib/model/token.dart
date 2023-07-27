@@ -1,10 +1,14 @@
-class Token {
-  final String accessToken;
-  final String refreshToken;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Token({required this.accessToken, required this.refreshToken});
+part 'token.freezed.dart';
+part 'token.g.dart';
 
-  factory Token.fromJson(Map<String, dynamic> json) {
-    return Token(accessToken: json['access'].toString(), refreshToken: json['refresh'].toString());
-  }
+@freezed
+class Token with _$Token {
+  const factory Token({
+    @JsonKey(name: 'access') required String accessToken,
+    @JsonKey(name: 'refresh') required String refreshToken,
+  }) = _Token;
+
+  factory Token.fromJson(Map<String, dynamic> json) => _$TokenFromJson(json);
 }
