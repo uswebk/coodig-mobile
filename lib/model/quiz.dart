@@ -7,7 +7,7 @@ part 'quiz.g.dart';
 @freezed
 class Quiz with _$Quiz {
   const factory Quiz({
-    @JsonKey(name: 'choices') required List<Choices> choices,
+    @JsonKey(name: 'choices') required List<Choice> choices,
     @JsonKey(name: 'tags') required List<Tag> tags,
     @JsonKey(name: 'question') required String question,
     @JsonKey(name: 'created_at') required DateTime createdAt,
@@ -19,17 +19,17 @@ class Quiz with _$Quiz {
 }
 
 @freezed
-class Choices with _$Choices {
-  const factory Choices({
+class Choice with _$Choice {
+  const factory Choice({
     @JsonKey(name: 'id') required int id,
     @JsonKey(name: 'sentence') required String sentence,
     @JsonKey(name: 'is_answer') required bool isAnswer,
     @JsonKey(name: 'sort') required int sort,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'updated_at') required DateTime updatedAt,
-  }) = _Choices;
+  }) = _Choice;
 
-  factory Choices.fromJson(Map<String, dynamic> json) => _$ChoicesFromJson(json);
+  factory Choice.fromJson(Map<String, dynamic> json) => _$ChoiceFromJson(json);
 }
 
 @freezed

@@ -8,7 +8,7 @@ part of 'quiz.dart';
 
 _$_Quiz _$$_QuizFromJson(Map<String, dynamic> json) => _$_Quiz(
       choices: (json['choices'] as List<dynamic>)
-          .map((e) => Choices.fromJson(e as Map<String, dynamic>))
+          .map((e) => Choice.fromJson(e as Map<String, dynamic>))
           .toList(),
       tags: (json['tags'] as List<dynamic>)
           .map((e) => Tag.fromJson(e as Map<String, dynamic>))
@@ -28,7 +28,7 @@ Map<String, dynamic> _$$_QuizToJson(_$_Quiz instance) => <String, dynamic>{
       'created_by': instance.createdBy,
     };
 
-_$_Choices _$$_ChoicesFromJson(Map<String, dynamic> json) => _$_Choices(
+_$_Choice _$$_ChoiceFromJson(Map<String, dynamic> json) => _$_Choice(
       id: json['id'] as int,
       sentence: json['sentence'] as String,
       isAnswer: json['is_answer'] as bool,
@@ -37,8 +37,7 @@ _$_Choices _$$_ChoicesFromJson(Map<String, dynamic> json) => _$_Choices(
       updatedAt: DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$$_ChoicesToJson(_$_Choices instance) =>
-    <String, dynamic>{
+Map<String, dynamic> _$$_ChoiceToJson(_$_Choice instance) => <String, dynamic>{
       'id': instance.id,
       'sentence': instance.sentence,
       'is_answer': instance.isAnswer,

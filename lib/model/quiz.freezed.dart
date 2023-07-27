@@ -21,7 +21,7 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Quiz {
   @JsonKey(name: 'choices')
-  List<Choices> get choices => throw _privateConstructorUsedError;
+  List<Choice> get choices => throw _privateConstructorUsedError;
   @JsonKey(name: 'tags')
   List<Tag> get tags => throw _privateConstructorUsedError;
   @JsonKey(name: 'question')
@@ -44,7 +44,7 @@ abstract class $QuizCopyWith<$Res> {
       _$QuizCopyWithImpl<$Res, Quiz>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'choices') List<Choices> choices,
+      {@JsonKey(name: 'choices') List<Choice> choices,
       @JsonKey(name: 'tags') List<Tag> tags,
       @JsonKey(name: 'question') String question,
       @JsonKey(name: 'created_at') DateTime createdAt,
@@ -78,7 +78,7 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
       choices: null == choices
           ? _value.choices
           : choices // ignore: cast_nullable_to_non_nullable
-              as List<Choices>,
+              as List<Choice>,
       tags: null == tags
           ? _value.tags
           : tags // ignore: cast_nullable_to_non_nullable
@@ -118,7 +118,7 @@ abstract class _$$_QuizCopyWith<$Res> implements $QuizCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'choices') List<Choices> choices,
+      {@JsonKey(name: 'choices') List<Choice> choices,
       @JsonKey(name: 'tags') List<Tag> tags,
       @JsonKey(name: 'question') String question,
       @JsonKey(name: 'created_at') DateTime createdAt,
@@ -149,7 +149,7 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
       choices: null == choices
           ? _value._choices
           : choices // ignore: cast_nullable_to_non_nullable
-              as List<Choices>,
+              as List<Choice>,
       tags: null == tags
           ? _value._tags
           : tags // ignore: cast_nullable_to_non_nullable
@@ -178,7 +178,7 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
 @JsonSerializable()
 class _$_Quiz implements _Quiz {
   const _$_Quiz(
-      {@JsonKey(name: 'choices') required final List<Choices> choices,
+      {@JsonKey(name: 'choices') required final List<Choice> choices,
       @JsonKey(name: 'tags') required final List<Tag> tags,
       @JsonKey(name: 'question') required this.question,
       @JsonKey(name: 'created_at') required this.createdAt,
@@ -189,10 +189,10 @@ class _$_Quiz implements _Quiz {
 
   factory _$_Quiz.fromJson(Map<String, dynamic> json) => _$$_QuizFromJson(json);
 
-  final List<Choices> _choices;
+  final List<Choice> _choices;
   @override
   @JsonKey(name: 'choices')
-  List<Choices> get choices {
+  List<Choice> get choices {
     if (_choices is EqualUnmodifiableListView) return _choices;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_choices);
@@ -269,7 +269,7 @@ class _$_Quiz implements _Quiz {
 
 abstract class _Quiz implements Quiz {
   const factory _Quiz(
-      {@JsonKey(name: 'choices') required final List<Choices> choices,
+      {@JsonKey(name: 'choices') required final List<Choice> choices,
       @JsonKey(name: 'tags') required final List<Tag> tags,
       @JsonKey(name: 'question') required final String question,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
@@ -280,7 +280,7 @@ abstract class _Quiz implements Quiz {
 
   @override
   @JsonKey(name: 'choices')
-  List<Choices> get choices;
+  List<Choice> get choices;
   @override
   @JsonKey(name: 'tags')
   List<Tag> get tags;
@@ -301,12 +301,12 @@ abstract class _Quiz implements Quiz {
   _$$_QuizCopyWith<_$_Quiz> get copyWith => throw _privateConstructorUsedError;
 }
 
-Choices _$ChoicesFromJson(Map<String, dynamic> json) {
-  return _Choices.fromJson(json);
+Choice _$ChoiceFromJson(Map<String, dynamic> json) {
+  return _Choice.fromJson(json);
 }
 
 /// @nodoc
-mixin _$Choices {
+mixin _$Choice {
   @JsonKey(name: 'id')
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'sentence')
@@ -322,13 +322,13 @@ mixin _$Choices {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ChoicesCopyWith<Choices> get copyWith => throw _privateConstructorUsedError;
+  $ChoiceCopyWith<Choice> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $ChoicesCopyWith<$Res> {
-  factory $ChoicesCopyWith(Choices value, $Res Function(Choices) then) =
-      _$ChoicesCopyWithImpl<$Res, Choices>;
+abstract class $ChoiceCopyWith<$Res> {
+  factory $ChoiceCopyWith(Choice value, $Res Function(Choice) then) =
+      _$ChoiceCopyWithImpl<$Res, Choice>;
   @useResult
   $Res call(
       {@JsonKey(name: 'id') int id,
@@ -340,9 +340,9 @@ abstract class $ChoicesCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$ChoicesCopyWithImpl<$Res, $Val extends Choices>
-    implements $ChoicesCopyWith<$Res> {
-  _$ChoicesCopyWithImpl(this._value, this._then);
+class _$ChoiceCopyWithImpl<$Res, $Val extends Choice>
+    implements $ChoiceCopyWith<$Res> {
+  _$ChoiceCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -389,10 +389,9 @@ class _$ChoicesCopyWithImpl<$Res, $Val extends Choices>
 }
 
 /// @nodoc
-abstract class _$$_ChoicesCopyWith<$Res> implements $ChoicesCopyWith<$Res> {
-  factory _$$_ChoicesCopyWith(
-          _$_Choices value, $Res Function(_$_Choices) then) =
-      __$$_ChoicesCopyWithImpl<$Res>;
+abstract class _$$_ChoiceCopyWith<$Res> implements $ChoiceCopyWith<$Res> {
+  factory _$$_ChoiceCopyWith(_$_Choice value, $Res Function(_$_Choice) then) =
+      __$$_ChoiceCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -405,10 +404,10 @@ abstract class _$$_ChoicesCopyWith<$Res> implements $ChoicesCopyWith<$Res> {
 }
 
 /// @nodoc
-class __$$_ChoicesCopyWithImpl<$Res>
-    extends _$ChoicesCopyWithImpl<$Res, _$_Choices>
-    implements _$$_ChoicesCopyWith<$Res> {
-  __$$_ChoicesCopyWithImpl(_$_Choices _value, $Res Function(_$_Choices) _then)
+class __$$_ChoiceCopyWithImpl<$Res>
+    extends _$ChoiceCopyWithImpl<$Res, _$_Choice>
+    implements _$$_ChoiceCopyWith<$Res> {
+  __$$_ChoiceCopyWithImpl(_$_Choice _value, $Res Function(_$_Choice) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -421,7 +420,7 @@ class __$$_ChoicesCopyWithImpl<$Res>
     Object? createdAt = null,
     Object? updatedAt = null,
   }) {
-    return _then(_$_Choices(
+    return _then(_$_Choice(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -452,8 +451,8 @@ class __$$_ChoicesCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Choices implements _Choices {
-  const _$_Choices(
+class _$_Choice implements _Choice {
+  const _$_Choice(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'sentence') required this.sentence,
       @JsonKey(name: 'is_answer') required this.isAnswer,
@@ -461,8 +460,8 @@ class _$_Choices implements _Choices {
       @JsonKey(name: 'created_at') required this.createdAt,
       @JsonKey(name: 'updated_at') required this.updatedAt});
 
-  factory _$_Choices.fromJson(Map<String, dynamic> json) =>
-      _$$_ChoicesFromJson(json);
+  factory _$_Choice.fromJson(Map<String, dynamic> json) =>
+      _$$_ChoiceFromJson(json);
 
   @override
   @JsonKey(name: 'id')
@@ -485,14 +484,14 @@ class _$_Choices implements _Choices {
 
   @override
   String toString() {
-    return 'Choices(id: $id, sentence: $sentence, isAnswer: $isAnswer, sort: $sort, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'Choice(id: $id, sentence: $sentence, isAnswer: $isAnswer, sort: $sort, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$_Choices &&
+            other is _$_Choice &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.sentence, sentence) ||
                 other.sentence == sentence) &&
@@ -513,28 +512,28 @@ class _$_Choices implements _Choices {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$_ChoicesCopyWith<_$_Choices> get copyWith =>
-      __$$_ChoicesCopyWithImpl<_$_Choices>(this, _$identity);
+  _$$_ChoiceCopyWith<_$_Choice> get copyWith =>
+      __$$_ChoiceCopyWithImpl<_$_Choice>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ChoicesToJson(
+    return _$$_ChoiceToJson(
       this,
     );
   }
 }
 
-abstract class _Choices implements Choices {
-  const factory _Choices(
+abstract class _Choice implements Choice {
+  const factory _Choice(
           {@JsonKey(name: 'id') required final int id,
           @JsonKey(name: 'sentence') required final String sentence,
           @JsonKey(name: 'is_answer') required final bool isAnswer,
           @JsonKey(name: 'sort') required final int sort,
           @JsonKey(name: 'created_at') required final DateTime createdAt,
           @JsonKey(name: 'updated_at') required final DateTime updatedAt}) =
-      _$_Choices;
+      _$_Choice;
 
-  factory _Choices.fromJson(Map<String, dynamic> json) = _$_Choices.fromJson;
+  factory _Choice.fromJson(Map<String, dynamic> json) = _$_Choice.fromJson;
 
   @override
   @JsonKey(name: 'id')
@@ -556,7 +555,7 @@ abstract class _Choices implements Choices {
   DateTime get updatedAt;
   @override
   @JsonKey(ignore: true)
-  _$$_ChoicesCopyWith<_$_Choices> get copyWith =>
+  _$$_ChoiceCopyWith<_$_Choice> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
