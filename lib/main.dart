@@ -22,6 +22,7 @@ class MyApp extends HookConsumerWidget {
     final deeplinkService = ref.watch(deeplinkServiceProvider);
 
     useEffect(() {
+      // Reset secure storage on first startup
       void f() async {
         final sharedPreferenceService = await ref.watch(sharedPreferenceServiceProvider);
         final secureStorageService = ref.watch(secureStorageServiceProvider);
