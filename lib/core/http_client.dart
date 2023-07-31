@@ -40,7 +40,7 @@ class HttpClient {
     }
   }
 
-  Future<http.Response> post(String path, Map<String, String> body, String accessToken) async {
+  Future<http.Response> post(String path, Map<String, dynamic> body, String accessToken) async {
     Map<String, String> headers = {'content-type': 'application/json'};
 
     String host = await getEndpoint();
