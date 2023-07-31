@@ -20,6 +20,8 @@ Quiz _$QuizFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$Quiz {
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'choices')
   List<Choice> get choices => throw _privateConstructorUsedError;
   @JsonKey(name: 'tags')
@@ -44,7 +46,8 @@ abstract class $QuizCopyWith<$Res> {
       _$QuizCopyWithImpl<$Res, Quiz>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'choices') List<Choice> choices,
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'choices') List<Choice> choices,
       @JsonKey(name: 'tags') List<Tag> tags,
       @JsonKey(name: 'question') String question,
       @JsonKey(name: 'created_at') DateTime createdAt,
@@ -67,6 +70,7 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? choices = null,
     Object? tags = null,
     Object? question = null,
@@ -75,6 +79,10 @@ class _$QuizCopyWithImpl<$Res, $Val extends Quiz>
     Object? createdBy = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       choices: null == choices
           ? _value.choices
           : choices // ignore: cast_nullable_to_non_nullable
@@ -118,7 +126,8 @@ abstract class _$$_QuizCopyWith<$Res> implements $QuizCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'choices') List<Choice> choices,
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'choices') List<Choice> choices,
       @JsonKey(name: 'tags') List<Tag> tags,
       @JsonKey(name: 'question') String question,
       @JsonKey(name: 'created_at') DateTime createdAt,
@@ -138,6 +147,7 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
     Object? choices = null,
     Object? tags = null,
     Object? question = null,
@@ -146,6 +156,10 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
     Object? createdBy = null,
   }) {
     return _then(_$_Quiz(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
       choices: null == choices
           ? _value._choices
           : choices // ignore: cast_nullable_to_non_nullable
@@ -178,7 +192,8 @@ class __$$_QuizCopyWithImpl<$Res> extends _$QuizCopyWithImpl<$Res, _$_Quiz>
 @JsonSerializable()
 class _$_Quiz implements _Quiz {
   const _$_Quiz(
-      {@JsonKey(name: 'choices') required final List<Choice> choices,
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'choices') required final List<Choice> choices,
       @JsonKey(name: 'tags') required final List<Tag> tags,
       @JsonKey(name: 'question') required this.question,
       @JsonKey(name: 'created_at') required this.createdAt,
@@ -189,6 +204,9 @@ class _$_Quiz implements _Quiz {
 
   factory _$_Quiz.fromJson(Map<String, dynamic> json) => _$$_QuizFromJson(json);
 
+  @override
+  @JsonKey(name: 'id')
+  final int id;
   final List<Choice> _choices;
   @override
   @JsonKey(name: 'choices')
@@ -222,7 +240,7 @@ class _$_Quiz implements _Quiz {
 
   @override
   String toString() {
-    return 'Quiz(choices: $choices, tags: $tags, question: $question, createdAt: $createdAt, updatedAt: $updatedAt, createdBy: $createdBy)';
+    return 'Quiz(id: $id, choices: $choices, tags: $tags, question: $question, createdAt: $createdAt, updatedAt: $updatedAt, createdBy: $createdBy)';
   }
 
   @override
@@ -230,6 +248,7 @@ class _$_Quiz implements _Quiz {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Quiz &&
+            (identical(other.id, id) || other.id == id) &&
             const DeepCollectionEquality().equals(other._choices, _choices) &&
             const DeepCollectionEquality().equals(other._tags, _tags) &&
             (identical(other.question, question) ||
@@ -246,6 +265,7 @@ class _$_Quiz implements _Quiz {
   @override
   int get hashCode => Object.hash(
       runtimeType,
+      id,
       const DeepCollectionEquality().hash(_choices),
       const DeepCollectionEquality().hash(_tags),
       question,
@@ -269,7 +289,8 @@ class _$_Quiz implements _Quiz {
 
 abstract class _Quiz implements Quiz {
   const factory _Quiz(
-      {@JsonKey(name: 'choices') required final List<Choice> choices,
+      {@JsonKey(name: 'id') required final int id,
+      @JsonKey(name: 'choices') required final List<Choice> choices,
       @JsonKey(name: 'tags') required final List<Tag> tags,
       @JsonKey(name: 'question') required final String question,
       @JsonKey(name: 'created_at') required final DateTime createdAt,
@@ -278,6 +299,9 @@ abstract class _Quiz implements Quiz {
 
   factory _Quiz.fromJson(Map<String, dynamic> json) = _$_Quiz.fromJson;
 
+  @override
+  @JsonKey(name: 'id')
+  int get id;
   @override
   @JsonKey(name: 'choices')
   List<Choice> get choices;
@@ -785,4 +809,509 @@ abstract class _Tag implements Tag {
   @override
   @JsonKey(ignore: true)
   _$$_TagCopyWith<_$_Tag> get copyWith => throw _privateConstructorUsedError;
+}
+
+QuizAnswer _$QuizAnswerFromJson(Map<String, dynamic> json) {
+  return _QuizAnswer.fromJson(json);
+}
+
+/// @nodoc
+mixin _$QuizAnswer {
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'question')
+  String get question => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_correct')
+  bool get isCorrect => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $QuizAnswerCopyWith<QuizAnswer> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $QuizAnswerCopyWith<$Res> {
+  factory $QuizAnswerCopyWith(
+          QuizAnswer value, $Res Function(QuizAnswer) then) =
+      _$QuizAnswerCopyWithImpl<$Res, QuizAnswer>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'question') String question,
+      @JsonKey(name: 'is_correct') bool isCorrect,
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt});
+}
+
+/// @nodoc
+class _$QuizAnswerCopyWithImpl<$Res, $Val extends QuizAnswer>
+    implements $QuizAnswerCopyWith<$Res> {
+  _$QuizAnswerCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? question = null,
+    Object? isCorrect = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      question: null == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as String,
+      isCorrect: null == isCorrect
+          ? _value.isCorrect
+          : isCorrect // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_QuizAnswerCopyWith<$Res>
+    implements $QuizAnswerCopyWith<$Res> {
+  factory _$$_QuizAnswerCopyWith(
+          _$_QuizAnswer value, $Res Function(_$_QuizAnswer) then) =
+      __$$_QuizAnswerCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'question') String question,
+      @JsonKey(name: 'is_correct') bool isCorrect,
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt});
+}
+
+/// @nodoc
+class __$$_QuizAnswerCopyWithImpl<$Res>
+    extends _$QuizAnswerCopyWithImpl<$Res, _$_QuizAnswer>
+    implements _$$_QuizAnswerCopyWith<$Res> {
+  __$$_QuizAnswerCopyWithImpl(
+      _$_QuizAnswer _value, $Res Function(_$_QuizAnswer) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? question = null,
+    Object? isCorrect = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+  }) {
+    return _then(_$_QuizAnswer(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      question: null == question
+          ? _value.question
+          : question // ignore: cast_nullable_to_non_nullable
+              as String,
+      isCorrect: null == isCorrect
+          ? _value.isCorrect
+          : isCorrect // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_QuizAnswer implements _QuizAnswer {
+  const _$_QuizAnswer(
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'question') required this.question,
+      @JsonKey(name: 'is_correct') required this.isCorrect,
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'updated_at') required this.updatedAt});
+
+  factory _$_QuizAnswer.fromJson(Map<String, dynamic> json) =>
+      _$$_QuizAnswerFromJson(json);
+
+  @override
+  @JsonKey(name: 'id')
+  final int id;
+  @override
+  @JsonKey(name: 'question')
+  final String question;
+  @override
+  @JsonKey(name: 'is_correct')
+  final bool isCorrect;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
+
+  @override
+  String toString() {
+    return 'QuizAnswer(id: $id, question: $question, isCorrect: $isCorrect, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_QuizAnswer &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.question, question) ||
+                other.question == question) &&
+            (identical(other.isCorrect, isCorrect) ||
+                other.isCorrect == isCorrect) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, id, question, isCorrect, createdAt, updatedAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_QuizAnswerCopyWith<_$_QuizAnswer> get copyWith =>
+      __$$_QuizAnswerCopyWithImpl<_$_QuizAnswer>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_QuizAnswerToJson(
+      this,
+    );
+  }
+}
+
+abstract class _QuizAnswer implements QuizAnswer {
+  const factory _QuizAnswer(
+          {@JsonKey(name: 'id') required final int id,
+          @JsonKey(name: 'question') required final String question,
+          @JsonKey(name: 'is_correct') required final bool isCorrect,
+          @JsonKey(name: 'created_at') required final DateTime createdAt,
+          @JsonKey(name: 'updated_at') required final DateTime updatedAt}) =
+      _$_QuizAnswer;
+
+  factory _QuizAnswer.fromJson(Map<String, dynamic> json) =
+      _$_QuizAnswer.fromJson;
+
+  @override
+  @JsonKey(name: 'id')
+  int get id;
+  @override
+  @JsonKey(name: 'question')
+  String get question;
+  @override
+  @JsonKey(name: 'is_correct')
+  bool get isCorrect;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  DateTime get updatedAt;
+  @override
+  @JsonKey(ignore: true)
+  _$$_QuizAnswerCopyWith<_$_QuizAnswer> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+QuizAnswerChoice _$QuizAnswerChoiceFromJson(Map<String, dynamic> json) {
+  return _QuizAnswerChoice.fromJson(json);
+}
+
+/// @nodoc
+mixin _$QuizAnswerChoice {
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'choice')
+  String get choice => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_answer')
+  bool get isAnswer => throw _privateConstructorUsedError;
+  @JsonKey(name: 'is_select')
+  bool get isSelect => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  DateTime get updatedAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $QuizAnswerChoiceCopyWith<QuizAnswerChoice> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $QuizAnswerChoiceCopyWith<$Res> {
+  factory $QuizAnswerChoiceCopyWith(
+          QuizAnswerChoice value, $Res Function(QuizAnswerChoice) then) =
+      _$QuizAnswerChoiceCopyWithImpl<$Res, QuizAnswerChoice>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'choice') String choice,
+      @JsonKey(name: 'is_answer') bool isAnswer,
+      @JsonKey(name: 'is_select') bool isSelect,
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt});
+}
+
+/// @nodoc
+class _$QuizAnswerChoiceCopyWithImpl<$Res, $Val extends QuizAnswerChoice>
+    implements $QuizAnswerChoiceCopyWith<$Res> {
+  _$QuizAnswerChoiceCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? choice = null,
+    Object? isAnswer = null,
+    Object? isSelect = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      choice: null == choice
+          ? _value.choice
+          : choice // ignore: cast_nullable_to_non_nullable
+              as String,
+      isAnswer: null == isAnswer
+          ? _value.isAnswer
+          : isAnswer // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSelect: null == isSelect
+          ? _value.isSelect
+          : isSelect // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_QuizAnswerChoiceCopyWith<$Res>
+    implements $QuizAnswerChoiceCopyWith<$Res> {
+  factory _$$_QuizAnswerChoiceCopyWith(
+          _$_QuizAnswerChoice value, $Res Function(_$_QuizAnswerChoice) then) =
+      __$$_QuizAnswerChoiceCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'choice') String choice,
+      @JsonKey(name: 'is_answer') bool isAnswer,
+      @JsonKey(name: 'is_select') bool isSelect,
+      @JsonKey(name: 'created_at') DateTime createdAt,
+      @JsonKey(name: 'updated_at') DateTime updatedAt});
+}
+
+/// @nodoc
+class __$$_QuizAnswerChoiceCopyWithImpl<$Res>
+    extends _$QuizAnswerChoiceCopyWithImpl<$Res, _$_QuizAnswerChoice>
+    implements _$$_QuizAnswerChoiceCopyWith<$Res> {
+  __$$_QuizAnswerChoiceCopyWithImpl(
+      _$_QuizAnswerChoice _value, $Res Function(_$_QuizAnswerChoice) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? choice = null,
+    Object? isAnswer = null,
+    Object? isSelect = null,
+    Object? createdAt = null,
+    Object? updatedAt = null,
+  }) {
+    return _then(_$_QuizAnswerChoice(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      choice: null == choice
+          ? _value.choice
+          : choice // ignore: cast_nullable_to_non_nullable
+              as String,
+      isAnswer: null == isAnswer
+          ? _value.isAnswer
+          : isAnswer // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isSelect: null == isSelect
+          ? _value.isSelect
+          : isSelect // ignore: cast_nullable_to_non_nullable
+              as bool,
+      createdAt: null == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      updatedAt: null == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_QuizAnswerChoice implements _QuizAnswerChoice {
+  const _$_QuizAnswerChoice(
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'choice') required this.choice,
+      @JsonKey(name: 'is_answer') required this.isAnswer,
+      @JsonKey(name: 'is_select') required this.isSelect,
+      @JsonKey(name: 'created_at') required this.createdAt,
+      @JsonKey(name: 'updated_at') required this.updatedAt});
+
+  factory _$_QuizAnswerChoice.fromJson(Map<String, dynamic> json) =>
+      _$$_QuizAnswerChoiceFromJson(json);
+
+  @override
+  @JsonKey(name: 'id')
+  final int id;
+  @override
+  @JsonKey(name: 'choice')
+  final String choice;
+  @override
+  @JsonKey(name: 'is_answer')
+  final bool isAnswer;
+  @override
+  @JsonKey(name: 'is_select')
+  final bool isSelect;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime updatedAt;
+
+  @override
+  String toString() {
+    return 'QuizAnswerChoice(id: $id, choice: $choice, isAnswer: $isAnswer, isSelect: $isSelect, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_QuizAnswerChoice &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.choice, choice) || other.choice == choice) &&
+            (identical(other.isAnswer, isAnswer) ||
+                other.isAnswer == isAnswer) &&
+            (identical(other.isSelect, isSelect) ||
+                other.isSelect == isSelect) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, id, choice, isAnswer, isSelect, createdAt, updatedAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_QuizAnswerChoiceCopyWith<_$_QuizAnswerChoice> get copyWith =>
+      __$$_QuizAnswerChoiceCopyWithImpl<_$_QuizAnswerChoice>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_QuizAnswerChoiceToJson(
+      this,
+    );
+  }
+}
+
+abstract class _QuizAnswerChoice implements QuizAnswerChoice {
+  const factory _QuizAnswerChoice(
+          {@JsonKey(name: 'id') required final int id,
+          @JsonKey(name: 'choice') required final String choice,
+          @JsonKey(name: 'is_answer') required final bool isAnswer,
+          @JsonKey(name: 'is_select') required final bool isSelect,
+          @JsonKey(name: 'created_at') required final DateTime createdAt,
+          @JsonKey(name: 'updated_at') required final DateTime updatedAt}) =
+      _$_QuizAnswerChoice;
+
+  factory _QuizAnswerChoice.fromJson(Map<String, dynamic> json) =
+      _$_QuizAnswerChoice.fromJson;
+
+  @override
+  @JsonKey(name: 'id')
+  int get id;
+  @override
+  @JsonKey(name: 'choice')
+  String get choice;
+  @override
+  @JsonKey(name: 'is_answer')
+  bool get isAnswer;
+  @override
+  @JsonKey(name: 'is_select')
+  bool get isSelect;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  DateTime get updatedAt;
+  @override
+  @JsonKey(ignore: true)
+  _$$_QuizAnswerChoiceCopyWith<_$_QuizAnswerChoice> get copyWith =>
+      throw _privateConstructorUsedError;
 }

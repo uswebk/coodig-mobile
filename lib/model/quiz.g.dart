@@ -7,6 +7,7 @@ part of 'quiz.dart';
 // **************************************************************************
 
 _$_Quiz _$$_QuizFromJson(Map<String, dynamic> json) => _$_Quiz(
+      id: json['id'] as int,
       choices: (json['choices'] as List<dynamic>)
           .map((e) => Choice.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -20,6 +21,7 @@ _$_Quiz _$$_QuizFromJson(Map<String, dynamic> json) => _$_Quiz(
     );
 
 Map<String, dynamic> _$$_QuizToJson(_$_Quiz instance) => <String, dynamic>{
+      'id': instance.id,
       'choices': instance.choices,
       'tags': instance.tags,
       'question': instance.question,
@@ -58,6 +60,44 @@ Map<String, dynamic> _$$_TagToJson(_$_Tag instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
       'color': instance.color,
+      'created_at': instance.createdAt.toIso8601String(),
+      'updated_at': instance.updatedAt.toIso8601String(),
+    };
+
+_$_QuizAnswer _$$_QuizAnswerFromJson(Map<String, dynamic> json) =>
+    _$_QuizAnswer(
+      id: json['id'] as int,
+      question: json['question'] as String,
+      isCorrect: json['is_correct'] as bool,
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
+    );
+
+Map<String, dynamic> _$$_QuizAnswerToJson(_$_QuizAnswer instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'question': instance.question,
+      'is_correct': instance.isCorrect,
+      'created_at': instance.createdAt.toIso8601String(),
+      'updated_at': instance.updatedAt.toIso8601String(),
+    };
+
+_$_QuizAnswerChoice _$$_QuizAnswerChoiceFromJson(Map<String, dynamic> json) =>
+    _$_QuizAnswerChoice(
+      id: json['id'] as int,
+      choice: json['choice'] as String,
+      isAnswer: json['is_answer'] as bool,
+      isSelect: json['is_select'] as bool,
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
+    );
+
+Map<String, dynamic> _$$_QuizAnswerChoiceToJson(_$_QuizAnswerChoice instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'choice': instance.choice,
+      'is_answer': instance.isAnswer,
+      'is_select': instance.isSelect,
       'created_at': instance.createdAt.toIso8601String(),
       'updated_at': instance.updatedAt.toIso8601String(),
     };
