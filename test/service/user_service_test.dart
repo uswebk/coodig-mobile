@@ -14,7 +14,7 @@ void main() {
     final mockUserRepository = MockUserRepository();
 
     when(mockSecureStorageService.getAccessToken()).thenAnswer((_) async => Future.value('XXX'));
-    final response = http.Response(jsonEncode({'name': 'fake_name', 'email': 'fake@example.com'}), 200);
+    final response = http.Response(jsonEncode({'id': 1, 'name': 'fake_name', 'email': 'fake@example.com'}), 200);
     when(mockUserRepository.fetchMe('XXX')).thenAnswer((_) async => Future.value(response));
 
     final sut = UserService(mockAuthService, mockSecureStorageService, mockUserRepository);
@@ -48,7 +48,8 @@ void main() {
     when(mockSecureStorageService.getAccessToken()).thenAnswer((_) async => Future.value('XXX'));
     int callCount = 0;
     final response = http.Response(jsonEncode({'': ''}), 401);
-    final responseSecondTime = http.Response(jsonEncode({'name': 'fake_name', 'email': 'fake@example.com'}), 200);
+    final responseSecondTime =
+        http.Response(jsonEncode({'id': 1, 'name': 'fake_name', 'email': 'fake@example.com'}), 200);
     when(mockUserRepository.fetchMe('XXX')).thenAnswer((_) async {
       if (callCount == 0) {
         callCount++;
