@@ -3,7 +3,7 @@ name: Flutter Unit Test
 on: push
 
 jobs:
-  analyze:
+  unit:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
