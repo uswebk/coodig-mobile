@@ -24,7 +24,7 @@ class ChoiceItem extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 1),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 1),
       child: Card(
         color: _cardColor,
         shape: RoundedRectangleBorder(
