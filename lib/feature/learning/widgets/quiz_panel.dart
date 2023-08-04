@@ -15,10 +15,10 @@ class QuizPanel extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final quizService = ref.watch(quizServiceProvider);
+    final state = ref.watch(quizFutureProvider);
     final selectedChoices = useState<List<int>>([]);
     final correctIds = useState<List<int>>([]);
     final quizId = useState<int?>(null);
-    final state = ref.watch(quizFutureProvider);
     final isAnswer = useState<bool>(false);
     final isCorrectAnswer = useState<bool>(false);
 
@@ -61,12 +61,14 @@ class QuizPanel extends HookConsumerWidget {
                               selectedChoices.value = currentSelectedChoices;
                             },
                             child: ChoiceItem(
-                              isSelected ? CoodigColors.secondary : Colors.white,
+                              isSelected ? Colors.white : Colors.white,
                               Colors.black12,
-                              1.0,
-                              null,
+                              isSelected ? 2 : 1,
+                              isSelected
+                                  ? const Icon(Icons.check_circle, color: CoodigColors.buttonPrimary)
+                                  : const Icon(Icons.circle_outlined, color: Colors.black12),
                               choice.sentence,
-                              isSelected ? Colors.white : Colors.black,
+                              isSelected ? Colors.black : Colors.black,
                               isSelected ? FontWeight.bold : FontWeight.normal,
                             ),
                           )
@@ -77,7 +79,7 @@ class QuizPanel extends HookConsumerWidget {
                             isSelected
                                 ? (isCorrect ? Colors.green : Colors.red)
                                 : (isCorrect ? Colors.red : Colors.black12),
-                            isSelected ? 1.5 : 1,
+                            isSelected ? 2 : 1,
                             isSelected
                                 ? (isCorrect
                                     ? const Icon(Icons.check_circle, color: Colors.green)
