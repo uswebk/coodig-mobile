@@ -1,6 +1,9 @@
 import 'package:coodig_mobile/components/hud.dart';
+import 'package:coodig_mobile/feature/learning/learning_page.dart';
+import 'package:coodig_mobile/provider/quiz_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 class DashboardPage extends ConsumerWidget {
   const DashboardPage({super.key});
@@ -16,10 +19,14 @@ class DashboardPage extends ConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 SizedBox(
-                  height: 50,
-                  width: 250,
+                  height: 80,
+                  width: 230,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      await ref.read(quizStateNotifierProvider.notifier).random(1);
+
+                      Get.to<dynamic>(const LearningPage());
+                    },
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: const [
