@@ -8,7 +8,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final quizServiceProvider = Provider((ref) => QuizService(
-    ref.watch(authServiceProvider), ref.watch(secureStorageServiceProvider), ref.watch(quizRepositoryProvider)));
+      ref.watch(authServiceProvider),
+      ref.watch(secureStorageServiceProvider),
+      ref.watch(quizRepositoryProvider),
+    ));
 
 class QuizService {
   QuizService(this._authService, this._secureStorageService, this._quizRepository);

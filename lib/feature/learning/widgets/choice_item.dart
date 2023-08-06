@@ -2,45 +2,45 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class ChoiceItem extends HookConsumerWidget {
-  const ChoiceItem(
-    this._cardColor,
-    this._cardBorderColor,
-    this._cardBorderWidth,
-    this._trailing,
-    this._sentence,
-    this._sentenceColor,
-    this._sentenceWeight, {
+  const ChoiceItem({
     super.key,
+    this.cardColor,
+    required this.cardBorderColor,
+    required this.cardBorderWidth,
+    this.trailing,
+    required this.sentence,
+    required this.sentenceColor,
+    required this.sentenceWeight,
   });
 
-  final Color? _cardColor;
-  final Color _cardBorderColor;
-  final double _cardBorderWidth;
-  final Icon? _trailing;
-  final String _sentence;
-  final Color _sentenceColor;
-  final FontWeight _sentenceWeight;
+  final Color? cardColor;
+  final Color cardBorderColor;
+  final double cardBorderWidth;
+  final Icon? trailing;
+  final String sentence;
+  final Color sentenceColor;
+  final FontWeight sentenceWeight;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 1),
       child: Card(
-        color: _cardColor,
+        color: cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
           side: BorderSide(
-            color: _cardBorderColor,
-            width: _cardBorderWidth,
+            color: cardBorderColor,
+            width: cardBorderWidth,
           ),
         ),
         child: ListTile(
-          trailing: _trailing,
+          trailing: trailing,
           title: Text(
-            _sentence,
+            sentence,
             style: TextStyle(
-              color: _sentenceColor,
-              fontWeight: _sentenceWeight,
+              color: sentenceColor,
+              fontWeight: sentenceWeight,
             ),
           ),
         ),

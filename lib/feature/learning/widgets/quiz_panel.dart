@@ -1,7 +1,12 @@
 import 'package:coodig_mobile/config/color.dart';
+import 'package:coodig_mobile/exception/quiz_exception.dart';
+import 'package:coodig_mobile/feature/learning/provider/quiz_provider.dart';
 import 'package:coodig_mobile/feature/learning/widgets/choice_item.dart';
+import 'package:coodig_mobile/feature/learning/widgets/complete_message.dart';
+import 'package:coodig_mobile/feature/learning/widgets/error_message.dart';
 import 'package:coodig_mobile/feature/learning/widgets/expanded_button.dart';
 import 'package:coodig_mobile/feature/learning/widgets/question.dart';
+import 'package:coodig_mobile/feature/learning/widgets/shadow_line.dart';
 import 'package:coodig_mobile/model/quiz.dart';
 import 'package:coodig_mobile/provider/quiz_provider.dart';
 import 'package:coodig_mobile/service/quiz_service.dart';
@@ -30,7 +35,13 @@ class QuizPanel extends HookConsumerWidget {
 
     return state.when(
       loading: () => const CircularProgressIndicator(),
-      error: (err, stack) => Text('Error: $err'), // TODO: alert or view non item message
+      error: (e, stack) {
+        if (e is QuizNotFoundException) {
+          return const CompleteMessage();
+        }
+
+        return const ErrorMessage();
+      },
       data: (data) {
         correctIds.value = data.choices.where((e) => e.isAnswer == true).map((e) => e.id).toList();
         quizId.value = data.id;
@@ -61,40 +72,40 @@ class QuizPanel extends HookConsumerWidget {
                               selectedChoices.value = currentSelectedChoices;
                             },
                             child: ChoiceItem(
-                              isSelected ? Colors.white : Colors.white,
-                              Colors.black12,
-                              isSelected ? 2 : 1,
-                              isSelected
+                              cardColor: isSelected ? Colors.white : Colors.white,
+                              cardBorderColor: isSelected ? CoodigColors.buttonPrimary : Colors.black12,
+                              cardBorderWidth: isSelected ? 1.5 : 1,
+                              trailing: isSelected
                                   ? const Icon(Icons.check_circle, color: CoodigColors.buttonPrimary)
                                   : const Icon(Icons.circle_outlined, color: Colors.black12),
-                              choice.sentence,
-                              isSelected ? Colors.black : Colors.black,
-                              isSelected ? FontWeight.bold : FontWeight.normal,
+                              sentence: choice.sentence,
+                              sentenceColor: isSelected ? Colors.black : Colors.black,
+                              sentenceWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                             ),
                           )
                         : ChoiceItem(
-                            isSelected
+                            cardColor: isSelected
                                 ? (isCorrect ? CoodigColors.correctCard : CoodigColors.incorrectCard)
                                 : (isCorrect ? CoodigColors.incorrectCard : null),
-                            isSelected
+                            cardBorderColor: isSelected
                                 ? (isCorrect ? Colors.green : Colors.red)
                                 : (isCorrect ? Colors.red : Colors.black12),
-                            isSelected ? 2 : 1,
-                            isSelected
+                            cardBorderWidth: isSelected ? 2 : 1,
+                            trailing: isSelected
                                 ? (isCorrect
                                     ? const Icon(Icons.check_circle, color: Colors.green)
                                     : const Icon(Icons.cancel, color: Colors.redAccent))
                                 : (isCorrect
                                     ? const Icon(Icons.check_circle, color: Colors.redAccent)
                                     : const Icon(Icons.circle_outlined, color: Colors.black12)),
-                            choice.sentence,
-                            isSelected ? Colors.black87 : Colors.black54,
-                            isSelected ? FontWeight.bold : FontWeight.normal,
+                            sentence: choice.sentence,
+                            sentenceColor: isSelected ? Colors.black87 : Colors.black54,
+                            sentenceWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                           );
                   },
                 ),
               ),
-              const Divider(),
+              const ShadowLine(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
