@@ -25,7 +25,8 @@ class QuizService {
     final response = await _quizRepository.random(limit, accessToken);
 
     if (response.statusCode == 200) {
-      final json = jsonDecode(response.body).cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
+      final json =
+          jsonDecode(utf8.decode(response.bodyBytes)).cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
 
       return json.map((item) => Quiz.fromJson(item)).toList();
     }
@@ -36,7 +37,8 @@ class QuizService {
       final retryResponse = await _quizRepository.random(limit, accessToken);
 
       if (retryResponse.statusCode == 200) {
-        final json = jsonDecode(retryResponse.body).cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
+        final json =
+            jsonDecode(utf8.decode(retryResponse.bodyBytes)).cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
 
         return json.map((item) => Quiz.fromJson(item)).toList();
       }
@@ -76,5 +78,29 @@ class QuizService {
     choiceIds.sort();
 
     return listEquals(choiceIds, answerIds);
+  }
+
+  Future<List<QuizAnswer>> history() async {
+    String accessToken = await _secureStorageService.getAccessToken();
+    final response = await _quizRepository.history(accessToken);
+
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body).cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
+
+      return json.map((item) => QuizAnswer.fromJson(item)).toList();
+    }
+
+    if (response.statusCode == 401) {
+      await _authService.refresh();
+      String accessToken = await _secureStorageService.getAccessToken();
+      final retryResponse = await _quizRepository.history(accessToken);
+
+      if (retryResponse.statusCode == 200) {
+        final json = jsonDecode(retryResponse.body).cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
+        return json.map((item) => QuizAnswer.fromJson(item)).toList();
+      }
+    }
+
+    return [];
   }
 }
