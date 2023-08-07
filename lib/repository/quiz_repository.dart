@@ -18,4 +18,8 @@ class QuizRepository {
 
     return await _httpClient.post('/api/v1/quizzes/$quizId/answer/', body, accessToken);
   }
+
+  Future<http.Response> history(String accessToken) async {
+    return await _httpClient.get('/api/v1/quizzes/answers/', {}, accessToken);
+  }
 }
