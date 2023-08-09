@@ -29,18 +29,18 @@ class ChoiceItem extends HookConsumerWidget {
         color: cardColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
-          side: BorderSide(
-            color: cardBorderColor,
-            width: cardBorderWidth,
-          ),
+          side: BorderSide(color: cardBorderColor, width: cardBorderWidth),
         ),
         child: ListTile(
-          trailing: trailing,
-          title: Text(
-            sentence,
-            style: TextStyle(
-              color: sentenceColor,
-              fontWeight: sentenceWeight,
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [trailing ?? const SizedBox()],
+          ),
+          title: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: Text(
+              sentence,
+              style: TextStyle(fontSize: 14, color: sentenceColor, fontWeight: sentenceWeight),
             ),
           ),
         ),
