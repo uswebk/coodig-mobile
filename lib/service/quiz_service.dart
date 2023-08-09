@@ -85,7 +85,8 @@ class QuizService {
     final response = await _quizRepository.history(accessToken);
 
     if (response.statusCode == 200) {
-      final json = jsonDecode(response.body).cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
+      final json =
+          jsonDecode(utf8.decode(response.bodyBytes)).cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
 
       return json.map((item) => QuizAnswer.fromJson(item)).toList();
     }
@@ -96,7 +97,8 @@ class QuizService {
       final retryResponse = await _quizRepository.history(accessToken);
 
       if (retryResponse.statusCode == 200) {
-        final json = jsonDecode(retryResponse.body).cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
+        final json =
+            jsonDecode(utf8.decode(retryResponse.bodyBytes)).cast<Map<String, dynamic>>() as List<Map<String, dynamic>>;
         return json.map((item) => QuizAnswer.fromJson(item)).toList();
       }
     }
