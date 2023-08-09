@@ -13,12 +13,7 @@ class HistoryPage extends HookConsumerWidget {
 
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
-            title: const Text(
-              'History',
-              style: TextStyle(color: CoodigColors.grey, fontSize: 20, fontWeight: FontWeight.w800),
-            ),
-          ),
+          appBar: AppBar(),
           body: Column(
             children: [
               const SizedBox(height: 30),
@@ -36,7 +31,12 @@ class HistoryPage extends HookConsumerWidget {
                                 ),
                                 title: Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                  child: Text(data[index].question.toString()),
+                                  child: Text(
+                                    data[index].question.toString(),
+                                    maxLines: 3,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(fontSize: 16),
+                                  ),
                                 ),
                                 subtitle: Padding(
                                   padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
