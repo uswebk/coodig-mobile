@@ -44,7 +44,7 @@ class Question extends HookConsumerWidget {
                           text: TextSpan(
                             text: _text,
                             style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white, height: 1.5),
+                                fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white, height: 1.5),
                           ),
                         ),
                       ],
