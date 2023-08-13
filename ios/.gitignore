@@ -34,3 +34,5 @@ Runner/GeneratedPluginRegistrant.*
 !default.perspectivev3
 
 Runner/Assets.xcassets/*
+/Runner/GoogleService-Info.plist
+/firebase_app_id_file.json
