@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final firebaseAnalytics = Provider((ref) => FirebaseAnalytics.instance);
 final firebaseAnalyticsProvider =
-    Provider((ref) => Analytics(ref.watch(firebaseAnalytics), ref.watch(isFirebaseAvailable)));
+    Provider((ref) => Analytics(ref.watch(firebaseAnalytics), ref.watch(isFirebaseAvailableProvider)));
 
 class Analytics {
   Analytics(this.analytics, this.isFirebaseAvailable);

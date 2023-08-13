@@ -1,10 +1,12 @@
 import 'package:coodig_mobile/config/app_theme.dart';
+import 'package:coodig_mobile/core/analytics.dart';
 import 'package:coodig_mobile/core/firebase.dart';
 import 'package:coodig_mobile/feature/splash/splash_screen.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:coodig_mobile/service/environment_service.dart';
 import 'package:coodig_mobile/service/secure_storage_service.dart';
 import 'package:coodig_mobile/service/shared_preference_service.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
@@ -23,6 +25,7 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final deeplinkService = ref.watch(deeplinkServiceProvider);
     final firebaseCore = ref.watch(firebaseCoreProvider);
+    final isFirebaseAvailable = useState(false);
 
     useEffect(() {
       // Reset secure storage on first startup
@@ -36,6 +39,8 @@ class MyApp extends HookConsumerWidget {
         }
 
         await firebaseCore.init();
+
+        isFirebaseAvailable.value = ref.watch(isFirebaseAvailableProvider);
       }
 
       f();
@@ -49,6 +54,10 @@ class MyApp extends HookConsumerWidget {
       onGenerateRoute: (settings) {
         return null;
       },
+      navigatorObservers:
+          (isFirebaseAvailable.value) ? [FirebaseAnalyticsObserver(analytics: ref.watch(firebaseAnalytics))] : [],
+
+      initialRoute: "/",
       onGenerateInitialRoutes: (initialRoute) {
         return [
           MaterialPageRoute<dynamic>(

@@ -17,7 +17,7 @@ class FirebaseCore {
   }
 }
 
-final isFirebaseAvailable = Provider<bool>((ref) {
+final isFirebaseAvailableProvider = Provider<bool>((ref) {
   try {
     Firebase.app();
     return true;
