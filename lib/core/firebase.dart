@@ -4,15 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final firebaseCoreProvider = Provider<FirebaseCore>((ref) => FirebaseCore());
 
-final isFirebaseAvailable = Provider<bool>((ref) {
-  try {
-    Firebase.app();
-    return true;
-  } catch (e) {
-    return false;
-  }
-});
-
 class FirebaseCore {
   Future<void> init() async {
     bool canInitFirebase =
@@ -25,3 +16,12 @@ class FirebaseCore {
     }
   }
 }
+
+final isFirebaseAvailable = Provider<bool>((ref) {
+  try {
+    Firebase.app();
+    return true;
+  } catch (e) {
+    return false;
+  }
+});
