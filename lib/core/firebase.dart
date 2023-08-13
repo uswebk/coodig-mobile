@@ -1,4 +1,4 @@
-import 'package:coodig_mobile/firebase_options_example.dart';
+import 'package:coodig_mobile/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
