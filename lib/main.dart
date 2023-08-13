@@ -1,11 +1,10 @@
 import 'package:coodig_mobile/config/app_theme.dart';
+import 'package:coodig_mobile/core/firebase.dart';
 import 'package:coodig_mobile/feature/splash/splash_screen.dart';
-import 'package:coodig_mobile/firebase_options.dart';
 import 'package:coodig_mobile/service/deeplink_service.dart';
 import 'package:coodig_mobile/service/environment_service.dart';
 import 'package:coodig_mobile/service/secure_storage_service.dart';
 import 'package:coodig_mobile/service/shared_preference_service.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:get/get.dart';
@@ -13,9 +12,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
   EnvironmentService.setFlavor();
   runApp(const ProviderScope(child: MyApp()));
 }
@@ -26,6 +22,7 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final deeplinkService = ref.watch(deeplinkServiceProvider);
+    final firebaseCore = ref.watch(firebaseCoreProvider);
 
     useEffect(() {
       // Reset secure storage on first startup
@@ -37,6 +34,8 @@ class MyApp extends HookConsumerWidget {
           await secureStorageService.deleteAll();
           sharedPreferenceService.setIsFirstTime(false);
         }
+
+        await firebaseCore.init();
       }
 
       f();
