@@ -6,7 +6,6 @@ import 'package:coodig_mobile/feature/learning/widgets/complete_message.dart';
 import 'package:coodig_mobile/feature/learning/widgets/error_message.dart';
 import 'package:coodig_mobile/feature/learning/widgets/expanded_button.dart';
 import 'package:coodig_mobile/feature/learning/widgets/question.dart';
-import 'package:coodig_mobile/feature/learning/widgets/shadow_line.dart';
 import 'package:coodig_mobile/model/quiz.dart';
 import 'package:coodig_mobile/provider/quiz_provider.dart';
 import 'package:coodig_mobile/service/quiz_service.dart';
@@ -47,94 +46,102 @@ class QuizPanel extends HookConsumerWidget {
         quizId.value = data.id;
 
         return Expanded(
-          child: Column(
+          child: Stack(
             children: [
-              Question(data.question),
-              const SizedBox(height: 10),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: data.choices.length,
-                  itemBuilder: (context, index) {
-                    Choice choice = data.choices[index];
-                    bool isSelected = selectedChoices.value.contains(choice.id);
-                    bool isCorrect = correctIds.value.contains(choice.id);
-
-                    return (!isAnswer.value)
-                        ? InkWell(
-                            onTap: () {
-                              List<int> currentSelectedChoices = selectedChoices.value;
-                              selectedChoices.value = [];
-                              if (isSelected) {
-                                currentSelectedChoices.remove(choice.id);
-                              } else {
-                                currentSelectedChoices.add(choice.id);
-                              }
-                              selectedChoices.value = currentSelectedChoices;
-                            },
-                            child: ChoiceItem(
-                              cardColor: isSelected ? Colors.white : Colors.white,
-                              cardBorderColor: isSelected ? CoodigColors.buttonPrimary : Colors.black12,
-                              cardBorderWidth: isSelected ? 1.5 : 1,
-                              trailing: isSelected
-                                  ? const Icon(Icons.check_circle, color: CoodigColors.buttonPrimary)
-                                  : const Icon(Icons.circle_outlined, color: Colors.black12),
-                              sentence: choice.sentence,
-                              sentenceColor: isSelected ? Colors.black : Colors.black,
-                              sentenceWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                            ),
-                          )
-                        : ChoiceItem(
-                            cardColor: isSelected
-                                ? (isCorrect ? CoodigColors.correctCard : CoodigColors.incorrectCard)
-                                : (isCorrect ? CoodigColors.incorrectCard : null),
-                            cardBorderColor: isSelected
-                                ? (isCorrect ? Colors.green : Colors.red)
-                                : (isCorrect ? Colors.red : Colors.black12),
-                            cardBorderWidth: isSelected ? 2 : 1,
-                            trailing: isSelected
-                                ? (isCorrect
-                                    ? const Icon(Icons.check_circle, color: Colors.green)
-                                    : const Icon(Icons.cancel, color: Colors.redAccent))
-                                : (isCorrect
-                                    ? const Icon(Icons.check_circle, color: Colors.redAccent)
-                                    : const Icon(Icons.circle_outlined, color: Colors.black12)),
-                            sentence: choice.sentence,
-                            sentenceColor: isSelected ? Colors.black87 : Colors.black54,
-                            sentenceWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                          );
-                  },
-                ),
-              ),
-              const ShadowLine(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+              Column(
                 children: [
-                  (!isAnswer.value)
-                      ? ExpandedButton(
-                          'Answer',
-                          (selectedChoices.value.isNotEmpty)
-                              ? () async {
-                                  try {
-                                    List<int> answerIds = selectedChoices.value;
-                                    bool isCorrect = quizService.isCorrectQuiz(correctIds.value, answerIds);
-                                    QuizAnswer? result =
-                                        await quizService.answer(quizId.value as int, answerIds, isCorrect);
+                  Question(data.question),
+                  const SizedBox(height: 10),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: data.choices.length,
+                      itemBuilder: (context, index) {
+                        Choice choice = data.choices[index];
+                        bool isSelected = selectedChoices.value.contains(choice.id);
+                        bool isCorrect = correctIds.value.contains(choice.id);
 
-                                    isCorrectAnswer.value = result.isCorrect;
-                                  } catch (e) {
-                                    debugPrint(e.toString());
-                                  } finally {
-                                    isAnswer.value = true;
-                                  }
-                                }
-                              : null)
-                      : ExpandedButton(
-                          'Next',
-                          () async {
-                            await ref.read(quizStateNotifierProvider.notifier).random(1);
-                          },
-                        )
+                        return Column(
+                          children: [
+                            (!isAnswer.value)
+                                ? InkWell(
+                                    onTap: () {
+                                      List<int> currentSelectedChoices = selectedChoices.value;
+                                      selectedChoices.value = [];
+                                      if (isSelected) {
+                                        currentSelectedChoices.remove(choice.id);
+                                      } else {
+                                        currentSelectedChoices.add(choice.id);
+                                      }
+                                      selectedChoices.value = currentSelectedChoices;
+                                    },
+                                    child: ChoiceItem(
+                                      cardColor: isSelected ? Colors.white : Colors.white,
+                                      cardBorderColor: isSelected ? CoodigColors.buttonPrimary : Colors.black12,
+                                      cardBorderWidth: isSelected ? 1.5 : 1,
+                                      trailing: isSelected
+                                          ? const Icon(Icons.check_circle, color: CoodigColors.buttonPrimary)
+                                          : const Icon(Icons.circle_outlined, color: Colors.black12),
+                                      sentence: choice.sentence,
+                                      sentenceColor: isSelected ? Colors.black : Colors.black,
+                                      sentenceWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                    ),
+                                  )
+                                : ChoiceItem(
+                                    cardColor: isSelected
+                                        ? (isCorrect ? CoodigColors.correctCard : CoodigColors.incorrectCard)
+                                        : (isCorrect ? CoodigColors.incorrectCard : null),
+                                    cardBorderColor: isSelected
+                                        ? (isCorrect ? Colors.green : Colors.red)
+                                        : (isCorrect ? Colors.red : Colors.black12),
+                                    cardBorderWidth: isSelected ? 2 : 1,
+                                    trailing: isSelected
+                                        ? (isCorrect
+                                            ? const Icon(Icons.check_circle, color: Colors.green)
+                                            : const Icon(Icons.cancel, color: Colors.redAccent))
+                                        : (isCorrect
+                                            ? const Icon(Icons.check_circle, color: Colors.redAccent)
+                                            : const Icon(Icons.circle_outlined, color: Colors.black12)),
+                                    sentence: choice.sentence,
+                                    sentenceColor: isSelected ? Colors.black87 : Colors.black54,
+                                    sentenceWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                  ),
+                            (index + 1 == data.choices.length) ? const SizedBox(height: 120) : const SizedBox(),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
                 ],
+              ),
+              Positioned(
+                bottom: 10,
+                left: 0,
+                right: 0,
+                child: (!isAnswer.value)
+                    ? ExpandedButton(
+                        'Answer',
+                        (selectedChoices.value.isNotEmpty)
+                            ? () async {
+                                try {
+                                  List<int> answerIds = selectedChoices.value;
+                                  bool isCorrect = quizService.isCorrectQuiz(correctIds.value, answerIds);
+                                  QuizAnswer? result =
+                                      await quizService.answer(quizId.value as int, answerIds, isCorrect);
+
+                                  isCorrectAnswer.value = result.isCorrect;
+                                } catch (e) {
+                                  debugPrint(e.toString());
+                                } finally {
+                                  isAnswer.value = true;
+                                }
+                              }
+                            : null)
+                    : ExpandedButton(
+                        'Next',
+                        () async {
+                          await ref.read(quizStateNotifierProvider.notifier).random(1);
+                        },
+                      ),
               ),
             ],
           ),
