@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/core/datetime.dart';
+import 'package:coodig_mobile/core/environment.dart';
 import 'package:coodig_mobile/repository/otp_repository.dart';
 import 'package:coodig_mobile/repository/shared_preferences_repository.dart';
 import 'package:coodig_mobile/repository/user_repository.dart';
@@ -11,6 +12,7 @@ import 'package:mockito/annotations.dart';
 
 @GenerateNiceMocks([
   MockSpec<DateTimeCore>(),
+  MockSpec<Environment>(),
   MockSpec<DeeplinkService>(),
   MockSpec<SplashService>(),
   MockSpec<EnvironmentService>(),

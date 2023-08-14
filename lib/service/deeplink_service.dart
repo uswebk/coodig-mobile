@@ -1,22 +1,22 @@
 import 'dart:convert';
 
 import 'package:coodig_mobile/core/datetime.dart';
+import 'package:coodig_mobile/core/environment.dart';
 import 'package:coodig_mobile/feature/password_reset/password_reset_page.dart';
 import 'package:coodig_mobile/feature/splash/splash_screen.dart';
-import 'package:coodig_mobile/service/environment_service.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:uni_links/uni_links.dart';
 
-final deeplinkServiceProvider = Provider<DeeplinkService>(
-    (ref) => DeeplinkService(ref.watch(environmentServiceProvider), ref.watch(dateTimeProvider)));
+final deeplinkServiceProvider =
+    Provider<DeeplinkService>((ref) => DeeplinkService(ref.watch(environmentProvider), ref.watch(dateTimeProvider)));
 
 class DeeplinkService {
-  DeeplinkService(this._environmentService, this._dateTime);
+  DeeplinkService(this._environment, this._dateTime);
 
-  final EnvironmentService _environmentService;
+  final Environment _environment;
   final DateTimeCore _dateTime;
 
   Future<String?> getLink() async {
@@ -56,7 +56,7 @@ class DeeplinkService {
 
     String link = '${segment[0]}:${segment[1]}';
     String signedUrl = '$link:$expireTime';
-    Hmac hmacSha256 = Hmac(sha256, utf8.encode(_environmentService.getUriSecretKey()));
+    Hmac hmacSha256 = Hmac(sha256, utf8.encode(_environment.getUriSecretKey()));
     Digest digest = hmacSha256.convert(utf8.encode(signedUrl));
 
     return digest.toString() == segment[3].toString();

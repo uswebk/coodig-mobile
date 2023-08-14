@@ -8,25 +8,25 @@ import '../mock.mocks.dart';
 
 void main() {
   test('get password reset screen by link when reset-password', () async {
-    final sut = DeeplinkService(MockEnvironmentService(), MockDateTimeCore());
+    final sut = DeeplinkService(MockEnvironment(), MockDateTimeCore());
     final result = sut.getScreen('coodig://reset-password/dummy');
     expect(result, isA<PasswordResetPage>());
   });
 
   test('get splash screen by link when not match host', () async {
-    final sut = DeeplinkService(MockEnvironmentService(), MockDateTimeCore());
+    final sut = DeeplinkService(MockEnvironment(), MockDateTimeCore());
     final result = sut.getScreen('coodig://foo.com/dummy');
     expect(result, isA<SplashScreen>());
   });
 
   test('verify if the signature is correct within the validity period', () async {
-    final mockEnvironmentService = MockEnvironmentService();
+    final mockEnvironment = MockEnvironment();
     final mockDateTimeCore = MockDateTimeCore();
 
     when(mockDateTimeCore.now()).thenAnswer((_) => DateTime(2023, 01, 01, 12, 0, 0));
-    when(mockEnvironmentService.getUriSecretKey()).thenAnswer((_) => 'XXX');
+    when(mockEnvironment.getUriSecretKey()).thenAnswer((_) => 'XXX');
 
-    final sut = DeeplinkService(mockEnvironmentService, mockDateTimeCore);
+    final sut = DeeplinkService(mockEnvironment, mockDateTimeCore);
 
     // date: 2023-07-09 01:46:40
     // Secret: XXX
@@ -36,13 +36,13 @@ void main() {
   });
 
   test('invalidate if the signature is not correct', () async {
-    final mockEnvironmentService = MockEnvironmentService();
+    final mockEnvironment = MockEnvironment();
     final mockDateTimeCore = MockDateTimeCore();
 
     when(mockDateTimeCore.now()).thenAnswer((_) => DateTime(2023, 01, 01, 12, 0, 0));
-    when(mockEnvironmentService.getUriSecretKey()).thenAnswer((_) => 'XXX');
+    when(mockEnvironment.getUriSecretKey()).thenAnswer((_) => 'XXX');
 
-    final sut = DeeplinkService(mockEnvironmentService, mockDateTimeCore);
+    final sut = DeeplinkService(mockEnvironment, mockDateTimeCore);
 
     // date: 2023-07-09 01:46:40
     // Secret: XXX
@@ -52,13 +52,13 @@ void main() {
   });
 
   test('invalidate if expiration of validity', () async {
-    final mockEnvironmentService = MockEnvironmentService();
+    final mockEnvironment = MockEnvironment();
     final mockDateTimeCore = MockDateTimeCore();
 
     when(mockDateTimeCore.now()).thenAnswer((_) => DateTime(2024, 01, 01, 12, 0, 0));
-    when(mockEnvironmentService.getUriSecretKey()).thenAnswer((_) => 'XXX');
+    when(mockEnvironment.getUriSecretKey()).thenAnswer((_) => 'XXX');
 
-    final sut = DeeplinkService(mockEnvironmentService, mockDateTimeCore);
+    final sut = DeeplinkService(mockEnvironment, mockDateTimeCore);
 
     // date: 2023-07-09 01:46:40
     // Secret: XXX
