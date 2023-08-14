@@ -29,16 +29,19 @@ extension FlavorExtension on Flavor {
 final Map<String, FlavorConfig> flavors = <String, FlavorConfig>{
   Flavor.development.name: FlavorConfig(
     variables: <String, String>{
+      'name': 'develop',
       'apiEndpoint': 'http://192.168.0.28:9999',
     },
   ),
   Flavor.developmentIos.name: FlavorConfig(
     variables: <String, String>{
+      'name': 'develop',
       'apiEndpoint': 'http://127.0.0.1:9999',
     },
   ),
   Flavor.developmentAndroid.name: FlavorConfig(
     variables: <String, String>{
+      'name': 'develop',
       'apiEndpoint': 'http://10.0.2.2:9999',
     },
   ),

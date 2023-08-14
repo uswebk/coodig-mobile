@@ -1,16 +1,20 @@
 import 'dart:convert';
 
-import 'package:coodig_mobile/config/http_config.dart';
+import 'package:coodig_mobile/core/environment.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart' as http;
 
-final httpClientProvider = Provider((ref) => HttpClient());
+final httpClientProvider = Provider((ref) => HttpClient(ref.watch(environmentProvider)));
 
 class HttpClient {
+  HttpClient(this._environment);
+
+  final Environment _environment;
+
   Future<http.Response> get(String path, Map<String, String> query, String accessToken) async {
     Map<String, String> headers = {'content-type': 'application/json'};
 
-    String host = await getEndpoint();
+    String host = _environment.getEndpoint();
 
     if (accessToken != '') {
       headers.addAll({'Authorization': 'Bearer $accessToken'});
@@ -43,7 +47,7 @@ class HttpClient {
   Future<http.Response> post(String path, Map<String, dynamic> body, String accessToken) async {
     Map<String, String> headers = {'content-type': 'application/json'};
 
-    String host = await getEndpoint();
+    String host = _environment.getEndpoint();
 
     if (accessToken != '') {
       headers.addAll({'Authorization': 'Bearer $accessToken'});

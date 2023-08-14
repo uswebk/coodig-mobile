@@ -24,8 +24,7 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final deeplinkService = ref.watch(deeplinkServiceProvider);
-    final firebaseCore = ref.watch(firebaseCoreProvider);
-    final isFirebaseAvailable = useState(false);
+    final observer = useState<List<FirebaseAnalyticsObserver>>([]);
 
     useEffect(() {
       // Reset secure storage on first startup
@@ -38,9 +37,9 @@ class MyApp extends HookConsumerWidget {
           sharedPreferenceService.setIsFirstTime(false);
         }
 
-        await firebaseCore.init();
-
-        isFirebaseAvailable.value = ref.watch(isFirebaseAvailableProvider);
+        final firebaseCore = ref.watch(firebaseCoreProvider);
+        await firebaseCore.initialize();
+        observer.value = ref.watch(analyticsObserver);
       }
 
       f();
@@ -54,9 +53,7 @@ class MyApp extends HookConsumerWidget {
       onGenerateRoute: (settings) {
         return null;
       },
-      navigatorObservers:
-          (isFirebaseAvailable.value) ? [FirebaseAnalyticsObserver(analytics: ref.watch(firebaseAnalytics))] : [],
-
+      navigatorObservers: observer.value,
       initialRoute: "/",
       onGenerateInitialRoutes: (initialRoute) {
         return [
