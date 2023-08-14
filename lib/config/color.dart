@@ -7,6 +7,7 @@ class CoodigColors {
   static const Color buttonSecondary = Color(0xFF448AFF);
   static const Color buttonGrey = Color(0xFFA6A6A6);
   static const Color grey = Color(0xFFA6A6A6);
+  static const Color background = Color(0xFFF1F1F1);
   static const Color iosLoading = Color(0xFF2B64F6);
   static const Color androidLoading = Color(0xFF448AFF);
   static const Color correctCard = Color(0xFFE6FFEC);

@@ -1,4 +1,6 @@
 import 'package:coodig_mobile/components/hud.dart';
+import 'package:coodig_mobile/config/color.dart';
+import 'package:coodig_mobile/core/environment.dart';
 import 'package:coodig_mobile/feature/splash/splash_screen.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -14,37 +16,87 @@ class SettingPage extends HookConsumerWidget {
     final state = ref.watch(authStateNotifierProvider);
     final notifier = ref.read(authStateNotifierProvider.notifier);
     final isLoading = useState(false);
+    final version = useState('');
+
+    useEffect(() {
+      final environment = ref.watch(environmentProvider);
+      void f() async {
+        version.value = await environment.getVersion();
+      }
+
+      f();
+      return null;
+    }, []);
 
     return Hud(
       isLoading: isLoading.value,
       child: Scaffold(
-        appBar: AppBar(),
-        body: SingleChildScrollView(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 60),
-            child: Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('${state?.name} (${state?.email})'),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () async {
+        backgroundColor: CoodigColors.background,
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+        ),
+        body: WillPopScope(
+          onWillPop: () async => false,
+          child: Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  color: Colors.white,
+                  child: ListTile(
+                    leading: const Icon(Icons.account_circle),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Name'),
+                        Text('${state?.name}'),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: ListTile(
+                    leading: const Icon(Icons.email),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Email'),
+                        Text('${state?.email}'),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  color: Colors.white,
+                  child: ListTile(
+                      leading: const Icon(Icons.logout, color: CoodigColors.error),
+                      title: const Text('Sign out', style: TextStyle(color: CoodigColors.error)),
+                      onTap: () async {
+                        // Show Dialog
+
                         isLoading.value = true;
                         await notifier.logout();
                         isLoading.value = false;
                         Get.off<dynamic>(const SplashScreen());
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey,
-                      ),
-                      child: const Text('Logout'),
+                      }),
+                ),
+                const Spacer(),
+                Container(
+                  color: Colors.white,
+                  child: ListTile(
+                    leading: const Icon(Icons.perm_device_info),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text('Version'),
+                        Text(version.value, style: const TextStyle(color: CoodigColors.grey)),
+                      ],
                     ),
                   ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 15),
+              ],
             ),
           ),
         ),
