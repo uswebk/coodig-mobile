@@ -42,7 +42,10 @@ class SettingPage extends HookConsumerWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
-                  color: Colors.white,
+                  decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.black12, width: 0.5)),
+                    color: Colors.white,
+                  ),
                   child: ListTile(
                     leading: const Icon(Icons.account_circle),
                     title: Row(
@@ -55,7 +58,10 @@ class SettingPage extends HookConsumerWidget {
                   ),
                 ),
                 Container(
-                  color: Colors.white,
+                  decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.black12, width: 0.5)),
+                    color: Colors.white,
+                  ),
                   child: ListTile(
                     leading: const Icon(Icons.email),
                     title: Row(
@@ -68,7 +74,10 @@ class SettingPage extends HookConsumerWidget {
                   ),
                 ),
                 Container(
-                  color: Colors.white,
+                  decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.black12, width: 0.5)),
+                    color: Colors.white,
+                  ),
                   child: ListTile(
                       leading: const Icon(Icons.logout, color: CoodigColors.error),
                       title: const Text('Sign out', style: TextStyle(color: CoodigColors.error)),
@@ -84,18 +93,20 @@ class SettingPage extends HookConsumerWidget {
                 const Spacer(),
                 Container(
                   color: Colors.white,
+                  height: 55,
                   child: ListTile(
-                    leading: const Icon(Icons.perm_device_info),
+                    leading: const Icon(Icons.perm_device_info, size: 22),
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text('Version'),
-                        Text(version.value, style: const TextStyle(color: CoodigColors.grey)),
+                        const Text('Version', style: TextStyle(color: CoodigColors.grey, fontSize: 14)),
+                        Text(version.value, style: const TextStyle(color: CoodigColors.grey, fontSize: 11)),
                       ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 15),
+                const SizedBox(height: 5),
               ],
             ),
           ),
