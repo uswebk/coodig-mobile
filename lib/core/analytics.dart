@@ -18,6 +18,10 @@ class Analytics {
 
     analytics.logEvent(name: name, parameters: parameters);
   }
+
+  Future<void> setUserId(int userId) async {
+    await analytics.setUserId(id: userId.toString());
+  }
 }
 
 final analyticsObserver = Provider((ref) {
