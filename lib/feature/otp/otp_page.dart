@@ -9,6 +9,7 @@ import 'package:coodig_mobile/feature/otp/widgets/timer.dart';
 import 'package:coodig_mobile/feature/otp/widgets/verify_button.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
 import 'package:coodig_mobile/provider/otp_timer_provider.dart';
+import 'package:coodig_mobile/provider/uid_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -18,10 +19,12 @@ class OtpPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final Uid uid = ref.watch(uidProvider);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await ref.read(otpTimerStateNotifierProvider.notifier).startTimer();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
+        await uid.set();
         Get.off<dynamic>(const HomePage());
       }
     });

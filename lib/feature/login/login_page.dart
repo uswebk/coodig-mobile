@@ -9,6 +9,7 @@ import 'package:coodig_mobile/feature/login/widgets/forget_password_button.dart'
 import 'package:coodig_mobile/feature/login/widgets/login_form.dart';
 import 'package:coodig_mobile/feature/signup/signup_page.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
+import 'package:coodig_mobile/provider/uid_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -21,6 +22,8 @@ class LoginPage extends HookConsumerWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
+        final Uid uid = ref.watch(uidProvider);
+        await uid.set();
         Get.off<dynamic>(const HomePage());
       }
     });

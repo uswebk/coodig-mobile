@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
+import 'package:coodig_mobile/provider/uid_provider.dart';
 import 'package:coodig_mobile/service/splash_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,6 +16,8 @@ class SplashScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Future<dynamic>.delayed(const Duration(seconds: 2)).then((dynamic value) async {
       await ref.read(authStateNotifierProvider.notifier).fetchMe();
+      final Uid uid = ref.watch(uidProvider);
+      await uid.set();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       Widget screen = await ref.watch(splashServiceProvider).getScreen(userStatus);
       Get.off<dynamic>(screen);
