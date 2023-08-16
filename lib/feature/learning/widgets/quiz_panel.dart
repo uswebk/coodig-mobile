@@ -4,7 +4,7 @@ import 'package:coodig_mobile/feature/learning/provider/quiz_provider.dart';
 import 'package:coodig_mobile/feature/learning/widgets/choice_item.dart';
 import 'package:coodig_mobile/feature/learning/widgets/complete_message.dart';
 import 'package:coodig_mobile/feature/learning/widgets/error_message.dart';
-import 'package:coodig_mobile/feature/learning/widgets/expanded_button.dart';
+import 'package:coodig_mobile/feature/learning/widgets/floating_button.dart';
 import 'package:coodig_mobile/feature/learning/widgets/question.dart';
 import 'package:coodig_mobile/model/quiz.dart';
 import 'package:coodig_mobile/provider/quiz_provider.dart';
@@ -118,26 +118,24 @@ class QuizPanel extends HookConsumerWidget {
                 left: 0,
                 right: 0,
                 child: (!isAnswer.value)
-                    ? ExpandedButton(
-                        'Answer',
-                        (selectedChoices.value.isNotEmpty)
-                            ? () async {
-                                try {
-                                  List<int> answerIds = selectedChoices.value;
-                                  bool isCorrect = quizService.isCorrectQuiz(correctIds.value, answerIds);
-                                  QuizAnswer? result =
-                                      await quizService.answer(quizId.value as int, answerIds, isCorrect);
+                    ? (selectedChoices.value.isNotEmpty)
+                        ? FloatingButton('Answer', Icons.question_answer_sharp, () async {
+                            try {
+                              List<int> answerIds = selectedChoices.value;
+                              bool isCorrect = quizService.isCorrectQuiz(correctIds.value, answerIds);
+                              QuizAnswer? result = await quizService.answer(quizId.value as int, answerIds, isCorrect);
 
-                                  isCorrectAnswer.value = result.isCorrect;
-                                } catch (e) {
-                                  debugPrint(e.toString());
-                                } finally {
-                                  isAnswer.value = true;
-                                }
-                              }
-                            : null)
-                    : ExpandedButton(
+                              isCorrectAnswer.value = result.isCorrect;
+                            } catch (e) {
+                              debugPrint(e.toString());
+                            } finally {
+                              isAnswer.value = true;
+                            }
+                          })
+                        : const SizedBox()
+                    : FloatingButton(
                         'Next',
+                        Icons.play_arrow_rounded,
                         () async {
                           await ref.read(quizStateNotifierProvider.notifier).random(1);
                         },
