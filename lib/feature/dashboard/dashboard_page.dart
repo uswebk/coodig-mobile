@@ -34,7 +34,7 @@ class DashboardPage extends ConsumerWidget {
               onPressed: () async {
                 await ref.read(quizStateNotifierProvider.notifier).random(1);
 
-                Get.to<dynamic>(const LearningPage());
+                Get.to<dynamic>(() => const LearningPage());
               },
               label: Row(
                 children: const [

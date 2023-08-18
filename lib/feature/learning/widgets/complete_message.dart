@@ -31,7 +31,7 @@ class CompleteMessage extends StatelessWidget {
                     child: SizedBox(
                       child: ElevatedButton(
                           onPressed: () {
-                            Get.offAll<dynamic>(const HomePage());
+                            Get.offAll<dynamic>(() => const HomePage());
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
