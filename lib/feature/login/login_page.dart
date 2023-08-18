@@ -23,7 +23,7 @@ class LoginPage extends HookConsumerWidget {
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
         final Uid uid = ref.watch(uidProvider);
-        await uid.set();
+        await uid.setToAnalytics();
         Get.off<dynamic>(const HomePage());
       }
     });

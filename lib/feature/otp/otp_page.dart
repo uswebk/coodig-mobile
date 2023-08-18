@@ -24,7 +24,7 @@ class OtpPage extends ConsumerWidget {
       await ref.read(otpTimerStateNotifierProvider.notifier).startTimer();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
-        await uid.set();
+        await uid.setToAnalytics();
         Get.off<dynamic>(const HomePage());
       }
     });

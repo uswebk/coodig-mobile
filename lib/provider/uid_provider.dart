@@ -12,7 +12,7 @@ class Uid {
   final User? _user;
   final Analytics _analytics;
 
-  Future<void> set() async {
+  Future<void> setToAnalytics() async {
     if (_user != null) {
       await _analytics.setUserId(_user!.id);
     }
