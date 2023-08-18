@@ -13,13 +13,12 @@ class SettingPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authStateNotifierProvider);
-    final notifier = ref.read(authStateNotifierProvider.notifier);
+    final environment = ref.watch(environmentProvider);
+    final user = ref.watch(authStateNotifierProvider);
     final isLoading = useState(false);
     final version = useState('');
 
     useEffect(() {
-      final environment = ref.watch(environmentProvider);
       void f() async {
         version.value = await environment.getVersion();
       }
@@ -52,7 +51,7 @@ class SettingPage extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text('Name'),
-                        Text('${state?.name}'),
+                        Text('${user?.name}'),
                       ],
                     ),
                   ),
@@ -68,7 +67,7 @@ class SettingPage extends HookConsumerWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const Text('Email'),
-                        Text('${state?.email}'),
+                        Text('${user?.email}'),
                       ],
                     ),
                   ),
@@ -82,25 +81,45 @@ class SettingPage extends HookConsumerWidget {
                       leading: const Icon(Icons.logout, color: CoodigColors.error),
                       title: const Text('Sign out', style: TextStyle(color: CoodigColors.error)),
                       onTap: () async {
-                        // Show Dialog
-
-                        isLoading.value = true;
-                        await notifier.logout();
-                        isLoading.value = false;
-                        Get.off<dynamic>(const SplashScreen());
+                        final result = await showDialog<bool>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text('Sign out'),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: const <Widget>[
+                                    Text('Are you sure you want to sign out?'),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                    child: const Text('Cancel'), onPressed: () => Navigator.of(context).pop(false)),
+                                TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop(true)),
+                              ],
+                            );
+                          },
+                        );
+                        if (result != null && result) {
+                          isLoading.value = true;
+                          await ref.read(authStateNotifierProvider.notifier).logout();
+                          isLoading.value = false;
+                          Get.off<dynamic>(const SplashScreen());
+                        }
                       }),
                 ),
                 const Spacer(),
                 Container(
                   color: Colors.white,
-                  height: 55,
                   child: ListTile(
-                    leading: const Icon(Icons.perm_device_info, size: 22),
+                    dense: true,
+                    leading: const Icon(Icons.perm_device_info, size: 18),
                     title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        const Text('Version', style: TextStyle(color: CoodigColors.grey, fontSize: 14)),
+                        const Text('Version', style: TextStyle(color: CoodigColors.grey, fontSize: 12)),
                         Text(version.value, style: const TextStyle(color: CoodigColors.grey, fontSize: 11)),
                       ],
                     ),
