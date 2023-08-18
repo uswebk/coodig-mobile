@@ -1,5 +1,4 @@
 import 'package:coodig_mobile/config/color.dart';
-import 'package:coodig_mobile/exception/quiz_exception.dart';
 import 'package:coodig_mobile/feature/learning/provider/quiz_provider.dart';
 import 'package:coodig_mobile/feature/learning/widgets/choice_item.dart';
 import 'package:coodig_mobile/feature/learning/widgets/complete_message.dart';
@@ -34,14 +33,10 @@ class QuizPanel extends HookConsumerWidget {
 
     return state.when(
       loading: () => const CircularProgressIndicator(),
-      error: (e, stack) {
-        if (e is QuizNotFoundException) {
-          return const CompleteMessage();
-        }
-
-        return const ErrorMessage();
-      },
+      error: (e, stack) => const ErrorMessage(),
       data: (data) {
+        if (data == null) return const CompleteMessage();
+
         correctIds.value = data.choices.where((e) => e.isAnswer == true).map((e) => e.id).toList();
         quizId.value = data.id;
 
@@ -105,7 +100,7 @@ class QuizPanel extends HookConsumerWidget {
                                     sentenceColor: isSelected ? Colors.black87 : Colors.black54,
                                     sentenceWeight: isSelected ? FontWeight.bold : FontWeight.normal,
                                   ),
-                            (index + 1 == data.choices.length) ? const SizedBox(height: 120) : const SizedBox(),
+                            (index + 1 == data.choices.length) ? const SizedBox(height: 150) : const SizedBox(),
                           ],
                         );
                       },
