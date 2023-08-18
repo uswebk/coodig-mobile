@@ -37,7 +37,7 @@ class ChoiceItem extends HookConsumerWidget {
             children: [trailing ?? const SizedBox()],
           ),
           title: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            padding: const EdgeInsets.symmetric(vertical: 0.0),
             child: Text(
               sentence,
               style: TextStyle(fontSize: 14, color: sentenceColor, fontWeight: sentenceWeight),

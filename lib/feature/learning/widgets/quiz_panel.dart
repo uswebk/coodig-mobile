@@ -88,17 +88,17 @@ class QuizPanel extends HookConsumerWidget {
                                     cardBorderColor: isSelected
                                         ? (isCorrect ? Colors.green : Colors.red)
                                         : (isCorrect ? Colors.red : Colors.black12),
-                                    cardBorderWidth: isSelected ? 2 : 1,
+                                    cardBorderWidth: isCorrect ? 2 : 1,
                                     trailing: isSelected
                                         ? (isCorrect
                                             ? const Icon(Icons.check_circle, color: Colors.green)
-                                            : const Icon(Icons.cancel, color: Colors.redAccent))
+                                            : const Icon(Icons.check_circle, color: Colors.black12))
                                         : (isCorrect
                                             ? const Icon(Icons.check_circle, color: Colors.redAccent)
                                             : const Icon(Icons.circle_outlined, color: Colors.black12)),
                                     sentence: choice.sentence,
                                     sentenceColor: isSelected ? Colors.black87 : Colors.black54,
-                                    sentenceWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                    sentenceWeight: isCorrect ? FontWeight.bold : FontWeight.normal,
                                   ),
                             (index + 1 == data.choices.length) ? const SizedBox(height: 150) : const SizedBox(),
                           ],

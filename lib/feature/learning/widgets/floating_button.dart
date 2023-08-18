@@ -41,11 +41,11 @@ class FloatingButton extends HookConsumerWidget {
                     }
                   },
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(_text, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600)),
+                  Text(_text, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                   const SizedBox(width: 5),
                   Icon(_icon, size: 16),
                 ],
