@@ -19,11 +19,11 @@ class OtpPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final Uid uid = ref.watch(uidProvider);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await ref.read(otpTimerStateNotifierProvider.notifier).startTimer();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       if (userStatus == UserStatus.authenticated) {
+        final Uid uid = ref.watch(uidProvider);
         await uid.setToAnalytics();
         Get.off<dynamic>(const HomePage());
       }
