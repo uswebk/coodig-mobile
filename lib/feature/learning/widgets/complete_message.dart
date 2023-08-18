@@ -15,25 +15,32 @@ class CompleteMessage extends StatelessWidget {
           const SizedBox(),
           Column(
             children: const [
-              Icon(Icons.done_all_outlined, size: 42, color: CoodigColors.primary),
+              Icon(Icons.check_circle, size: 42, color: CoodigColors.primary),
               SizedBox(height: 20),
               Text('Congratulations 🎉\nCompleted all quizzes',
-                  style: TextStyle(fontSize: 24, color: Colors.blueGrey), textAlign: TextAlign.center),
+                  style: TextStyle(fontSize: 22, color: Colors.blueGrey), textAlign: TextAlign.center),
             ],
           ),
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 15),
+            margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 30),
             child: Row(
               children: [
                 Expanded(
                   child: SizedBox(
-                    height: 60,
+                    height: 50,
                     child: SizedBox(
                       child: ElevatedButton(
                           onPressed: () {
                             Get.offAll<dynamic>(const HomePage());
                           },
-                          child: const Text('Dashboard')),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.arrow_back, size: 18),
+                              SizedBox(width: 6),
+                              Text('Dashboard'),
+                            ],
+                          )),
                     ),
                   ),
                 ),
