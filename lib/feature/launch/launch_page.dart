@@ -31,19 +31,12 @@ class LaunchPage extends ConsumerWidget {
                     Column(children: const [
                       Text(
                         'Coodig',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 42,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 42, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 10),
                       Text(
                         'Quiz Application For Engineers',
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 16,
-                        ),
+                        style: TextStyle(color: Colors.white70, fontSize: 16),
                       ),
                     ]),
                     const SizedBox(height: 110),
@@ -55,11 +48,11 @@ class LaunchPage extends ConsumerWidget {
                           child: ElevatedButton(
                             onPressed: () {
                               if (userStatus == UserStatus.authenticated) {
-                                Get.off<dynamic>(const HomePage());
+                                Get.off<dynamic>(() => const HomePage());
                               } else if (userStatus == UserStatus.emailNotVerified) {
-                                Get.to<dynamic>(const OtpPage());
+                                Get.to<dynamic>(() => const OtpPage());
                               } else {
-                                Get.to<dynamic>(const SignupPage());
+                                Get.to<dynamic>(() => const SignupPage());
                               }
                             },
                             style: ElevatedButton.styleFrom(
@@ -79,9 +72,9 @@ class LaunchPage extends ConsumerWidget {
                           child: TextButton(
                             onPressed: () {
                               if (userStatus == UserStatus.authenticated) {
-                                Get.off<dynamic>(const HomePage());
+                                Get.off<dynamic>(() => const HomePage());
                               } else {
-                                Get.to<dynamic>(const LoginPage());
+                                Get.to<dynamic>(() => const LoginPage());
                               }
                             },
                             style: ElevatedButton.styleFrom(
