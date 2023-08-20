@@ -1,4 +1,5 @@
 import 'package:coodig_mobile/config/color.dart';
+import 'package:coodig_mobile/feature/launch/launch_page.dart';
 import 'package:coodig_mobile/feature/splash/provider/splash_provider.dart';
 import 'package:coodig_mobile/provider/uid_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,12 +11,13 @@ class SplashScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(screenProvider);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final state = ref.watch(screenProvider);
       if (state.hasValue) {
         final Uid uid = ref.watch(uidProvider);
         await uid.setToAnalytics();
-        Get.off<dynamic>(state.value);
+        final screen = state.value ?? const LaunchPage();
+        Get.off<dynamic>(() => screen);
       }
     });
 

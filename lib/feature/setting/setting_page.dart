@@ -105,7 +105,7 @@ class SettingPage extends HookConsumerWidget {
                           isLoading.value = true;
                           await ref.read(authStateNotifierProvider.notifier).logout();
                           isLoading.value = false;
-                          Get.off<dynamic>(const SplashScreen());
+                          Get.offAll<dynamic>(() => const SplashScreen());
                         }
                       }),
                 ),

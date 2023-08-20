@@ -38,7 +38,7 @@ class SignupPage extends HookConsumerWidget {
                 Icons.arrow_back_ios,
                 color: Colors.grey,
               ),
-              onPressed: () => Get.offAll<dynamic>(const LaunchPage())),
+              onPressed: () => Get.offAll<dynamic>(() => const LaunchPage())),
         ),
         body: SingleChildScrollView(
           child: Column(
