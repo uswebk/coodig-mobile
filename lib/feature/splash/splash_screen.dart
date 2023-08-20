@@ -18,7 +18,7 @@ class SplashScreen extends HookConsumerWidget {
       await uid.setToAnalytics();
       final UserStatus userStatus = ref.watch(userStatusProvider);
       Widget screen = await ref.watch(splashServiceProvider).getScreen(userStatus);
-      Get.off<dynamic>(screen);
+      Get.off<dynamic>(() => screen);
     });
 
     return Scaffold(

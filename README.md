@@ -14,6 +14,11 @@
 🚀 Backend: https://github.com/uswebk/coodig-api
 
 
+## Requirement 🎯
+* Dart SDK: 2.19.6
+* Flutter: 3.7.12
+* Firebase: 12.4.7
+
 ## Run App 🚗
 * IOS
 ```

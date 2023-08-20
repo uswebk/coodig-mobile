@@ -1,7 +1,9 @@
+import 'package:coodig_mobile/components/button/fill_button.dart';
 import 'package:coodig_mobile/components/form/email_text_field.dart';
 import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/greeting_box.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/enum/user_status.dart';
 import 'package:coodig_mobile/exception/api_validation_exception.dart';
 import 'package:coodig_mobile/feature/login/state/login_state_notifier.dart';
@@ -45,13 +47,12 @@ class LoginForm extends HookConsumerWidget {
                   SizedBox(
                     width: double.infinity,
                     height: 48,
-                    child: ElevatedButton(
+                    child: FillButton(
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
                           formKey.currentState!.save();
                           String email = emailController.text;
                           String password = passwordController.text;
-
                           notifier.setLoading(true);
                           try {
                             await ref.read(authStateNotifierProvider.notifier).login(email, password);
@@ -68,7 +69,8 @@ class LoginForm extends HookConsumerWidget {
                           }
                         }
                       },
-                      child: const Text('Login'),
+                      color: CoodigColors.buttonPrimary,
+                      text: 'Login',
                     ),
                   ),
                 ],

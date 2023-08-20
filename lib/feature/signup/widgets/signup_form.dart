@@ -1,8 +1,10 @@
+import 'package:coodig_mobile/components/button/fill_button.dart';
 import 'package:coodig_mobile/components/form/email_text_field.dart';
 import 'package:coodig_mobile/components/form/name_text_field.dart';
 import 'package:coodig_mobile/components/form/password_confirm_text_field.dart';
 import 'package:coodig_mobile/components/form/password_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
+import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/exception/api_validation_exception.dart';
 import 'package:coodig_mobile/feature/signup/state/signup_state_notifier.dart';
 import 'package:coodig_mobile/provider/auth_provider.dart';
@@ -40,35 +42,35 @@ class SignupForm extends HookConsumerWidget {
             SizedBox(
               width: double.infinity,
               height: 48,
-              child: ElevatedButton(
-                  onPressed: () async {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-                      String name = nameController.text;
-                      String email = emailController.text;
-                      String password = passwordController.text;
-                      String confirmPassword = confirmPasswordController.text;
-                      notifier.setLoading(true);
-                      await Future<dynamic>.delayed(const Duration(seconds: 1));
-                      try {
-                        await ref
-                            .read(authStateNotifierProvider.notifier)
-                            .signup(name, email, password, confirmPassword);
-                        Future.delayed(Duration.zero, () {
-                          Snackbar.showSuccess(context, 'Otp sent to your email address');
-                        });
-                      } on ApiValidationException catch (e) {
-                        errors.value = e.toMap();
-                      } catch (e) {
-                        Future.delayed(Duration.zero, () {
-                          Snackbar.showError(context, e.toString());
-                        });
-                      } finally {
-                        notifier.setLoading(false);
-                      }
+              child: FillButton(
+                onPressed: () async {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    String name = nameController.text;
+                    String email = emailController.text;
+                    String password = passwordController.text;
+                    String confirmPassword = confirmPasswordController.text;
+                    notifier.setLoading(true);
+                    await Future<dynamic>.delayed(const Duration(seconds: 1));
+                    try {
+                      await ref.read(authStateNotifierProvider.notifier).signup(name, email, password, confirmPassword);
+                      Future.delayed(Duration.zero, () {
+                        Snackbar.showSuccess(context, 'Otp sent to your email address');
+                      });
+                    } on ApiValidationException catch (e) {
+                      errors.value = e.toMap();
+                    } catch (e) {
+                      Future.delayed(Duration.zero, () {
+                        Snackbar.showError(context, e.toString());
+                      });
+                    } finally {
+                      notifier.setLoading(false);
                     }
-                  },
-                  child: const Text('Sign up')),
+                  }
+                },
+                color: CoodigColors.buttonPrimary,
+                text: 'Sign up',
+              ),
             ),
           ],
         ),

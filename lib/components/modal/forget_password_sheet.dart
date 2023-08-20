@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/components/button/fill_button.dart';
 import 'package:coodig_mobile/components/form/email_text_field.dart';
 import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/config/color.dart';
@@ -56,13 +57,11 @@ class ForgetPasswordSheet extends HookConsumerWidget {
                               SizedBox(
                                 width: double.infinity,
                                 height: 48,
-                                child: ElevatedButton(
+                                child: FillButton(
                                   onPressed: () async {
-                                    String email = emailController.text;
-
                                     isLoading.value = true;
                                     try {
-                                      await authService.sendResetPassword(email);
+                                      await authService.sendResetPassword(emailController.text);
                                       Future.delayed(Duration.zero, () {
                                         Snackbar.showSuccess(context, 'Sent Reset Password Link');
                                         Navigator.pop(context);
@@ -75,10 +74,8 @@ class ForgetPasswordSheet extends HookConsumerWidget {
                                     } finally {}
                                     if (isMounted()) isLoading.value = false;
                                   },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: CoodigColors.buttonPrimary,
-                                  ),
-                                  child: const Text('Send Email'),
+                                  color: CoodigColors.buttonPrimary,
+                                  text: 'Send Email',
                                 ),
                               ),
                             ],
