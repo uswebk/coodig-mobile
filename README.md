@@ -34,22 +34,23 @@ flutter run --dart-define=FLAVOR=DEVELOPMENT_ANDROID
 
 |splash|launch|signup|
 |--|---|---|
-|<img alt="splash" src="https://github.com/uswebk/coodig-mobile/assets/50518919/34ec4aa7-ed17-40b2-b93a-1145154dbc2a">|<img alt="coodig-icon" src="https://github.com/uswebk/coodig-mobile/assets/50518919/742f4430-3bf2-4c07-9cdf-f19769783602">|<img alt="signup" src="https://github.com/uswebk/coodig-mobile/assets/50518919/86aaf481-fc05-4256-87db-576c372fc104">|
+|<img alt="splash" src="https://github.com/uswebk/coodig-mobile/assets/50518919/34ec4aa7-ed17-40b2-b93a-1145154dbc2a">|<img alt="launch" src="https://github.com/uswebk/coodig-mobile/assets/50518919/742f4430-3bf2-4c07-9cdf-f19769783602">|<img alt="signup" src="https://github.com/uswebk/coodig-mobile/assets/50518919/71887ecf-9455-40ad-9ddd-05c4676e532c">|
 
-|otp verify|signin|reset|
+|otp verify|login|reset|
 |--|---|---|
-|<img alt="otp" src="https://github.com/uswebk/coodig-mobile/assets/50518919/d3cca11f-d81c-42a5-b367-e840ebb06a9f">|<img alt="otp" src="https://github.com/uswebk/coodig-mobile/assets/50518919/471c939c-a37d-448e-bbe9-0cdc812eeeeb">|<img alt="otp" src="https://github.com/uswebk/coodig-mobile/assets/50518919/fcbbe87b-3c6c-43cf-a356-c385f539f669">|
+|<img alt="otp" src="https://github.com/uswebk/coodig-mobile/assets/50518919/d3cca11f-d81c-42a5-b367-e840ebb06a9f">|<img alt="login" src="https://github.com/uswebk/coodig-mobile/assets/50518919/471c939c-a37d-448e-bbe9-0cdc812eeeeb">|<img alt="reset" src="https://github.com/uswebk/coodig-mobile/assets/50518919/fcbbe87b-3c6c-43cf-a356-c385f539f669">|
 
 |learing|answer|setting|
 |--|---|---|
 |<img alt="learing" src="https://github.com/uswebk/coodig-mobile/assets/50518919/72c55b60-ebc4-40a9-80f7-22edf858e82f">|<img alt="answer" src="https://github.com/uswebk/coodig-mobile/assets/50518919/a54dfd08-8299-405d-bd8b-3ea902969642">|<img alt="answer" src="https://github.com/uswebk/coodig-mobile/assets/50518919/b034bfe4-8cc1-45b4-9640-55d6f3eb7dcf">|
 
+
 ## Features 🎉
-<p align="center">
-  <b>Email Authentication</b><br>
-  <b>Biometrics Authentication</b><br>
-  <b>Send LogEvent to Firebase</b><br>
-  <b>Take random quizzes</b><br>
-  <b>View user Setting</b><br>
-  <b>View answer history</b><br>
+<p align="left">
+  <b>⚫︎Email Authentication</b><br>
+  <b>⚫︎Biometrics Authentication</b><br>
+  <b>⚫︎Send LogEvent to Firebase</b><br>
+  <b>⚫︎Take random quizzes</b><br>
+  <b>⚫︎View user Setting</b><br>
+  <b>⚫︎View answer history</b><br>
 </p>
