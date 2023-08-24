@@ -45,7 +45,7 @@ class QuizPanel extends HookConsumerWidget {
             children: [
               Column(
                 children: [
-                  Question(data.question),
+                  Question(data.question, data.tags),
                   const SizedBox(height: 10),
                   Expanded(
                     child: ListView.builder(

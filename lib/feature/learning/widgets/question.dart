@@ -1,14 +1,17 @@
 import 'package:coodig_mobile/config/color.dart';
+import 'package:coodig_mobile/model/quiz.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Question extends HookConsumerWidget {
   const Question(
-    this._text, {
+    this._text,
+    this._tags, {
     super.key,
   });
 
   final String _text;
+  final List<Tag> _tags;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -23,7 +26,7 @@ class Question extends HookConsumerWidget {
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 20, top: 30, right: 20),
+            padding: const EdgeInsets.only(left: 20, top: 30, right: 20, bottom: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
@@ -35,7 +38,7 @@ class Question extends HookConsumerWidget {
                 const SizedBox(height: 10),
                 Center(
                   child: Container(
-                    padding: const EdgeInsets.only(left: 5, bottom: 30, right: 5),
+                    padding: const EdgeInsets.only(left: 5, bottom: 10, right: 5),
                     constraints: const BoxConstraints(maxHeight: 200, minHeight: 150),
                     child: ListView(
                       shrinkWrap: true,
@@ -51,6 +54,21 @@ class Question extends HookConsumerWidget {
                     ),
                   ),
                 ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: _tags.map((tag) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                        child: Text(
+                          '# ${tag.name}',
+                          style: const TextStyle(fontSize: 10, color: Colors.white70),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                )
               ],
             ),
           ),
