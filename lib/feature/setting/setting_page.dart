@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/components/dialog.dart';
 import 'package:coodig_mobile/components/hud.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/core/environment.dart';
@@ -78,26 +79,42 @@ class SettingPage extends HookConsumerWidget {
                     color: Colors.white,
                   ),
                   child: ListTile(
+                    dense: true,
+                    leading: const Icon(Icons.perm_device_info, color: CoodigColors.grey),
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text('Version', style: TextStyle(color: CoodigColors.grey)),
+                        Text(version.value, style: const TextStyle(color: CoodigColors.grey)),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 15),
+                Container(
+                  decoration: const BoxDecoration(
+                    border: Border(bottom: BorderSide(color: Colors.black12, width: 0.5)),
+                    color: Colors.white,
+                  ),
+                  child: ListTile(
                       leading: const Icon(Icons.logout, color: CoodigColors.error),
                       title: const Text('Sign out', style: TextStyle(color: CoodigColors.error)),
                       onTap: () async {
                         final result = await showDialog<bool>(
                           context: context,
                           builder: (BuildContext context) {
-                            return AlertDialog(
+                            return ConfirmationDialog(
                               title: const Text('Sign out'),
-                              content: SingleChildScrollView(
+                              description: SingleChildScrollView(
                                 child: ListBody(
                                   children: const <Widget>[
                                     Text('Are you sure you want to sign out?'),
                                   ],
                                 ),
                               ),
-                              actions: <Widget>[
-                                TextButton(
-                                    child: const Text('Cancel'), onPressed: () => Navigator.of(context).pop(false)),
-                                TextButton(child: const Text('OK'), onPressed: () => Navigator.of(context).pop(true)),
-                              ],
+                              okText: const Text('OK'),
+                              ngText: const Text('Cancel'),
                             );
                           },
                         );
@@ -110,22 +127,6 @@ class SettingPage extends HookConsumerWidget {
                       }),
                 ),
                 const Spacer(),
-                Container(
-                  color: Colors.white,
-                  child: ListTile(
-                    dense: true,
-                    leading: const Icon(Icons.perm_device_info, size: 18),
-                    title: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text('Version', style: TextStyle(color: CoodigColors.grey, fontSize: 12)),
-                        Text(version.value, style: const TextStyle(color: CoodigColors.grey, fontSize: 11)),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 5),
               ],
             ),
           ),
