@@ -34,7 +34,7 @@ flutter run --dart-define=FLAVOR=DEVELOPMENT_ANDROID
 
 |splash|launch|signup|
 |--|---|---|
-|<img alt="splash" src="https://github.com/uswebk/coodig-mobile/assets/50518919/34ec4aa7-ed17-40b2-b93a-1145154dbc2a">|<img alt="launch" src="https://github.com/uswebk/coodig-mobile/assets/50518919/742f4430-3bf2-4c07-9cdf-f19769783602">|<img alt="signup" src="https://github.com/uswebk/coodig-mobile/assets/50518919/71887ecf-9455-40ad-9ddd-05c4676e532c">|
+|<img alt="splash" src="https://github.com/uswebk/coodig-mobile/assets/50518919/34ec4aa7-ed17-40b2-b93a-1145154dbc2a">|<img alt="launch" src="https://github.com/uswebk/coodig-mobile/assets/50518919/58947021-2c77-451e-82cb-3b908b9d2567">|<img alt="signup" src="https://github.com/uswebk/coodig-mobile/assets/50518919/71887ecf-9455-40ad-9ddd-05c4676e532c">|
 
 |otp verify|login|reset|
 |--|---|---|
@@ -42,7 +42,7 @@ flutter run --dart-define=FLAVOR=DEVELOPMENT_ANDROID
 
 |learing|answer|setting|
 |--|---|---|
-|<img alt="learing" src="https://github.com/uswebk/coodig-mobile/assets/50518919/72c55b60-ebc4-40a9-80f7-22edf858e82f">|<img alt="answer" src="https://github.com/uswebk/coodig-mobile/assets/50518919/a54dfd08-8299-405d-bd8b-3ea902969642">|<img alt="answer" src="https://github.com/uswebk/coodig-mobile/assets/50518919/b034bfe4-8cc1-45b4-9640-55d6f3eb7dcf">|
+|<img alt="learing" src="https://github.com/uswebk/coodig-mobile/assets/50518919/7cb367cd-d219-4953-a16f-5f4b002b5ffc">|<img alt="answer" src="https://github.com/uswebk/coodig-mobile/assets/50518919/13445fe6-a98e-472a-bafc-a2f8165cd75f">|<img alt="setting" src="https://github.com/uswebk/coodig-mobile/assets/50518919/92ecb080-2273-439d-b849-09f4d56796b0">|
 
 
 ## Features 🎉
