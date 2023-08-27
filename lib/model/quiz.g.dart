@@ -68,6 +68,9 @@ _$_QuizAnswer _$$_QuizAnswerFromJson(Map<String, dynamic> json) =>
     _$_QuizAnswer(
       id: json['id'] as int,
       question: json['question'] as String,
+      answerChoices: (json['answer_choices'] as List<dynamic>)
+          .map((e) => QuizAnswerChoice.fromJson(e as Map<String, dynamic>))
+          .toList(),
       isCorrect: json['is_correct'] as bool,
       createdAt: DateTime.parse(json['created_at'] as String),
       updatedAt: DateTime.parse(json['updated_at'] as String),
@@ -77,6 +80,7 @@ Map<String, dynamic> _$$_QuizAnswerToJson(_$_QuizAnswer instance) =>
     <String, dynamic>{
       'id': instance.id,
       'question': instance.question,
+      'answer_choices': instance.answerChoices,
       'is_correct': instance.isCorrect,
       'created_at': instance.createdAt.toIso8601String(),
       'updated_at': instance.updatedAt.toIso8601String(),

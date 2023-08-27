@@ -51,6 +51,7 @@ class QuizAnswer with _$QuizAnswer {
   const factory QuizAnswer({
     @JsonKey(name: 'id') required int id,
     @JsonKey(name: 'question') required String question,
+    @JsonKey(name: 'answer_choices') required List<QuizAnswerChoice> answerChoices,
     @JsonKey(name: 'is_correct') required bool isCorrect,
     @JsonKey(name: 'created_at') required DateTime createdAt,
     @JsonKey(name: 'updated_at') required DateTime updatedAt,

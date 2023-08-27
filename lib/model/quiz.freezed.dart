@@ -821,6 +821,9 @@ mixin _$QuizAnswer {
   int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'question')
   String get question => throw _privateConstructorUsedError;
+  @JsonKey(name: 'answer_choices')
+  List<QuizAnswerChoice> get answerChoices =>
+      throw _privateConstructorUsedError;
   @JsonKey(name: 'is_correct')
   bool get isCorrect => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -843,6 +846,7 @@ abstract class $QuizAnswerCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'question') String question,
+      @JsonKey(name: 'answer_choices') List<QuizAnswerChoice> answerChoices,
       @JsonKey(name: 'is_correct') bool isCorrect,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
@@ -863,6 +867,7 @@ class _$QuizAnswerCopyWithImpl<$Res, $Val extends QuizAnswer>
   $Res call({
     Object? id = null,
     Object? question = null,
+    Object? answerChoices = null,
     Object? isCorrect = null,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -876,6 +881,10 @@ class _$QuizAnswerCopyWithImpl<$Res, $Val extends QuizAnswer>
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
               as String,
+      answerChoices: null == answerChoices
+          ? _value.answerChoices
+          : answerChoices // ignore: cast_nullable_to_non_nullable
+              as List<QuizAnswerChoice>,
       isCorrect: null == isCorrect
           ? _value.isCorrect
           : isCorrect // ignore: cast_nullable_to_non_nullable
@@ -903,6 +912,7 @@ abstract class _$$_QuizAnswerCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'question') String question,
+      @JsonKey(name: 'answer_choices') List<QuizAnswerChoice> answerChoices,
       @JsonKey(name: 'is_correct') bool isCorrect,
       @JsonKey(name: 'created_at') DateTime createdAt,
       @JsonKey(name: 'updated_at') DateTime updatedAt});
@@ -921,6 +931,7 @@ class __$$_QuizAnswerCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? question = null,
+    Object? answerChoices = null,
     Object? isCorrect = null,
     Object? createdAt = null,
     Object? updatedAt = null,
@@ -934,6 +945,10 @@ class __$$_QuizAnswerCopyWithImpl<$Res>
           ? _value.question
           : question // ignore: cast_nullable_to_non_nullable
               as String,
+      answerChoices: null == answerChoices
+          ? _value._answerChoices
+          : answerChoices // ignore: cast_nullable_to_non_nullable
+              as List<QuizAnswerChoice>,
       isCorrect: null == isCorrect
           ? _value.isCorrect
           : isCorrect // ignore: cast_nullable_to_non_nullable
@@ -956,9 +971,12 @@ class _$_QuizAnswer implements _QuizAnswer {
   const _$_QuizAnswer(
       {@JsonKey(name: 'id') required this.id,
       @JsonKey(name: 'question') required this.question,
+      @JsonKey(name: 'answer_choices')
+      required final List<QuizAnswerChoice> answerChoices,
       @JsonKey(name: 'is_correct') required this.isCorrect,
       @JsonKey(name: 'created_at') required this.createdAt,
-      @JsonKey(name: 'updated_at') required this.updatedAt});
+      @JsonKey(name: 'updated_at') required this.updatedAt})
+      : _answerChoices = answerChoices;
 
   factory _$_QuizAnswer.fromJson(Map<String, dynamic> json) =>
       _$$_QuizAnswerFromJson(json);
@@ -969,6 +987,15 @@ class _$_QuizAnswer implements _QuizAnswer {
   @override
   @JsonKey(name: 'question')
   final String question;
+  final List<QuizAnswerChoice> _answerChoices;
+  @override
+  @JsonKey(name: 'answer_choices')
+  List<QuizAnswerChoice> get answerChoices {
+    if (_answerChoices is EqualUnmodifiableListView) return _answerChoices;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_answerChoices);
+  }
+
   @override
   @JsonKey(name: 'is_correct')
   final bool isCorrect;
@@ -981,7 +1008,7 @@ class _$_QuizAnswer implements _QuizAnswer {
 
   @override
   String toString() {
-    return 'QuizAnswer(id: $id, question: $question, isCorrect: $isCorrect, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'QuizAnswer(id: $id, question: $question, answerChoices: $answerChoices, isCorrect: $isCorrect, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -992,6 +1019,8 @@ class _$_QuizAnswer implements _QuizAnswer {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.question, question) ||
                 other.question == question) &&
+            const DeepCollectionEquality()
+                .equals(other._answerChoices, _answerChoices) &&
             (identical(other.isCorrect, isCorrect) ||
                 other.isCorrect == isCorrect) &&
             (identical(other.createdAt, createdAt) ||
@@ -1002,8 +1031,14 @@ class _$_QuizAnswer implements _QuizAnswer {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, question, isCorrect, createdAt, updatedAt);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      question,
+      const DeepCollectionEquality().hash(_answerChoices),
+      isCorrect,
+      createdAt,
+      updatedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -1023,6 +1058,8 @@ abstract class _QuizAnswer implements QuizAnswer {
   const factory _QuizAnswer(
           {@JsonKey(name: 'id') required final int id,
           @JsonKey(name: 'question') required final String question,
+          @JsonKey(name: 'answer_choices')
+          required final List<QuizAnswerChoice> answerChoices,
           @JsonKey(name: 'is_correct') required final bool isCorrect,
           @JsonKey(name: 'created_at') required final DateTime createdAt,
           @JsonKey(name: 'updated_at') required final DateTime updatedAt}) =
@@ -1037,6 +1074,9 @@ abstract class _QuizAnswer implements QuizAnswer {
   @override
   @JsonKey(name: 'question')
   String get question;
+  @override
+  @JsonKey(name: 'answer_choices')
+  List<QuizAnswerChoice> get answerChoices;
   @override
   @JsonKey(name: 'is_correct')
   bool get isCorrect;
