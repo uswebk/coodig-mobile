@@ -22,4 +22,8 @@ class QuizRepository {
   Future<http.Response> history(String accessToken) async {
     return await _httpClient.get('/api/v1/quizzes/answers/', {}, accessToken);
   }
+
+  Future<http.Response> answerStats(String accessToken) async {
+    return await _httpClient.get('/api/v1/quizzes/answers/stats/', {}, accessToken);
+  }
 }

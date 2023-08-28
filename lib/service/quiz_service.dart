@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:coodig_mobile/model/answer_stats.dart';
 import 'package:coodig_mobile/model/quiz.dart';
 import 'package:coodig_mobile/repository/quiz_repository.dart';
 import 'package:coodig_mobile/service/auth_service.dart';
@@ -104,5 +105,29 @@ class QuizService {
     }
 
     return [];
+  }
+
+  Future<AnswerStats> answerStats() async {
+    String accessToken = await _secureStorageService.getAccessToken();
+    final response = await _quizRepository.answerStats(accessToken);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> json = Map<String, dynamic>.from(jsonDecode(response.body) as Map<dynamic, dynamic>);
+      return AnswerStats.fromJson(json);
+    }
+
+    if (response.statusCode == 401) {
+      await _authService.refresh();
+      String accessToken = await _secureStorageService.getAccessToken();
+      final retryResponse = await _quizRepository.history(accessToken);
+
+      if (retryResponse.statusCode == 200) {
+        final Map<String, dynamic> json =
+            Map<String, dynamic>.from(jsonDecode(retryResponse.body) as Map<dynamic, dynamic>);
+        return AnswerStats.fromJson(json);
+      }
+    }
+
+    return const AnswerStats(answerCount: 0, correctCount: 0);
   }
 }
