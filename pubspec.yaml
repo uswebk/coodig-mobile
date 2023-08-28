@@ -36,6 +36,7 @@ dependencies:
   firebase_core: ^2.15.0
   firebase_analytics: ^10.4.4
   package_info_plus: ^4.1.0
+  percent_indicator: ^4.2.3
 
 dev_dependencies:
   flutter_test:
