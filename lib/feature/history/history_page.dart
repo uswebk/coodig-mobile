@@ -16,7 +16,15 @@ class HistoryPage extends HookConsumerWidget {
           appBar: AppBar(),
           body: Column(
             children: [
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
+              Container(
+                alignment: AlignmentDirectional.centerStart,
+                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                child: const Text(
+                  'History',
+                  style: TextStyle(color: CoodigColors.grey, fontSize: 30, fontWeight: FontWeight.w800),
+                ),
+              ),
               const Divider(),
               Expanded(
                 child: state.when(
@@ -33,6 +41,7 @@ class HistoryPage extends HookConsumerWidget {
                               leading: Icon(
                                 data[index].isCorrect ? Icons.check_circle : Icons.cancel,
                                 color: data[index].isCorrect ? Colors.green : CoodigColors.error,
+                                size: 18,
                               ),
                               title: Padding(
                                 padding: const EdgeInsets.symmetric(vertical: 8.0),
@@ -40,7 +49,7 @@ class HistoryPage extends HookConsumerWidget {
                                   data[index].question.toString(),
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(fontSize: 16),
+                                  style: const TextStyle(fontSize: 12),
                                 ),
                               ),
                               subtitle: Padding(
@@ -48,7 +57,9 @@ class HistoryPage extends HookConsumerWidget {
                                 child: Align(
                                     alignment: Alignment.bottomRight,
                                     child: Text(
-                                        'answer date:${data[index].createdAt.year}/${data[index].createdAt.month}/${data[index].createdAt.day}')),
+                                      'answer date:${data[index].createdAt.year}/${data[index].createdAt.month}/${data[index].createdAt.day}',
+                                      style: const TextStyle(fontSize: 11),
+                                    )),
                               ),
                               onTap: () {
                                 // show detail bottom sheet
