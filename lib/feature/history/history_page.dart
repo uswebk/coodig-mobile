@@ -11,21 +11,26 @@ class HistoryPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(historyFutureProvider);
 
-    return SafeArea(
-      child: Scaffold(
-          appBar: AppBar(),
-          body: Column(
+    return Scaffold(
+        backgroundColor: CoodigColors.background,
+        body: SafeArea(
+          child: Column(
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
               Container(
                 alignment: AlignmentDirectional.centerStart,
-                padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                child: const Text(
-                  'History',
-                  style: TextStyle(color: CoodigColors.grey, fontSize: 30, fontWeight: FontWeight.w800),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+                child: Row(
+                  children: const [
+                    Icon(Icons.history, size: 30, color: CoodigColors.grey),
+                    SizedBox(width: 10),
+                    Text(
+                      'History',
+                      style: TextStyle(color: CoodigColors.grey, fontSize: 30, fontWeight: FontWeight.w800),
+                    ),
+                  ],
                 ),
               ),
-              const Divider(),
               Expanded(
                 child: state.when(
                   data: (data) {
@@ -35,6 +40,7 @@ class HistoryPage extends HookConsumerWidget {
                         children: [
                           Container(
                             decoration: const BoxDecoration(
+                              color: Colors.white70,
                               border: Border(bottom: BorderSide(color: Colors.black12, width: 0.5)),
                             ),
                             child: ListTile(
@@ -75,7 +81,7 @@ class HistoryPage extends HookConsumerWidget {
                 ),
               ),
             ],
-          )),
-    );
+          ),
+        ));
   }
 }
