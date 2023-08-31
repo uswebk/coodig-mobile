@@ -20,10 +20,16 @@ AnswerStats _$AnswerStatsFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$AnswerStats {
-  @JsonKey(name: 'quiz_count')
+  @JsonKey(name: 'quiz_count', defaultValue: 0)
   int get answerCount => throw _privateConstructorUsedError;
-  @JsonKey(name: 'correct_count')
+  @JsonKey(name: 'correct_count', defaultValue: 0)
   int get correctCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'today_answer_count', defaultValue: 0)
+  int get todayAnswerCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'today_correct_count', defaultValue: 0)
+  int get todayCorrectCount => throw _privateConstructorUsedError;
+  @JsonKey(name: 'total', defaultValue: 0)
+  int get total => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,8 +44,13 @@ abstract class $AnswerStatsCopyWith<$Res> {
       _$AnswerStatsCopyWithImpl<$Res, AnswerStats>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'quiz_count') int answerCount,
-      @JsonKey(name: 'correct_count') int correctCount});
+      {@JsonKey(name: 'quiz_count', defaultValue: 0) int answerCount,
+      @JsonKey(name: 'correct_count', defaultValue: 0) int correctCount,
+      @JsonKey(name: 'today_answer_count', defaultValue: 0)
+      int todayAnswerCount,
+      @JsonKey(name: 'today_correct_count', defaultValue: 0)
+      int todayCorrectCount,
+      @JsonKey(name: 'total', defaultValue: 0) int total});
 }
 
 /// @nodoc
@@ -57,6 +68,9 @@ class _$AnswerStatsCopyWithImpl<$Res, $Val extends AnswerStats>
   $Res call({
     Object? answerCount = null,
     Object? correctCount = null,
+    Object? todayAnswerCount = null,
+    Object? todayCorrectCount = null,
+    Object? total = null,
   }) {
     return _then(_value.copyWith(
       answerCount: null == answerCount
@@ -66,6 +80,18 @@ class _$AnswerStatsCopyWithImpl<$Res, $Val extends AnswerStats>
       correctCount: null == correctCount
           ? _value.correctCount
           : correctCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      todayAnswerCount: null == todayAnswerCount
+          ? _value.todayAnswerCount
+          : todayAnswerCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      todayCorrectCount: null == todayCorrectCount
+          ? _value.todayCorrectCount
+          : todayCorrectCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
               as int,
     ) as $Val);
   }
@@ -80,8 +106,13 @@ abstract class _$$_AnswerStatsCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'quiz_count') int answerCount,
-      @JsonKey(name: 'correct_count') int correctCount});
+      {@JsonKey(name: 'quiz_count', defaultValue: 0) int answerCount,
+      @JsonKey(name: 'correct_count', defaultValue: 0) int correctCount,
+      @JsonKey(name: 'today_answer_count', defaultValue: 0)
+      int todayAnswerCount,
+      @JsonKey(name: 'today_correct_count', defaultValue: 0)
+      int todayCorrectCount,
+      @JsonKey(name: 'total', defaultValue: 0) int total});
 }
 
 /// @nodoc
@@ -97,6 +128,9 @@ class __$$_AnswerStatsCopyWithImpl<$Res>
   $Res call({
     Object? answerCount = null,
     Object? correctCount = null,
+    Object? todayAnswerCount = null,
+    Object? todayCorrectCount = null,
+    Object? total = null,
   }) {
     return _then(_$_AnswerStats(
       answerCount: null == answerCount
@@ -107,6 +141,18 @@ class __$$_AnswerStatsCopyWithImpl<$Res>
           ? _value.correctCount
           : correctCount // ignore: cast_nullable_to_non_nullable
               as int,
+      todayAnswerCount: null == todayAnswerCount
+          ? _value.todayAnswerCount
+          : todayAnswerCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      todayCorrectCount: null == todayCorrectCount
+          ? _value.todayCorrectCount
+          : todayCorrectCount // ignore: cast_nullable_to_non_nullable
+              as int,
+      total: null == total
+          ? _value.total
+          : total // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -115,22 +161,36 @@ class __$$_AnswerStatsCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_AnswerStats implements _AnswerStats {
   const _$_AnswerStats(
-      {@JsonKey(name: 'quiz_count') required this.answerCount,
-      @JsonKey(name: 'correct_count') required this.correctCount});
+      {@JsonKey(name: 'quiz_count', defaultValue: 0) this.answerCount = 0,
+      @JsonKey(name: 'correct_count', defaultValue: 0) this.correctCount = 0,
+      @JsonKey(name: 'today_answer_count', defaultValue: 0)
+      this.todayAnswerCount = 0,
+      @JsonKey(name: 'today_correct_count', defaultValue: 0)
+      this.todayCorrectCount = 0,
+      @JsonKey(name: 'total', defaultValue: 0) this.total = 0});
 
   factory _$_AnswerStats.fromJson(Map<String, dynamic> json) =>
       _$$_AnswerStatsFromJson(json);
 
   @override
-  @JsonKey(name: 'quiz_count')
+  @JsonKey(name: 'quiz_count', defaultValue: 0)
   final int answerCount;
   @override
-  @JsonKey(name: 'correct_count')
+  @JsonKey(name: 'correct_count', defaultValue: 0)
   final int correctCount;
+  @override
+  @JsonKey(name: 'today_answer_count', defaultValue: 0)
+  final int todayAnswerCount;
+  @override
+  @JsonKey(name: 'today_correct_count', defaultValue: 0)
+  final int todayCorrectCount;
+  @override
+  @JsonKey(name: 'total', defaultValue: 0)
+  final int total;
 
   @override
   String toString() {
-    return 'AnswerStats(answerCount: $answerCount, correctCount: $correctCount)';
+    return 'AnswerStats(answerCount: $answerCount, correctCount: $correctCount, todayAnswerCount: $todayAnswerCount, todayCorrectCount: $todayCorrectCount, total: $total)';
   }
 
   @override
@@ -141,12 +201,18 @@ class _$_AnswerStats implements _AnswerStats {
             (identical(other.answerCount, answerCount) ||
                 other.answerCount == answerCount) &&
             (identical(other.correctCount, correctCount) ||
-                other.correctCount == correctCount));
+                other.correctCount == correctCount) &&
+            (identical(other.todayAnswerCount, todayAnswerCount) ||
+                other.todayAnswerCount == todayAnswerCount) &&
+            (identical(other.todayCorrectCount, todayCorrectCount) ||
+                other.todayCorrectCount == todayCorrectCount) &&
+            (identical(other.total, total) || other.total == total));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, answerCount, correctCount);
+  int get hashCode => Object.hash(runtimeType, answerCount, correctCount,
+      todayAnswerCount, todayCorrectCount, total);
 
   @JsonKey(ignore: true)
   @override
@@ -164,19 +230,33 @@ class _$_AnswerStats implements _AnswerStats {
 
 abstract class _AnswerStats implements AnswerStats {
   const factory _AnswerStats(
-          {@JsonKey(name: 'quiz_count') required final int answerCount,
-          @JsonKey(name: 'correct_count') required final int correctCount}) =
-      _$_AnswerStats;
+      {@JsonKey(name: 'quiz_count', defaultValue: 0) final int answerCount,
+      @JsonKey(name: 'correct_count', defaultValue: 0) final int correctCount,
+      @JsonKey(name: 'today_answer_count', defaultValue: 0)
+      final int todayAnswerCount,
+      @JsonKey(name: 'today_correct_count', defaultValue: 0)
+      final int todayCorrectCount,
+      @JsonKey(name: 'total', defaultValue: 0)
+      final int total}) = _$_AnswerStats;
 
   factory _AnswerStats.fromJson(Map<String, dynamic> json) =
       _$_AnswerStats.fromJson;
 
   @override
-  @JsonKey(name: 'quiz_count')
+  @JsonKey(name: 'quiz_count', defaultValue: 0)
   int get answerCount;
   @override
-  @JsonKey(name: 'correct_count')
+  @JsonKey(name: 'correct_count', defaultValue: 0)
   int get correctCount;
+  @override
+  @JsonKey(name: 'today_answer_count', defaultValue: 0)
+  int get todayAnswerCount;
+  @override
+  @JsonKey(name: 'today_correct_count', defaultValue: 0)
+  int get todayCorrectCount;
+  @override
+  @JsonKey(name: 'total', defaultValue: 0)
+  int get total;
   @override
   @JsonKey(ignore: true)
   _$$_AnswerStatsCopyWith<_$_AnswerStats> get copyWith =>

@@ -128,6 +128,6 @@ class QuizService {
       }
     }
 
-    return const AnswerStats(answerCount: 0, correctCount: 0);
+    return const AnswerStats();
   }
 }
