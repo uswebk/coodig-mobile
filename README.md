@@ -46,14 +46,15 @@ flutter run --dart-define=FLAVOR=DEVELOPMENT_ANDROID
 
 |dashboard|history|setting|
 |--|---|---|
-|<img alt="dashboard" src="https://github.com/uswebk/coodig-mobile/assets/50518919/417aa06f-604a-437f-8ff7-bcd21d988edb">|<img alt="answer" src="https://github.com/uswebk/coodig-mobile/assets/50518919/42463a58-4e9b-476c-93ff-da6d096136f6">|<img alt="setting" src="https://github.com/uswebk/coodig-mobile/assets/50518919/92ecb080-2273-439d-b849-09f4d56796b0">|
+|<img alt="dashboard" src="https://github.com/uswebk/coodig-mobile/assets/50518919/417aa06f-604a-437f-8ff7-bcd21d988edb">|<img alt="history" src="https://github.com/uswebk/coodig-mobile/assets/50518919/45157db8-1cdc-49c3-81db-d84261056a0d">|<img alt="setting" src="https://github.com/uswebk/coodig-mobile/assets/50518919/92ecb080-2273-439d-b849-09f4d56796b0">|
 
 ## Features 🎉
 <p align="left">
-  <b>⚫︎Email Authentication</b><br>
-  <b>⚫︎Biometrics Authentication</b><br>
-  <b>⚫︎Send LogEvent to Firebase</b><br>
-  <b>⚫︎Take random quizzes</b><br>
-  <b>⚫︎View user Setting</b><br>
-  <b>⚫︎View answer history</b><br>
+  <b>✉️ Email Authentication</b><br>
+  <b>👁️Biometrics Authentication</b><br>
+  <b>🔥Send LogEvent to Firebase</b><br>
+  <b>🎲Take random quizzes</b><br>
+  <b>⚙️View user Setting</b><br>
+  <b>👣View answer history</b><br>
+  <b>📊answer stats</b><br>
 </p>
