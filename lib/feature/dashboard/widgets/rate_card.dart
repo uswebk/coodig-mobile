@@ -31,10 +31,8 @@ class RateCard extends HookConsumerWidget {
                   progressColor: Colors.blueAccent,
                   circularStrokeCap: CircularStrokeCap.round,
                   backgroundColor: Colors.black12,
-                  center: Text(
-                    percentLabel,
-                    style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 22),
-                  ),
+                  center: Text(percentLabel,
+                      style: const TextStyle(color: Colors.grey, fontWeight: FontWeight.w600, fontSize: 22)),
                   header: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 10.0),
                     child: Row(

@@ -15,12 +15,11 @@ class TodayStats extends HookConsumerWidget {
     return Column(
       children: [
         Container(
-          padding: const EdgeInsets.only(left: 10, bottom: 40),
+          padding: const EdgeInsets.only(left: 10, bottom: 20),
           child: Row(
             children: const [
-              Icon(Icons.bar_chart, size: 30, color: CoodigColors.grey),
-              Text('Today Stats',
-                  style: TextStyle(color: CoodigColors.grey, fontSize: 24, fontWeight: FontWeight.w600)),
+              Icon(Icons.area_chart_rounded, size: 24, color: CoodigColors.grey),
+              Text('Today', style: TextStyle(color: CoodigColors.grey, fontSize: 22, fontWeight: FontWeight.w600)),
             ],
           ),
         ),
@@ -32,27 +31,39 @@ class TodayStats extends HookConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Expanded(
-                      child: Column(
-                        children: [
-                          const Text('Answer', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-                          const SizedBox(height: 10),
-                          Text(
-                            data.todayAnswerCount.toString(),
-                            style: const TextStyle(color: Colors.black54, fontSize: 60, fontWeight: FontWeight.w600),
+                      child: Card(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            children: [
+                              const Text('Answer', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                              const SizedBox(height: 10),
+                              Text(data.todayAnswerCount.toString(),
+                                  style: const TextStyle(
+                                      color: Colors.blueGrey, fontSize: 50, fontWeight: FontWeight.w600)),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                     Expanded(
-                      child: Column(
-                        children: [
-                          const Text('Correct', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
-                          const SizedBox(height: 10),
-                          Text(
-                            data.todayCorrectCount.toString(),
-                            style: const TextStyle(color: Colors.black54, fontSize: 60, fontWeight: FontWeight.w600),
+                      child: Card(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                        child: Padding(
+                          padding: const EdgeInsets.all(20.0),
+                          child: Column(
+                            children: [
+                              const Text('Correct', style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                              const SizedBox(height: 10),
+                              Text(
+                                data.todayCorrectCount.toString(),
+                                style:
+                                    const TextStyle(color: Colors.blueGrey, fontSize: 50, fontWeight: FontWeight.w600),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
                   ],

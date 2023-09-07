@@ -37,7 +37,7 @@ class DashboardPage extends ConsumerWidget {
                     Padding(padding: const EdgeInsets.only(bottom: 20), child: RateCard(stats: state)),
                     Padding(padding: const EdgeInsets.symmetric(vertical: 20.0), child: TotalStats(stats: state)),
                     Padding(padding: const EdgeInsets.symmetric(vertical: 20.0), child: TodayStats(stats: state)),
-                    const Padding(padding: EdgeInsets.symmetric(vertical: 100))
+                    const Padding(padding: EdgeInsets.symmetric(vertical: 50))
                   ],
                 ),
               ),
