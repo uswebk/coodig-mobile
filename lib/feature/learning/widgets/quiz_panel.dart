@@ -6,6 +6,7 @@ import 'package:coodig_mobile/feature/learning/widgets/error_message.dart';
 import 'package:coodig_mobile/feature/learning/widgets/floating_button.dart';
 import 'package:coodig_mobile/feature/learning/widgets/question.dart';
 import 'package:coodig_mobile/model/quiz.dart';
+import 'package:coodig_mobile/provider/answered_quiz.dart';
 import 'package:coodig_mobile/provider/quiz_provider.dart';
 import 'package:coodig_mobile/service/quiz_service.dart';
 import 'package:flutter/material.dart';
@@ -119,8 +120,9 @@ class QuizPanel extends HookConsumerWidget {
                               List<int> answerIds = selectedChoices.value;
                               bool isCorrect = quizService.isCorrectQuiz(correctIds.value, answerIds);
                               QuizAnswer? result = await quizService.answer(quizId.value as int, answerIds, isCorrect);
-
                               isCorrectAnswer.value = result.isCorrect;
+                              // store answered
+                              ref.read(answeredQuizNotifierProvider.notifier).answer(data);
                             } catch (e) {
                               debugPrint(e.toString());
                             } finally {
