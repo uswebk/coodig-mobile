@@ -13,6 +13,6 @@ class CoodigColors {
   static const Color correctCard = Color(0xFFE6FFEC);
   static const Color incorrectCard = Color(0xFFFFE6E9);
   static const Color questionCard = Color(0xFF202F55);
-  static const Color success = Color(0xFF83DC96);
+  static const Color success = Color(0xFF65B776);
   static const Color error = Color(0xFFF87B72);
 }
