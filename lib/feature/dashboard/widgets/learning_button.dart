@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/core/analytics.dart';
 import 'package:coodig_mobile/feature/learning/learning_page.dart';
 import 'package:coodig_mobile/provider/quiz_provider.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,13 @@ class LearningButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final analytics = ref.watch(firebaseAnalyticsProvider);
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       child: FloatingActionButton.extended(
         onPressed: () async {
           await ref.read(quizStateNotifierProvider.notifier).random(1);
+          analytics.logEvent(name: 'start_learning');
           Get.to<dynamic>(() => const LearningPage());
         },
         label: Row(
