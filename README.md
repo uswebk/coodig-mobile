@@ -40,13 +40,14 @@ flutter run --dart-define=FLAVOR=DEVELOPMENT_ANDROID
 |--|---|---|
 |<img alt="otp" src="https://github.com/uswebk/coodig-mobile/assets/50518919/d3cca11f-d81c-42a5-b367-e840ebb06a9f">|<img alt="login" src="https://github.com/uswebk/coodig-mobile/assets/50518919/471c939c-a37d-448e-bbe9-0cdc812eeeeb">|<img alt="reset" src="https://github.com/uswebk/coodig-mobile/assets/50518919/fcbbe87b-3c6c-43cf-a356-c385f539f669">|
 
-|learing|answer|complete|
+|dashboard|answer|complete|
 |--|---|---|
-|<img alt="learing" src="https://github.com/uswebk/coodig-mobile/assets/50518919/7cb367cd-d219-4953-a16f-5f4b002b5ffc">|<img alt="answer" src="https://github.com/uswebk/coodig-mobile/assets/50518919/13445fe6-a98e-472a-bafc-a2f8165cd75f">|<img alt="setting" src="https://github.com/uswebk/coodig-mobile/assets/50518919/5bf31b97-e342-46e7-8016-5502937cfcc0">|
+|<img alt="learing" src="https://github.com/uswebk/coodig-mobile/assets/50518919/417aa06f-604a-437f-8ff7-bcd21d988edb">|<img alt="answer" src="https://github.com/uswebk/coodig-mobile/assets/50518919/13445fe6-a98e-472a-bafc-a2f8165cd75f">|<img alt="setting" src="https://github.com/uswebk/coodig-mobile/assets/50518919/5bf31b97-e342-46e7-8016-5502937cfcc0">|
 
-|dashboard|history|setting|
+|history|detail|setting|
 |--|---|---|
-|<img alt="dashboard" src="https://github.com/uswebk/coodig-mobile/assets/50518919/417aa06f-604a-437f-8ff7-bcd21d988edb">|<img alt="history" src="https://github.com/uswebk/coodig-mobile/assets/50518919/45157db8-1cdc-49c3-81db-d84261056a0d">|<img alt="setting" src="https://github.com/uswebk/coodig-mobile/assets/50518919/92ecb080-2273-439d-b849-09f4d56796b0">|
+|<img alt="dashboard" src="https://github.com/uswebk/coodig-mobile/assets/50518919/45157db8-1cdc-49c3-81db-d84261056a0d">|<img alt="detail" src="https://github.com/uswebk/coodig-mobile/assets/50518919/5cd5a5dc-7d4c-4a5b-8e17-b112ca24bc4d">|<img alt="setting" src="https://github.com/uswebk/coodig-mobile/assets/50518919/92ecb080-2273-439d-b849-09f4d56796b0">|
+
 
 ## Features 🎉
 <p align="left">
