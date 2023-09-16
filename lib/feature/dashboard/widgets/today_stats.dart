@@ -18,7 +18,6 @@ class TodayStats extends HookConsumerWidget {
           padding: const EdgeInsets.only(left: 10, bottom: 20),
           child: Row(
             children: const [
-              Icon(Icons.area_chart_rounded, size: 24, color: CoodigColors.grey),
               Text('Today', style: TextStyle(color: CoodigColors.grey, fontSize: 22, fontWeight: FontWeight.w600)),
             ],
           ),
