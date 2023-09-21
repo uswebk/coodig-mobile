@@ -14,9 +14,9 @@ class QuizRepository {
   }
 
   Future<http.Response> answer(int quizId, List<int> choiceIds, bool isCorrect, String accessToken) async {
-    Map<String, dynamic> body = <String, dynamic>{'is_correct': isCorrect, 'choices': choiceIds};
+    Map<String, dynamic> body = <String, dynamic>{'quiz_id': quizId, 'is_correct': isCorrect, 'choices': choiceIds};
 
-    return await _httpClient.post('/api/v1/quizzes/$quizId/answer/', body, accessToken);
+    return await _httpClient.post('/api/v1/quizzes/answers/', body, accessToken);
   }
 
   Future<http.Response> history(String accessToken) async {
