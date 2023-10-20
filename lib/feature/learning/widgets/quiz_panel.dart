@@ -1,3 +1,4 @@
+import 'package:coodig_mobile/components/snackbar.dart';
 import 'package:coodig_mobile/config/color.dart';
 import 'package:coodig_mobile/feature/learning/provider/quiz_provider.dart';
 import 'package:coodig_mobile/feature/learning/widgets/choice_item.dart';
@@ -120,13 +121,12 @@ class QuizPanel extends HookConsumerWidget {
                               List<int> answerIds = selectedChoices.value;
                               bool isCorrect = quizService.isCorrectQuiz(correctIds.value, answerIds);
                               QuizAnswer? result = await quizService.answer(quizId.value as int, answerIds, isCorrect);
-                              isCorrectAnswer.value = result.isCorrect;
-                              // store answered
                               ref.read(answeredQuizNotifierProvider.notifier).answer(data);
+                              isCorrectAnswer.value = result.isCorrect;
+                              isAnswer.value = true;
                             } catch (e) {
                               debugPrint(e.toString());
-                            } finally {
-                              isAnswer.value = true;
+                              Snackbar.showError(context, e.toString());
                             }
                           })
                         : const SizedBox()
